@@ -1,37 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/07 19:49:30 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/07 23:10:07 by msolinsk         ###   ########.fr       */
+/*   Created: 2024/09/07 22:36:29 by msolinsk          #+#    #+#             */
+/*   Updated: 2024/09/07 23:28:47 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/libraries.h"
+#include "../builtins.h"
 
-//	Free the shell structure
-void	ft_free_shell(t_minishell *shell)
-{
-	free(shell->cwd);
-	free(shell->print_prefix_success);
-	free(shell->print_prefix_failure);
-	free(shell->parms);
-	free(shell);
-}
-
-//	Free the parameters in form of a char**
-void ft_free_parms(char **parms)
+int	ft_tablen(char **tab)
 {
 	int i;
 
 	i = 0;
-	while (parms[i])
+	while (tab[i])
+		i++;
+	return (i);
+}
+
+// TODO: Implement the -n flag function
+int	ft_echo(t_minishell *shell)
+{
+	int		i;
+	int		len;
+
+	i = 1;
+	len = ft_tablen(shell->parms);
+	while (shell->parms[i])
 	{
-		free(parms[i]);
+		printf("%s", shell->parms[i]);
+		if (i < len - 1)
+			printf(" ");
 		i++;
 	}
-	free(parms);
+	return (EXIT_SUCCESS);
 }
