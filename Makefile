@@ -4,6 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -Iinclude/
 NAME = minishell
 
 LIBFT = libft
+GNL = get_next_line
 
 FILES = \
 	src/main.c \
@@ -21,14 +22,17 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)/libft.a
+	@make -C $(GNL)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)/libft.a $(GNL)/gnl.a
 
 clean:
 	make -C $(LIBFT) clean
+	make -C $(GNL) clean
 	rm -f $(OBJS)
 
 fclean: clean
 	make -C $(LIBFT) fclean
+	make -C $(GNL) fclean
 	rm -f $(NAME)
 
 re: fclean all
