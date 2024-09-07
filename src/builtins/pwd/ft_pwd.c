@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/07 19:13:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/07 21:16:09 by msolinsk         ###   ########.fr       */
+/*   Created: 2024/09/07 19:34:12 by msolinsk          #+#    #+#             */
+/*   Updated: 2024/09/07 21:18:22 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../include/minishell.h"
+#include "../builtins.h"
 
-# include "libraries.h"
-# include "structures.h"
-# include "../src/builtins/builtins.h"
-
-//	FT_FREE.C
-void	ft_free_shell(t_minishell *shell);
-
-//	FT_ERROR.C
-void	ft_error(t_minishell *shell, char *message);
-
-#endif
+//	Print the current working directory
+int	ft_pwd(t_minishell *shell)
+{
+	getcwd(shell->cwd, 1024);
+	if (!shell->cwd)
+	{
+		perror("Could not get current working directory\n");
+		return (EXIT_FAILURE);
+	}
+	printf("%s", shell->print_prefix_success);
+	printf("%s\n", shell->cwd);
+	return (EXIT_SUCCESS);
+}

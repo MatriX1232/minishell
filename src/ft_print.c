@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/07 19:13:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/07 21:16:09 by msolinsk         ###   ########.fr       */
+/*   Created: 2024/09/07 20:05:58 by msolinsk          #+#    #+#             */
+/*   Updated: 2024/09/07 21:12:43 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../include/minishell.h"
 
-# include "libraries.h"
-# include "structures.h"
-# include "../src/builtins/builtins.h"
-
-//	FT_FREE.C
-void	ft_free_shell(t_minishell *shell);
-
-//	FT_ERROR.C
-void	ft_error(t_minishell *shell, char *message);
-
-#endif
+//	Print error message on stderr
+void	ft_error(t_minishell *shell, char *message)
+{
+	perror(RED);
+	if (shell)
+		perror(shell->print_prefix_failure);
+	perror(message);
+	perror(END);
+}

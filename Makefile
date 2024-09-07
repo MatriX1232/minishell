@@ -8,7 +8,7 @@ LIBFT = libft
 FILES = \
 	src/main.c \
 	src/ft_free.c \
-	src/ft_error.c \
+	src/ft_print.c \
 	src/builtins/pwd/ft_pwd.c
 
 OBJS = ${FILES:.c=.o}
