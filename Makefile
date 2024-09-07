@@ -4,10 +4,12 @@ CFLAGS = -Wall -Wextra -Werror -Iinclude/
 NAME = minishell
 
 LIBFT = libft
-GNL = get_next_line
+# GNL = gnl
 
 FILES = \
 	src/main.c \
+	src/ft_parse.c \
+	src/gnl.c \
 	src/ft_free.c \
 	src/ft_print.c \
 	src/builtins/pwd/ft_pwd.c
@@ -22,17 +24,16 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C $(LIBFT)
-	@make -C $(GNL)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)/libft.a $(GNL)/gnl.a
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)/libft.a
 
 clean:
 	make -C $(LIBFT) clean
-	make -C $(GNL) clean
+	# make -C $(GNL) clean
 	rm -f $(OBJS)
 
 fclean: clean
 	make -C $(LIBFT) fclean
-	make -C $(GNL) fclean
+	# make -C $(GNL) fclean
 	rm -f $(NAME)
 
 re: fclean all

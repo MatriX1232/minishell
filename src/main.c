@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/07 21:11:30 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/07 22:28:36 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ static void	ft_tshell_init(t_minishell *shell, char *argv[])
 		free(shell);
 		exit(EXIT_FAILURE);
 	}
-	shell->print_prefix_success = ft_strdup("\x1b[33m^_^ minishell ▶ \x1b[0m");
-	shell->print_prefix_failure = ft_strdup("＞︿＜ minishell ▶");
+	// shell->print_prefix_success = ft_strdup("\x1b[33m^_^ minishell ▶ \x1b[0m");
+	shell->print_prefix_success = ft_strdup("^_^ minishell ▶ ");
+	shell->print_prefix_failure = ft_strdup("＞︿＜ minishell ▶ ");
 	shell->parms = NULL;
 	shell->argv = argv;
 }
@@ -51,7 +52,8 @@ static void	ft_tshell_init(t_minishell *shell, char *argv[])
 int	main(int argc, char *argv[])
 {
 	t_minishell	*shell;
-	int	i;
+	char		*line;
+	int			i;
 
 	printf("MINISHELL\n");
 	printf("argc: %d\n", argc);
@@ -70,8 +72,19 @@ int	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	ft_tshell_init(shell, argv);
 
-	if (ft_pwd(shell) == EXIT_FAILURE)
-		return (ft_free_shell(shell), EXIT_FAILURE);
+	// if (ft_pwd(shell) == EXIT_FAILURE)
+	// 	return (ft_free_shell(shell), EXIT_FAILURE);
+
+	line = get_next_line(0);
+	while (line)
+	{
+		ft_parse(shell, line);
+		write(1, YELLOW, ft_strlen(YELLOW));
+		write(1, shell->print_prefix_success, ft_strlen(shell->print_prefix_success));
+		write(1, END, ft_strlen(END));
+		free(line);
+		line = get_next_line(0);
+	}
 
 	return (EXIT_SUCCESS);
 }
