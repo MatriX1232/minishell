@@ -6,10 +6,11 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:31:56 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/07 21:15:41 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/07 21:45:33 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#pragma once
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
