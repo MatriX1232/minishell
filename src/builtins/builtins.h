@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:31:56 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/07 21:45:33 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/07 23:09:54 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@
 # include "../../include/libraries.h"
 
 int	ft_pwd(t_minishell *shell);
+int	ft_echo(t_minishell *shell);
 
 #endif
