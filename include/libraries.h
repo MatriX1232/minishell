@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   libraries.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/07 19:13:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/07 21:16:09 by msolinsk         ###   ########.fr       */
+/*   Created: 2024/09/07 21:13:27 by msolinsk          #+#    #+#             */
+/*   Updated: 2024/09/07 21:14:27 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef LIBRARIES_H
+# define LIBRARIES_H
 
-# include "libraries.h"
-# include "structures.h"
-# include "../src/builtins/builtins.h"
-
-//	FT_FREE.C
-void	ft_free_shell(t_minishell *shell);
-
-//	FT_ERROR.C
-void	ft_error(t_minishell *shell, char *message);
+# include "../libft/libft.h"
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stddef.h>
+# include <stdbool.h>
+# include <dirent.h>
 
 #endif

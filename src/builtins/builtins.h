@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/07 19:13:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/07 21:16:09 by msolinsk         ###   ########.fr       */
+/*   Created: 2024/09/07 19:31:56 by msolinsk          #+#    #+#             */
+/*   Updated: 2024/09/07 21:15:41 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef BUILTINS_H
+# define BUILTINS_H
 
-# include "libraries.h"
-# include "structures.h"
-# include "../src/builtins/builtins.h"
+# include "../../include/structures.h"
+# include "../../include/libraries.h"
 
-//	FT_FREE.C
-void	ft_free_shell(t_minishell *shell);
-
-//	FT_ERROR.C
-void	ft_error(t_minishell *shell, char *message);
+int	ft_pwd(t_minishell *shell);
 
 #endif
