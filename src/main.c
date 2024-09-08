@@ -6,11 +6,13 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/08 14:09:15 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/08 15:07:51 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+extern char **environ;
 
 /*
 	Allocate memory for the shell structure
@@ -47,6 +49,7 @@ static void	ft_tshell_init(t_minishell *shell, char *argv[])
 	shell->print_prefix_failure = ft_strdup("＞︿＜ minishell ▶ ");
 	shell->parms = NULL;
 	shell->argv = argv;
+	shell->env = environ;
 }
 
 int	main(int argc, char *argv[])

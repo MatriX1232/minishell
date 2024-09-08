@@ -14,7 +14,8 @@ FILES = \
 	src/ft_print.c \
 	src/builtins/pwd/ft_pwd.c \
 	src/builtins/echo/ft_echo.c \
-	src/builtins/cd/ft_cd.c
+	src/builtins/cd/ft_cd.c \
+	src/builtins/env/ft_env.c
 
 OBJS = ${FILES:.c=.o}
 
