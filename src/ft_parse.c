@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 22:07:17 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/08 23:12:04 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/08 23:32:30 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int	ft_parse(t_minishell *shell, char *line)
 {
 	char	*msg;
 
-	if (ft_strncmp(line, "pwd", 3) == 0)
+	if (line[0] == '\n' && ft_strlen(line) == 1)
+		return (EXIT_SUCCESS);
+	else if (ft_strncmp(line, "pwd", 3) == 0)
 		return (ft_pwd(shell));
 	else if (ft_strncmp(line, "echo", 4) == 0)
 		return (ft_echo(shell));
@@ -33,6 +35,6 @@ int	ft_parse(t_minishell *shell, char *line)
 	else
 	{
 		msg = ft_strjoin("Command not found: ", line);
-		return (ft_error(shell, msg), free(msg), EXIT_FAILURE);
+		return (ft_error(shell, msg), ft_putchar_fd('\n', 2), free(msg), EXIT_FAILURE);
 	}
 }

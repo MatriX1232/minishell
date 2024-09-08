@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/08 23:11:42 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/08 23:21:27 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ t_minishell	*ft_malloc_shell(t_minishell *shell)
 
 static void	ft_tshell_init(t_minishell *shell, char *argv[])
 {
+	shell->print_prefix_success = ft_strdup("  ^_^  minishell ▶ ");
+	shell->print_prefix_failure = ft_strdup("＞︿＜ minishell ▶ ");
 	shell->cwd = (char *) malloc(1024 * sizeof(char));
 	if (!shell->cwd)
 	{
@@ -44,9 +46,6 @@ static void	ft_tshell_init(t_minishell *shell, char *argv[])
 		free(shell);
 		exit(EXIT_FAILURE);
 	}
-	// shell->print_prefix_success = ft_strdup("\x1b[33m^_^ minishell ▶ \x1b[0m");
-	shell->print_prefix_success = ft_strdup("^_^ minishell ▶ ");
-	shell->print_prefix_failure = ft_strdup("＞︿＜ minishell ▶ ");
 	shell->parms = NULL;
 	shell->argv = argv;
 	shell->env = environ;
