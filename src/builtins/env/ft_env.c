@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse.c                                         :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/07 22:07:17 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/08 15:12:29 by msolinsk         ###   ########.fr       */
+/*   Created: 2024/09/08 15:08:07 by msolinsk          #+#    #+#             */
+/*   Updated: 2024/09/08 15:11:45 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/structures.h"
 #include "../include/libraries.h"
+#include "../builtins.h"
 
-int	ft_parse(t_minishell *shell, char *line)
+int	ft_env(t_minishell *shell)
 {
-	char	*msg;
+	int i;
 
-	if (ft_strncmp(line, "pwd", 3) == 0)
-		return (ft_pwd(shell));
-	else if (ft_strncmp(line, "echo", 4) == 0)
-		return (ft_echo(shell));
-	else if (ft_strncmp(line, "cd", 2) == 0)
-		return (ft_cd(shell));
-	else if (ft_strncmp(line, "env", 3) == 0)
-		return (ft_env(shell));
-	else
+	i = 0;
+	while (shell->env[i])
 	{
-		msg = ft_strjoin("Command not found: ", line);
-		return (ft_error(shell, msg), free(msg), EXIT_FAILURE);
+		printf("%s\n", shell->env[i]);
+		i++;
 	}
+	return (EXIT_SUCCESS);
 }

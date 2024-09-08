@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:33:10 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/07 23:09:49 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/08 15:07:20 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_minishell
 	char	*print_prefix_failure;
 	char	**parms;
 	char	**argv;
+	char	**env;
 }	t_minishell;
 
 #endif
