@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 22:07:17 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/08 23:32:30 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/08 23:38:49 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_parse(t_minishell *shell, char *line)
 {
 	char	*msg;
 
-	if (line[0] == '\n' && ft_strlen(line) == 1)
+	if (*line == '\0')
 		return (EXIT_SUCCESS);
 	else if (ft_strncmp(line, "pwd", 3) == 0)
 		return (ft_pwd(shell));
