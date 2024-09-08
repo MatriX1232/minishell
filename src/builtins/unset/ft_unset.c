@@ -1,43 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/07 22:36:29 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/08 23:16:31 by msolinsk         ###   ########.fr       */
+/*   Created: 2024/09/08 22:53:11 by msolinsk          #+#    #+#             */
+/*   Updated: 2024/09/08 23:00:36 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libraries.h"
+#include "../include/minishell.h"
 #include "../builtins.h"
 
-static int	ft_tablen(char **tab)
+int	ft_unset(t_minishell *shell)
 {
-	int i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
-
-// TODO: Implement the -n flag function
-int	ft_echo(t_minishell *shell)
-{
-	int		i;
-	int		len;
-
-	i = 1;
-	len = ft_tablen(shell->parms);
-	while (shell->parms[i])
+	char	*msg;
+	if (!shell->parms[1])
 	{
-		printf("%s", shell->parms[i]);
-		if (i < len - 1)
-			printf(" ");
-		i++;
+		msg = ft_strdup("Usage: unset <variable>\n");
+		ft_error(shell, msg);
+		free(msg);
+		return (EXIT_FAILURE);
 	}
-	printf("\n");
+	if (unsetenv(shell->parms[1]) == -1)
+	{
+		msg = ft_strjoin("Could not unset variable: ", shell->parms[1]);
+		ft_error(shell, msg);
+		free(msg);
+		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }

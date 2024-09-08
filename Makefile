@@ -15,7 +15,9 @@ FILES = \
 	src/builtins/pwd/ft_pwd.c \
 	src/builtins/echo/ft_echo.c \
 	src/builtins/cd/ft_cd.c \
-	src/builtins/env/ft_env.c
+	src/builtins/env/ft_env.c \
+	src/builtins/unset/ft_unset.c \
+	src/builtins/export/ft_export.c
 
 OBJS = ${FILES:.c=.o}
 
