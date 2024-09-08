@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/07 23:29:49 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:09:15 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int	main(int argc, char *argv[])
 	ft_tshell_init(shell, argv);
 
 	write(1, YELLOW, ft_strlen(YELLOW));
-		write(1, shell->print_prefix_success, ft_strlen(shell->print_prefix_success));
-		write(1, END, ft_strlen(END));
+	write(1, shell->print_prefix_success, ft_strlen(shell->print_prefix_success));
+	write(1, END, ft_strlen(END));
 	line = get_next_line(0);
 	while (line)
 	{
