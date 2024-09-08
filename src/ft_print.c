@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:05:58 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/07 22:28:22 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/08 22:39:49 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,15 @@ void	ft_error(t_minishell *shell, char *message)
 		ft_putstr_fd(shell->print_prefix_failure, 2);
 	ft_putstr_fd(message, 2);
 	ft_putstr_fd(END, 2);
+}
+
+//	Print command success message on stdout
+void	ft_success(t_minishell *shell)
+{
+	write(1, YELLOW, ft_strlen(YELLOW));
+	if (shell)
+		write(1, shell->print_prefix_success, ft_strlen(shell->print_prefix_success));
+	else
+		ft_error(shell, "Could not print success message\n");
+	write(1, END, ft_strlen(END));
 }
