@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/08 22:40:12 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/08 23:11:42 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int	main(int argc, char *argv[])
 		ft_free_parms(shell->parms);
 		free(line);
 		line = get_next_line(0);
+		line = ft_strtrim(line, "\n");
 	}
 
 	return (EXIT_SUCCESS);
