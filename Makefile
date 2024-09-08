@@ -13,7 +13,8 @@ FILES = \
 	src/ft_free.c \
 	src/ft_print.c \
 	src/builtins/pwd/ft_pwd.c \
-	src/builtins/echo/ft_echo.c
+	src/builtins/echo/ft_echo.c \
+	src/builtins/cd/ft_cd.c
 
 OBJS = ${FILES:.c=.o}
 
