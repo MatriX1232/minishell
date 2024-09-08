@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/08 15:07:51 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/08 22:40:12 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,7 @@ int	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	ft_tshell_init(shell, argv);
 
-	write(1, YELLOW, ft_strlen(YELLOW));
-	write(1, shell->print_prefix_success, ft_strlen(shell->print_prefix_success));
-	write(1, END, ft_strlen(END));
+	ft_success(shell);
 	line = get_next_line(0);
 	while (line)
 	{
@@ -85,9 +83,7 @@ int	main(int argc, char *argv[])
 			return (ft_free_shell(shell), EXIT_SUCCESS);
 		shell->parms = ft_split(line, ' ');
 		ft_parse(shell, line);
-		write(1, YELLOW, ft_strlen(YELLOW));
-		write(1, shell->print_prefix_success, ft_strlen(shell->print_prefix_success));
-		write(1, END, ft_strlen(END));
+		ft_success(shell);
 		ft_free_parms(shell->parms);
 		free(line);
 		line = get_next_line(0);

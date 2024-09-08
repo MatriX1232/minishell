@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:13:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/07 23:09:26 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/08 22:39:43 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	 ft_free_parms(char **parms);
 
 //	FT_ERROR.C
 void	ft_error(t_minishell *shell, char *message);
+void	ft_success(t_minishell *shell);
 
 //	GNL.C
 char	*get_next_line(int fd);
