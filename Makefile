@@ -1,14 +1,15 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iinclude/
+LFLAGS = -lreadline
 
 NAME = minishell
 
 LIBFT = libft
-# GNL = gnl
 
 FILES = \
 	src/main.c \
 	src/ft_parse.c \
+	src/ft_quote_parser.c \
 	src/gnl.c \
 	src/ft_free.c \
 	src/ft_print.c \
@@ -29,16 +30,14 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)/libft.a
+	$(CC) $(CFLAGS) $(LFLAGS) -o $(NAME) $(OBJS) $(LIBFT)/libft.a
 
 clean:
 	make -C $(LIBFT) clean
-	# make -C $(GNL) clean
 	rm -f $(OBJS)
 
 fclean: clean
 	make -C $(LIBFT) fclean
-	# make -C $(GNL) fclean
 	rm -f $(NAME)
 
 re: fclean all
