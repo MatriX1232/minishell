@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/09 18:39:31 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:10:52 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,23 @@ t_minishell	*ft_malloc_shell(t_minishell *shell)
 	return (shell);
 }
 
-
 static void	ft_tshell_init(t_minishell *shell, char *argv[], char **envp)
 {
-	shell->print_prefix_success = ft_strdup("\x1b[33m  ^_^  minishell ▶ \x1b[0m");
+	shell->print_prefix_success = ft_strdup("\x1b[33m^_^  minishell ▶ \x1b[0m");
+	if (!shell->print_prefix_success)
+	{
+		ft_error(shell, "Could not allocate memory for prefix success\n");
+		free(shell);
+		exit(EXIT_FAILURE);
+	}
 	shell->print_prefix_failure = ft_strdup("＞︿＜ minishell ▶ ");
+	if (!shell->print_prefix_failure)
+	{
+		ft_error(shell, "Could not allocate memory for prefix failure\n");
+		free(shell->print_prefix_success);
+		free(shell);
+		exit(EXIT_FAILURE);
+	}
 	shell->cwd = (char *) malloc(1024 * sizeof(char));
 	if (!shell->cwd)
 	{
@@ -58,15 +70,6 @@ void	ft_print_parms(char **parms)
 	i = 0;
 	while (parms[i])
 		printf("%s\n", parms[i++]);
-}
-
-void	sigint_handler(int sig)
-{
-	(void)sig;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("\x1b[33m  ^_^  minishell ▶ \x1b[0m", 0);
-	rl_redisplay();
 }
 
 int	main(int argc, char *argv[], char **envp)
@@ -92,22 +95,23 @@ int	main(int argc, char *argv[], char **envp)
 		return (EXIT_FAILURE);
 	ft_tshell_init(shell, argv, envp);
 
-	signal(SIGINT, sigint_handler);
-	line = readline(shell->print_prefix_success);
-	if (line)
-		add_history(line);
+	signal(SIGINT, sig_ctrlc);
+	signal(SIGQUIT, SIG_IGN);
+
+	line = ft_strdup("");
 	while (line)
 	{
+		free(line);
+		line = readline(shell->print_prefix_success);
+		if (line == NULL)
+			return (ft_free_shell(shell), EXIT_SUCCESS);
+		if (line)
+			add_history(line);
 		if (ft_strncmp(line, "exit", 4) == 0)
 			return (ft_free_shell(shell), EXIT_SUCCESS);
-
 		ft_qparser_shell(shell, line);
 		ft_parse(shell, line);
 		ft_free_parms(shell->parms);
-		free(line);
-		line = readline(shell->print_prefix_success);
-		if (line)
-			add_history(line);
 	}
-	return (EXIT_SUCCESS);
+		return (EXIT_SUCCESS);
 }
