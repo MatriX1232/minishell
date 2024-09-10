@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:13:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/09 17:40:27 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/10 11:51:50 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # include "libraries.h"
 # include "structures.h"
 # include "../src/builtins/builtins.h"
+
+//	FT_SIGNALS.C
+void	sig_ctrlc(int sig);
+void	sig_ctrl_bslash(int sig);
 
 //	FT_PARSE.C
 int		ft_parse(t_minishell *shell, char *line);
