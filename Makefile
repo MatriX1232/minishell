@@ -32,7 +32,7 @@ all: $(NAME)
 	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
 
 $(NAME): $(OBJS)
-	@make -C $(LIBFT)
+	@make -C $(LIBFT) bonus
 	$(CC) $(CFLAGS) $(LFLAGS) -o $(NAME) $(OBJS) $(LIBFT)/libft.a
 
 clean:
