@@ -16,17 +16,17 @@
 int	ft_unset(t_minishell *shell)
 {
 	char	*msg;
-	if (!shell->parms[1])
+	if (!shell->parms[1] || shell->parms[0][5] != '\0')
 	{
 		msg = ft_strdup("Usage: unset <variable>\n");
-		ft_error(shell, msg);
+		ft_error(shell, msg, 0);
 		free(msg);
 		return (EXIT_FAILURE);
 	}
 	if (unsetenv(shell->parms[1]) == -1)
 	{
 		msg = ft_strjoin("Could not unset variable: ", shell->parms[1]);
-		ft_error(shell, msg);
+		ft_error(shell, msg, 0);
 		free(msg);
 		return (EXIT_FAILURE);
 	}

@@ -27,7 +27,7 @@ t_minishell	*ft_malloc_shell(t_minishell *shell)
 	shell = (t_minishell *) malloc(1 * sizeof(t_minishell));
 	if (!shell)
 	{
-		ft_error(NULL, "Could not allocate memory for shell\n");
+		ft_error(NULL, "Could not allocate memory for shell\n", 1);
 		return(NULL);
 	}
 	return (shell);
@@ -35,26 +35,25 @@ t_minishell	*ft_malloc_shell(t_minishell *shell)
 
 static void	ft_tshell_init(t_minishell *shell, char *argv[], char **envp)
 {
+	shell->print_prefix_success = NULL;
+	shell->print_prefix_failure = NULL;
+	shell->cwd = NULL;
 	shell->print_prefix_success = ft_strdup("\x1b[33m^_^  minishell ▶ \x1b[0m");
 	if (!shell->print_prefix_success)
 	{
-		ft_error(shell, "Could not allocate memory for prefix success\n");
-		free(shell);
+		ft_error(shell, "Could not allocate memory for prefix success\n", 1);
 		exit(EXIT_FAILURE);
 	}
 	shell->print_prefix_failure = ft_strdup("＞︿＜ minishell ▶ ");
 	if (!shell->print_prefix_failure)
 	{
-		ft_error(shell, "Could not allocate memory for prefix failure\n");
-		free(shell->print_prefix_success);
-		free(shell);
+		ft_error(shell, "Could not allocate memory for prefix failure\n", 1);
 		exit(EXIT_FAILURE);
 	}
 	shell->cwd = (char *) malloc(1024 * sizeof(char));
 	if (!shell->cwd)
 	{
-		ft_error(shell, "Could not allocate memory for shell.cwd\n");
-		free(shell);
+		ft_error(shell, "Could not allocate memory for shell.cwd\n", 1);
 		exit(EXIT_FAILURE);
 	}
 	shell->parms = NULL;
@@ -62,6 +61,8 @@ static void	ft_tshell_init(t_minishell *shell, char *argv[], char **envp)
 	shell->quotes = false;
 	shell->env = envp;
 }
+// deleted frees in above function to save lines - shell is freed in ft_error
+// also added shell->mallocs = NULL; to initialize it
 
 void	ft_print_parms(char **parms)
 {
