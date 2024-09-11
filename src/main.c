@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: idomagal <idomagal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/10 12:10:52 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/11 13:57:30 by idomagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,5 @@ int	main(int argc, char *argv[], char **envp)
 		ft_parse(shell, line);
 		ft_free_parms(shell->parms);
 	}
-		return (EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

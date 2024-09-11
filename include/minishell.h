@@ -6,7 +6,7 @@
 /*   By: idomagal <idomagal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:13:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/11 13:42:21 by idomagal         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:04:47 by idomagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		ft_parse(t_minishell *shell, char *line);
 int		check_pipe(char *line);
 int		get_path(char **env);
 char	*get_exe(char *cmd, char *path);
+char	*get_cmd(char *line);
 
 //	FT_QUOTE_PARSER.C
 char	*ft_qparser(char *str);
@@ -34,16 +35,19 @@ void	ft_qparser_shell(t_minishell *shell, char *str);
 
 //	FT_FREE.C
 void	ft_free_shell(t_minishell *shell);
-void	 ft_free_parms(char **parms);
+void	ft_free_parms(char **parms);
 
-//	FT_ERROR.C
+//	FT_PRINT.C
 void	ft_error(t_minishell *shell, char *message, int shell_failure);
 void	ft_success(t_minishell *shell);
 
 //	GNL.C
 char	*get_next_line(int fd);
 
-// FT_PIPE.C
+//	FT_EXEC.C
+int		ft_exec(t_minishell *shell, char *line);
+
+//	FT_PIPE.C
 int		pipex(int args, char **argv, char **env);
 
 #endif
