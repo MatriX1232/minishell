@@ -6,12 +6,13 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 22:36:29 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/08 23:16:31 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:40:06 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libraries.h"
 #include "../builtins.h"
+#include "../include/minishell.h"
 
 static int	ft_tablen(char **tab)
 {
