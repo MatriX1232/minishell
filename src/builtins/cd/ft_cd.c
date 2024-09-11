@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 14:12:54 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/09 16:02:03 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/11 13:01:01 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int	ft_cd(t_minishell *shell)
 		free(msg);
 		return (EXIT_FAILURE);
 	}
-	// shell->parms[1] = ft_strtrim(shell->parms[1], "\n");
-	// printf("Changing directory to: <%s>\n", shell->parms[1]);
 	if (chdir(shell->parms[1]) == -1)
 	{
 		msg = ft_strjoin("Could not change directory: ", shell->parms[1]);
