@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idomagal <idomagal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 22:07:17 by msolinsk          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/09/11 14:05:43 by idomagal         ###   ########.fr       */
-=======
-/*   Updated: 2024/09/11 12:53:29 by msolinsk         ###   ########.fr       */
->>>>>>> c7f9780 (Fixed export and unset)
+/*   Updated: 2024/09/11 15:49:05 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
