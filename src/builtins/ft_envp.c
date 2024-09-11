@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:35:52 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/11 15:59:51 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:32:25 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,26 @@ bool	ft_exists_var(t_minishell *shell, char *var_name)
 	return (false);
 }
 
+static bool	ft_check_validity(t_minishell *shell, char *var)
+{
+	char	**split;
+
+	split = ft_split(var, '=');
+	if (!split)
+		return (ft_error(shell, "Couldn't split var\n", 1), false);
+	if (ft_tablen(split) == 2)
+		return (true);
+	return (false);
+}
+
 int	ft_add_var(t_minishell *shell, char *var)
 {
 	int		i;
 	int		len;
 	char	**new_env;
 
+	if (ft_check_validity(shell, var) == false)
+		return (ft_error(shell, "Argument is not valid\n", 0), EXIT_FAILURE);
 	len = ft_tablen(shell->env);
 	new_env = (char **) malloc((len + 2) * sizeof(char *));
 	if (!new_env)
@@ -69,7 +83,6 @@ int	ft_add_var(t_minishell *shell, char *var)
 	}
 	new_env[i] = ft_strdup(var);
 	new_env[i + 1] = NULL;
-	// ft_free_env(shell->env);
 	(void)ft_free_env;
 	shell->env = new_env;
 	return (EXIT_SUCCESS);
@@ -101,5 +114,7 @@ int	ft_delete_var(t_minishell *shell, char *var)
 	}
 	new_env[i] = NULL;
 	shell->env = new_env;
+	if (i == j)
+		return (EXIT_FAILURE); 	// It means that there is no VAS with that name
 	return (EXIT_SUCCESS);
 }
