@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idomagal <idomagal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:33:10 by msolinsk          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/09/11 13:32:12 by idomagal         ###   ########.fr       */
-=======
-/*   Updated: 2024/09/11 13:09:12 by msolinsk         ###   ########.fr       */
->>>>>>> c7f9780 (Fixed export and unset)
+/*   Updated: 2024/09/11 16:00:22 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
