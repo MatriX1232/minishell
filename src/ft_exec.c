@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idomagal <idomagal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:47:31 by idomagal          #+#    #+#             */
-/*   Updated: 2024/09/11 13:48:29 by idomagal         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:08:54 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+static void	ft_free_parms_local(char **parms)
+{
+	int	i;
+
+	i = 0;
+	while (parms[i])
+		free(parms[i++]);
+	free(parms);
+}
 
 int	ft_exec(t_minishell *shell, char *line)
 {
@@ -22,7 +32,7 @@ int	ft_exec(t_minishell *shell, char *line)
 	exe = get_exe(parms[0], shell->env[get_path(shell->env)]);
 	if (exe == NULL)
 	{
-		ft_free_parms(parms);
+		ft_free_parms_local(parms);
 		return (ft_error(shell, "Command not found", 0), EXIT_FAILURE);
 	}
 	pid = fork();
@@ -33,7 +43,7 @@ int	ft_exec(t_minishell *shell, char *line)
 		exit(EXIT_FAILURE);
 	}
 	waitpid(pid, NULL, 0);
-	ft_free_parms(parms);
+	ft_free_parms_local(parms);
 	return (EXIT_SUCCESS);
 }
 
