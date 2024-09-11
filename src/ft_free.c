@@ -15,9 +15,12 @@
 //	Free the shell structure
 void	ft_free_shell(t_minishell *shell)
 {
-	free(shell->cwd);
-	free(shell->print_prefix_success);
-	free(shell->print_prefix_failure);
+	if (shell->cwd)
+		free(shell->cwd);
+	if (shell->print_prefix_success)
+		free(shell->print_prefix_success);
+	if (shell->print_prefix_failure)
+		free(shell->print_prefix_failure);
 	if (shell->parms == NULL)
 		free(shell->parms);
 	free(shell);

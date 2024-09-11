@@ -31,6 +31,11 @@ int	ft_echo(t_minishell *shell)
 
 	i = 1;
 	len = ft_tablen(shell->parms);
+	if (shell->parms[0][4] != '\0')
+	{
+		ft_error(shell, "Usage: echo <message>\n", 0);
+		return (EXIT_FAILURE);
+	}
 	while (shell->parms[i])
 	{
 		printf("%s", shell->parms[i]);

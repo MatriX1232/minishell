@@ -34,7 +34,7 @@ void	ft_free_shell(t_minishell *shell);
 void	 ft_free_parms(char **parms);
 
 //	FT_ERROR.C
-void	ft_error(t_minishell *shell, char *message);
+void	ft_error(t_minishell *shell, char *message, int shell_failure);
 void	ft_success(t_minishell *shell);
 
 //	GNL.C
