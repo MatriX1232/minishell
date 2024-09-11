@@ -6,7 +6,7 @@
 /*   By: idomagal <idomagal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 22:07:17 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/11 13:28:03 by idomagal         ###   ########.fr       */
+/*   Updated: 2024/09/11 13:43:12 by idomagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,12 @@ int	ft_parse(t_minishell *shell, char *line)
 	}
 }
 
-int	check_pipe(t_minishell *shell, char *line)
+int	check_pipe(char *line)
 {
 	int	i;
 	int	check;
 
+	check = 0;
 	i = 0;
 	while (line[i] && line[i + 1])
 	{
@@ -58,7 +59,7 @@ int	check_pipe(t_minishell *shell, char *line)
 	return (0);
 }
 
-int	get_path(char **env, int help, int argc, char **argv)
+int	get_path(char **env)
 {
 	int	i;
 

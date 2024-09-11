@@ -6,7 +6,7 @@
 /*   By: idomagal <idomagal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:13:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/11 13:29:20 by idomagal         ###   ########.fr       */
+/*   Updated: 2024/09/11 13:42:21 by idomagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	sig_ctrl_bslash(int sig);
 
 //	FT_PARSE.C
 int		ft_parse(t_minishell *shell, char *line);
-int		check_pipe(t_minishell *shell, char *line);
-int		get_path(char **env, int help, int argc, char **argv);
+int		check_pipe(char *line);
+int		get_path(char **env);
 char	*get_exe(char *cmd, char *path);
 
 //	FT_QUOTE_PARSER.C
