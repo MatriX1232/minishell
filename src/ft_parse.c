@@ -19,8 +19,6 @@ int	ft_parse(t_minishell *shell, char *line)
 
 	if (*line == '\0')
 		return (EXIT_SUCCESS);
-	else if (get_exe(get_cmd(line), shell->env[get_path(shell->env)]) != NULL)
-		return (ft_exec(shell, line));
 	else if (ft_strncmp(line, "pwd", 4) == 0)
 		return (ft_pwd(shell));
 	else if (ft_strncmp(line, "echo", 4) == 0)
@@ -33,6 +31,8 @@ int	ft_parse(t_minishell *shell, char *line)
 		return (ft_unset(shell));
 	else if (ft_strncmp(line, "export", 6) == 0)
 		return (ft_export(shell));
+	else if (get_exe(get_cmd(line), shell->env[get_path(shell->env)]) != NULL)
+		return (ft_exec(shell, line));
 	else
 	{
 		msg = ft_strjoin("Command not found: ", line);
