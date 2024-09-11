@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-#include "../../../include/libraries.h"
+#include "../../../include/minishell.h"
 #include "../builtins.h"
 
 static int	ft_tablen(char **tab)

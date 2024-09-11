@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../../include/minishell.h"
 #include "../builtins.h"
 
 int	ft_unset(t_minishell *shell)

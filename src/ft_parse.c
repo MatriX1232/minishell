@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: idomagal <idomagal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 22:07:17 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/08 23:38:49 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/11 13:28:03 by idomagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/structures.h"
-#include "../include/libraries.h"
 
 int	ft_parse(t_minishell *shell, char *line)
 {
@@ -37,4 +36,67 @@ int	ft_parse(t_minishell *shell, char *line)
 		msg = ft_strjoin("Command not found: ", line);
 		return (ft_error(shell, msg, 0), ft_putchar_fd('\n', 2), free(msg), EXIT_FAILURE);
 	}
+}
+
+int	check_pipe(t_minishell *shell, char *line)
+{
+	int	i;
+	int	check;
+
+	i = 0;
+	while (line[i] && line[i + 1])
+	{
+		if (check == 0 && (line[i] == '<' || (line[i] == '<' && line[i+1] == '<')))
+			check++;
+		if (line[i] == '|' && check == 1)
+			check++;
+		if (check == 2 && (line[i] == '>' || (line[i] == '>' && line[i+1] == '>')))
+		i++;
+	}
+	if (check == 3)
+		return (1);
+	return (0);
+}
+
+int	get_path(char **env, int help, int argc, char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (env && env[i])
+	{
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+char	*get_exe(char *cmd, char *path)
+{
+	char	**dirs;
+	char	*exe;
+	char	*tmp;
+	int		i;
+
+	dirs = ft_split(path + 5, ':');
+	i = 0;
+	while (dirs[i])
+	{
+		tmp = ft_strjoin(dirs[i++], "/");
+		exe = ft_strjoin(tmp, cmd);
+		free(tmp);
+		if (access(exe, F_OK) == 0)
+			break ;
+		free(exe);
+		exe = NULL;
+	}
+	i = 0;
+	while (dirs[i])
+		free(dirs[i++]);
+	free(dirs);
+	if (exe != NULL)
+		return (exe);
+	else
+		return (NULL);
 }
