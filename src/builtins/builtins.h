@@ -16,6 +16,7 @@
 
 # include "../../include/structures.h"
 # include "../../include/libraries.h"
+# include "../../include/minishell.h"
 
 int	ft_pwd(t_minishell *shell);
 int	ft_echo(t_minishell *shell);

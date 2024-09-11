@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: idomagal <idomagal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:33:10 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/09 17:41:50 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/11 13:32:12 by idomagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # define PURPLE "\x1b[35m"
 # define CYAN "\x1b[36m"
 # define WHITE "\x1b[37m"
+
+# include <stdbool.h>
 
 typedef struct s_minishell
 {

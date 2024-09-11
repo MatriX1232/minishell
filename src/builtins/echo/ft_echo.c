@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libraries.h"
 #include "../builtins.h"
 
 static int	ft_tablen(char **tab)

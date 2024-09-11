@@ -1,27 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: idomagal <idomagal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 15:08:07 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/08 15:11:45 by msolinsk         ###   ########.fr       */
+/*   Created: 2024/07/19 10:29:48 by idomagal          #+#    #+#             */
+/*   Updated: 2024/09/11 13:26:42 by idomagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/structures.h"
-#include "../builtins.h"
+#include "../../include/structures.h"
+#include "../../include/libraries.h"
 
-int	ft_env(t_minishell *shell)
-{
-	int i;
-
-	i = 0;
-	while (shell->env[i])
-	{
-		printf("%s\n", shell->env[i]);
-		i++;
-	}
-	return (EXIT_SUCCESS);
-}
+// TODO: Implement the pipes
