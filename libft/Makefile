@@ -22,7 +22,7 @@ fclean: clean
 
 re: fclean all
 
-bonus: $(BONUSOBJS)
+bonus: all $(BONUSOBJS)
 	ar r $(NAME) $(BONUSOBJS) 
 
 .PHONY: all clean fclean re

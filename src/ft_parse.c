@@ -35,9 +35,11 @@ int	ft_parse(t_minishell *shell, char *line)
 		return (ft_exec(shell, line));
 	else
 	{
-		msg = ft_strjoin("Command not found: ", line);
-		return (ft_error(shell, msg, 0), ft_putchar_fd('\n', 2), free(msg), EXIT_FAILURE);
+		if (ft_add_var(shell, line) == EXIT_FAILURE)
+			return (msg = ft_strjoin("Command not found: ", line), ft_error(\
+			shell, msg, 0), ft_putchar_fd('\n', 2), free(msg), EXIT_FAILURE); //XDDDDDDD
 	}
+	return (EXIT_SUCCESS);
 }
 
 int	check_pipe(char *line)
