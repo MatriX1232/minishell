@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:41:31 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/11 13:03:18 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:55:20 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../include/structures.h"
 
 /*
-	Takes whole string and returns pointer to inside string
+	Takes whole string and returns pointer to the inside string
 
 	Success:
 		Returns pointer to string contained within the bigger one
