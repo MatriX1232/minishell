@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 23:01:30 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/11 15:53:34 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:34:56 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	ft_export(t_minishell *shell)
 	else if (ft_add_var(shell, shell->parms[1]) == EXIT_FAILURE)
 	{
 		msg = ft_strjoin("Could not export variable: ", shell->parms[1]);
+		msg = ft_strjoin(msg, "\n");
 		ft_error(shell, msg, 0);
 		free(msg);
 		return (EXIT_FAILURE);
