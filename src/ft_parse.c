@@ -6,7 +6,7 @@
 /*   By: idomagal <idomagal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 22:07:17 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/11 13:43:12 by idomagal         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:05:43 by idomagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	ft_parse(t_minishell *shell, char *line)
 
 	if (*line == '\0')
 		return (EXIT_SUCCESS);
+	else if (get_exe(get_cmd(line), shell->env[get_path(shell->env)]) != NULL)
+		return (ft_exec(shell, line));
 	else if (ft_strncmp(line, "pwd", 4) == 0)
 		return (ft_pwd(shell));
 	else if (ft_strncmp(line, "echo", 4) == 0)
@@ -58,6 +60,19 @@ int	check_pipe(char *line)
 		return (1);
 	return (0);
 }
+
+char	*get_cmd(char *line)
+{
+	int		i;
+	char	*cmd;
+
+	i = 0;
+	while (line[i] && line[i] != ' ')
+		i++;
+	cmd = ft_substr(line, 0, i);
+	return (cmd);
+}
+
 
 int	get_path(char **env)
 {

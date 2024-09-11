@@ -13,6 +13,7 @@ FILES = \
 	src/gnl.c \
 	src/ft_free.c \
 	src/ft_print.c \
+	src/ft_exec.c \
 	src/ft_signals.c \
 	src/builtins/pwd/ft_pwd.c \
 	src/builtins/echo/ft_echo.c \
