@@ -6,7 +6,11 @@
 /*   By: idomagal <idomagal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:13:09 by msolinsk          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/09/11 14:04:47 by idomagal         ###   ########.fr       */
+=======
+/*   Updated: 2024/09/11 12:58:24 by msolinsk         ###   ########.fr       */
+>>>>>>> c7f9780 (Fixed export and unset)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +39,11 @@ void	ft_qparser_shell(t_minishell *shell, char *str);
 
 //	FT_FREE.C
 void	ft_free_shell(t_minishell *shell);
+<<<<<<< HEAD
 void	ft_free_parms(char **parms);
+=======
+void	 ft_free_parms(t_minishell *shell);
+>>>>>>> c7f9780 (Fixed export and unset)
 
 //	FT_PRINT.C
 void	ft_error(t_minishell *shell, char *message, int shell_failure);

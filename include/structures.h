@@ -6,12 +6,18 @@
 /*   By: idomagal <idomagal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:33:10 by msolinsk          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/09/11 13:32:12 by idomagal         ###   ########.fr       */
+=======
+/*   Updated: 2024/09/11 13:09:12 by msolinsk         ###   ########.fr       */
+>>>>>>> c7f9780 (Fixed export and unset)
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
+
+# include <stdbool.h>
 
 # define END "\x1b[0m"
 # define BOLD "\x1b[1m"

@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 22:53:11 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/08 23:00:36 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:13:48 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 int	ft_unset(t_minishell *shell)
 {
 	char	*msg;
+
 	if (!shell->parms[1] || shell->parms[0][5] != '\0')
 	{
 		msg = ft_strdup("Usage: unset <variable>\n");
@@ -23,7 +24,7 @@ int	ft_unset(t_minishell *shell)
 		free(msg);
 		return (EXIT_FAILURE);
 	}
-	if (unsetenv(shell->parms[1]) == -1)
+	else if (ft_delete_var(shell, shell->parms[1]) == EXIT_FAILURE)
 	{
 		msg = ft_strjoin("Could not unset variable: ", shell->parms[1]);
 		ft_error(shell, msg, 0);

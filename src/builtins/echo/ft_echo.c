@@ -6,7 +6,11 @@
 /*   By: idomagal <idomagal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 22:36:29 by msolinsk          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/09/11 13:40:01 by idomagal         ###   ########.fr       */
+=======
+/*   Updated: 2024/09/11 12:54:08 by msolinsk         ###   ########.fr       */
+>>>>>>> c7f9780 (Fixed export and unset)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +40,18 @@ int	ft_echo(t_minishell *shell)
 		ft_error(shell, "Usage: echo <message>\n", 0);
 		return (EXIT_FAILURE);
 	}
-	while (shell->parms[i])
+	if (shell->quotes == false)
 	{
-		printf("%s", shell->parms[i]);
-		if (i < len - 1)
-			printf(" ");
-		i++;
+		while (shell->parms[i])
+		{
+			printf("%s", shell->parms[i]);
+			if (i < len - 1)
+				printf(" ");
+			i++;
+		}
 	}
+	else
+		printf("%s", shell->parms[1]);
 	printf("\n");
 	return (EXIT_SUCCESS);
 }

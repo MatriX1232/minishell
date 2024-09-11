@@ -6,7 +6,11 @@
 /*   By: idomagal <idomagal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/09/11 13:57:30 by idomagal         ###   ########.fr       */
+=======
+/*   Updated: 2024/09/11 13:40:12 by msolinsk         ###   ########.fr       */
+>>>>>>> c7f9780 (Fixed export and unset)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +116,7 @@ int	main(int argc, char *argv[], char **envp)
 			return (ft_free_shell(shell), EXIT_SUCCESS);
 		ft_qparser_shell(shell, line);
 		ft_parse(shell, line);
-		ft_free_parms(shell->parms);
+		ft_free_parms(shell);
 	}
 	return (EXIT_SUCCESS);
 }
