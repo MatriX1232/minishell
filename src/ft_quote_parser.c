@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:41:31 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/13 16:54:13 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:29:49 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*ft_strjoin_free(char const *s1, char const *s2)
 }
 
 //	TODO:	Check if var is freed
-char	*ft_parse_dqoute(t_minishell *shell, char *str)
+char	*ft_get_dquote(t_minishell *shell, char *str)
 {
 	int		i;
 	int		len;
@@ -86,28 +86,52 @@ char	*ft_parse_dqoute(t_minishell *shell, char *str)
 	return (new);
 }
 
+static void	ft_parse_sqoute(t_minishell *shell, char *str, char *qstart, char *qend)
+{
+	char	*new;
+
+	new = ft_substr(str, qstart - str + 1, qend - qstart - 1);
+	if (!new)
+		return ft_error(shell, "Could not allocate memory for new string\n", 1);
+	shell->parms = (char **) malloc(2 * sizeof(char *));
+	if (!shell->parms)
+		return ft_error(shell, "Could not allocate memory for shell->parms\n", 1);
+	shell->parms[1] = new;
+	shell->parms[0] = ft_substr(str, 0, ft_strchr(str, ' ') - str);
+	shell->quotes = true;
+}
+
+static void	ft_parse_dqoute(t_minishell *shell, char *str, char *qstart, char *qend)
+{
+	char	*new;
+
+	new = ft_get_dquote(shell, ft_substr(str, qstart - str + 1, qend - qstart - 1));
+	if (!new)
+		return ft_error(shell, "Could not allocate memory for new string\n", 1);
+	shell->parms = (char **) malloc(2 * sizeof(char *));
+	if (!shell->parms)
+		return ft_error(shell, "Could not allocate memory for shell->parms\n", 1);
+	shell->parms[1] = new;
+	shell->parms[0] = ft_substr(str, 0, ft_strchr(str, ' ') - str);
+	shell->quotes = true;
+}
+
 void	ft_qparser_shell(t_minishell *shell, char *str)
 {
 	char	*qstart;
 	char	*qend;
-	char	*new;
 
 	qstart = ft_strchr(str, '"');
 	qend = ft_strrchr(str, '"');
-	if (!qstart || !qend || qstart == qend)
+	if (qstart && qend && qstart != qend)
+		return ft_parse_dqoute(shell, str, qstart, qend);
+	qstart = ft_strchr(str, 39);
+	qend = ft_strrchr(str, 39);
+	if (qstart && qend && qstart != qend)
+		return ft_parse_sqoute(shell, str, qstart, qend);
+	else
 	{
 		shell->parms = ft_split(str, ' ');
 		shell->quotes = false;
-	}
-	else
-	{
-		// new = ft_substr(str, qstart - str + 1, qend - qstart - 1);
-		new = ft_parse_dqoute(shell, ft_substr(str, qstart - str + 1, qend - qstart - 1));
-		shell->parms = (char **) malloc(2 * sizeof(char *));
-		if (!shell->parms)
-			return ft_error(shell, "Could not allocate memory for shell->parms\n", 1);
-		shell->parms[1] = new;
-		shell->parms[0] = ft_substr(str, 0, ft_strchr(str, ' ') - str);
-		shell->quotes = true;
 	}
 }
