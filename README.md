@@ -72,4 +72,4 @@ Exiting the Shell
 You can exit the minishell by typing ```exit``` or using ```Ctrl+D```.
 
 ## Credits
-This project was developed in colaboration with [idomagal](https://github.com/igordotdev)
+This project was developed as an group project in colaboration with [idomagal](https://github.com/igordotdev)
