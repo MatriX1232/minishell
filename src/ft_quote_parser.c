@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:41:31 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/15 14:29:49 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/16 13:38:05 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,29 @@ static void	ft_parse_dqoute(t_minishell *shell, char *str, char *qstart, char *q
 	shell->quotes = true;
 }
 
+static void	ft_parse_normal(t_minishell *shell)
+{
+	int		i;
+	char	*val;
+	char	**parms;
+
+	i = 0;
+	parms = shell->parms;
+	while (parms[i])
+	{
+		if (parms[i][0] == '$')
+		{
+			val = ft_get_var_value(shell, parms[i] + 1);
+			if (val)
+			{
+				free(parms[i]);
+				parms[i] = val;
+			}
+		}
+		i++;
+	}
+}
+
 void	ft_qparser_shell(t_minishell *shell, char *str)
 {
 	char	*qstart;
@@ -133,5 +156,6 @@ void	ft_qparser_shell(t_minishell *shell, char *str)
 	{
 		shell->parms = ft_split(str, ' ');
 		shell->quotes = false;
+		ft_parse_normal(shell);
 	}
 }
