@@ -8,7 +8,7 @@
 ![Language](https://img.shields.io/badge/Language-C-blue)
 ![License](https://img.shields.io/github/license/MatriX1232/minishell)
 
-Minishell is a simple shell implementation project created as part of the 42 school curriculum. This project involves building a minimal, functional shell with a subset of features found in common UNIX shells like `bash`.
+Minishell is a simple shell implementation project created as part of the 42 school curriculum. This project involves building a minimal, functional shell with a subset of features found in common UNIX shells like `bash` or `zsh`.
 
 ## Table of Contents
 - [Overview](#overview)
