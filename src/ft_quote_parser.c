@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:41:31 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/16 13:38:05 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:42:47 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,19 +101,21 @@ static void	ft_parse_sqoute(t_minishell *shell, char *str, char *qstart, char *q
 	shell->quotes = true;
 }
 
-static void	ft_parse_dqoute(t_minishell *shell, char *str, char *qstart, char *qend)
+// static void	ft_parse_dqoute(t_minishell *shell, char *str, char *qstart, char *qend)
+char	*ft_parse_dqoute(t_minishell *shell, char *str, char *qstart, char *qend)
 {
 	char	*new;
 
 	new = ft_get_dquote(shell, ft_substr(str, qstart - str + 1, qend - qstart - 1));
 	if (!new)
-		return ft_error(shell, "Could not allocate memory for new string\n", 1);
+		return (ft_error(shell, "Could not allocate memory for new string\n", 1), NULL);
 	shell->parms = (char **) malloc(2 * sizeof(char *));
 	if (!shell->parms)
-		return ft_error(shell, "Could not allocate memory for shell->parms\n", 1);
-	shell->parms[1] = new;
-	shell->parms[0] = ft_substr(str, 0, ft_strchr(str, ' ') - str);
+		return (ft_error(shell, "Could not allocate memory for shell->parms\n", 1), NULL);
+	// shell->parms[1] = new;
+	// shell->parms[0] = ft_substr(str, 0, ft_strchr(str, ' ') - str);
 	shell->quotes = true;
+	return (new);
 }
 
 static void	ft_parse_normal(t_minishell *shell)
@@ -139,23 +141,82 @@ static void	ft_parse_normal(t_minishell *shell)
 	}
 }
 
+char	*ft_malloc_more(char *old, int n)
+{
+	char	*new;
+
+	new = (char *) malloc((ft_strlen(old) + n + 1) * sizeof(char));
+	if (!new)
+		return (ft_error(NULL, "Could not allocate more alloc\n", 0), NULL);
+	ft_strlcpy(new, old, ft_strlen(old) + 1);
+	new[ft_strlen(new)] = '\0';
+	free(old);
+	return (new);
+}
+
 void	ft_qparser_shell(t_minishell *shell, char *str)
 {
-	char	*qstart;
-	char	*qend;
+	int		i;
+	int		j;;
+	char	*new;
+	char	*ret;
 
-	qstart = ft_strchr(str, '"');
-	qend = ft_strrchr(str, '"');
-	if (qstart && qend && qstart != qend)
-		return ft_parse_dqoute(shell, str, qstart, qend);
-	qstart = ft_strchr(str, 39);
-	qend = ft_strrchr(str, 39);
-	if (qstart && qend && qstart != qend)
-		return ft_parse_sqoute(shell, str, qstart, qend);
-	else
+	(void)ft_parse_normal;
+	(void)ft_parse_sqoute;
+	ret = (char *) ft_calloc(1000, sizeof(char));
+	if (!ret)
+		return ft_error(shell, "Could not calloc\n", 1);
+	i = 0;
+	while (str[i])
 	{
-		shell->parms = ft_split(str, ' ');
-		shell->quotes = false;
-		ft_parse_normal(shell);
+		if (str[i] == 34)
+		{
+			j = i + 1;
+			while (str[j] && str[j] != 34)
+				j++;
+			new = ft_parse_dqoute(shell, str, str + i, str + j);
+			// ret = ft_malloc_more(ret, ft_strlen(new));
+			ft_strlcat(ret, new, ft_strlen(new) + 1);
+			i += ft_strlen(new) + 1;
+		}
+		else if (str[i] == 39)
+		{
+			j = i + 1;
+			while (str[j] && str[j] != 39)
+				j++;
+			new = ft_substr(str, i + 1, j - i - 1);
+			ft_strlcat(ret, new, ft_strlen(new) + 1);
+			i += ft_strlen(new) + 1;
+		}
+		else
+		{
+			ft_strlcat(ret, str + i, 1);
+			i++;
+		}
+		printf("RET = %s\n", ret);
 	}
+	shell->parms[0] = ft_substr(str, 0, ft_strchr(str, ' ') - str);
+	shell->parms[1] = ret;
+	shell->quotes = true;
 }
+
+// void	ft_qparser_shell(t_minishell *shell, char *str)
+// {
+// 	char	*qstart;
+// 	char	*qend;
+
+// 	qstart = ft_strchr(str, '"');
+// 	qend = ft_strrchr(str, '"');
+// 	if (qstart && qend && qstart != qend)
+// 		return ft_parse_dqoute(shell, str, qstart, qend);
+// 	qstart = ft_strchr(str, 39);
+// 	qend = ft_strrchr(str, 39);
+// 	if (qstart && qend && qstart != qend)
+// 		return ft_parse_sqoute(shell, str, qstart, qend);
+// 	else
+// 	{
+// 		shell->parms = ft_split(str, ' ');
+// 		shell->quotes = false;
+// 		ft_parse_normal(shell);
+// 	}
+// }

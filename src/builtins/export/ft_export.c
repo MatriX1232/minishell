@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 23:01:30 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/13 12:12:52 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:52:27 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_print_parms(char **parms)
 
 	i = 0;
 	while (parms[i])
-		printf("%s\n", parms[i++]);
+		printf("declare -x %s\n", parms[i++]);
 }
 
 int	ft_export(t_minishell *shell)

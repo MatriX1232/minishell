@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:35:52 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/12 14:17:46 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:46:46 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ static bool	ft_check_validity(t_minishell *shell, char *var)
 	split = ft_split(var, '=');
 	if (!split)
 		return (ft_error(shell, "Couldn't split var\n", 1), false);
+	int i = 0;
+	while (split[i])
+		printf("SPLIT: %s\n", split[i++]);
 	if (ft_tablen(split) == 2)
 		return (true);
 	return (false);
