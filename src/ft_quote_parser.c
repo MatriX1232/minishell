@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:41:31 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/17 16:42:47 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/17 20:04:55 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,10 +154,65 @@ char	*ft_malloc_more(char *old, int n)
 	return (new);
 }
 
+// void	ft_qparser_shell(t_minishell *shell, char *str)
+// {
+// 	int		i;
+// 	int		j;
+// 	char	*new;
+// 	char	*ret;
+
+// 	(void)ft_parse_normal;
+// 	(void)ft_parse_sqoute;
+// 	ret = (char *) ft_calloc(1000, sizeof(char));
+// 	if (!ret)
+// 		return ft_error(shell, "Could not calloc\n", 1);
+// 	i = 0;
+// 	while (str[i] && str[i] != ' ')
+// 		i++;
+// 	i++;
+// 	j = 0;
+// 	while (str[i])
+// 	{
+// 		if (str[i] == 34)
+// 		{
+// 			j = i + 1;
+// 			while (str[j] && str[j] != 34)
+// 				j++;
+// 			new = ft_parse_dqoute(shell, str, str + i, str + j);
+// 			// ret = ft_malloc_more(ret, ft_strlen(new));
+// 			ft_strlcat(ret, new, ft_strlen(new) + 1);
+// 			free(new);
+// 			i = j;
+// 		}
+// 		else if (str[i] == 39)
+// 		{
+// 			j = i + 1;
+// 			while (str[j] && str[j] != 39)
+// 				j++;
+// 			new = ft_substr(str, i + 1, j - i - 1);
+// 			ft_strlcat(ret, new, ft_strlen(new) + 1);
+// 			free(new);
+// 			i = j + 1;
+// 		}
+// 		else
+// 		{
+// 			j = ft_strlen(ret);
+// 			ret[j] = str[i];
+// 			ret[j + 1] = '\0';
+// 			i++;
+// 		}
+// 		printf("RET = %sc\n", ret);
+// 	}
+// 	shell->parms[0] = ft_substr(str, 0, ft_strchr(str, ' ') - str);
+// 	shell->parms[1] = ret;
+// 	shell->quotes = true;
+// 	printf("RET = %s\n", ret);
+// }
+
 void	ft_qparser_shell(t_minishell *shell, char *str)
 {
 	int		i;
-	int		j;;
+	int		j;
 	char	*new;
 	char	*ret;
 
@@ -167,35 +222,45 @@ void	ft_qparser_shell(t_minishell *shell, char *str)
 	if (!ret)
 		return ft_error(shell, "Could not calloc\n", 1);
 	i = 0;
+	while (str[i] && str[i] != ' ')
+		i++;
+	i++;
 	while (str[i])
 	{
-		if (str[i] == 34)
+		if (str[i] == 34)  // Double quotes
 		{
 			j = i + 1;
 			while (str[j] && str[j] != 34)
 				j++;
 			new = ft_parse_dqoute(shell, str, str + i, str + j);
-			// ret = ft_malloc_more(ret, ft_strlen(new));
-			ft_strlcat(ret, new, ft_strlen(new) + 1);
-			i += ft_strlen(new) + 1;
+			ft_strlcat(ret, new, 1000);  // Use the correct buffer size
+			free(new);  // Free the dynamically allocated string
+			i = j + 1;  // Skip the closing double quote
 		}
-		else if (str[i] == 39)
+		else if (str[i] == 39)  // Single quotes
 		{
 			j = i + 1;
 			while (str[j] && str[j] != 39)
 				j++;
-			new = ft_substr(str, i + 1, j - i - 1);
-			ft_strlcat(ret, new, ft_strlen(new) + 1);
-			i += ft_strlen(new) + 1;
+			new = ft_substr(str, i + 1, j - i - 1);  // Exclude the quotes
+			ft_strlcat(ret, new, 1000);  // Use the correct buffer size
+			free(new);  // Free the dynamically allocated string
+			i = j + 1;  // Skip the closing single quote
 		}
 		else
 		{
-			ft_strlcat(ret, str + i, 1);
+			j = ft_strlen(ret);
+			ret[j] = str[i];
+			ret[j + 1] = '\0';
 			i++;
 		}
-		printf("RET = %s\n", ret);
 	}
+	shell->parms = (char **) malloc(2 * sizeof(char *));
+	if (!shell->parms)
+		return (ft_error(shell, "Could not allocate memory for shell->parms\n", 1));
 	shell->parms[0] = ft_substr(str, 0, ft_strchr(str, ' ') - str);
+	if (*ret == '\0')
+		ret = NULL;
 	shell->parms[1] = ret;
 	shell->quotes = true;
 }
