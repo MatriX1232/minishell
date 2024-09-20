@@ -10,7 +10,8 @@ FILES = \
 	src/main.c \
 	src/ft_parse.c \
 	src/ft_quote_parser.c \
-	src/gnl.c \
+	src/ft_quote_parser2.c \
+	src/ft_quote_parser3.c \
 	src/ft_free.c \
 	src/ft_print.c \
 	src/ft_exec.c \
