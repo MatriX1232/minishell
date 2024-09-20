@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:41:31 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/20 11:03:47 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:12:10 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,33 +112,8 @@ char	*ft_parse_dqoute(t_minishell *shell, char *str, char *qstart, char *qend)
 	shell->parms = (char **) malloc(2 * sizeof(char *));
 	if (!shell->parms)
 		return (ft_error(shell, "Could not allocate memory for shell->parms\n", 1), NULL);
-	// shell->parms[1] = new;
-	// shell->parms[0] = ft_substr(str, 0, ft_strchr(str, ' ') - str);
 	shell->quotes = true;
 	return (new);
-}
-
-static void	ft_parse_normal(t_minishell *shell)
-{
-	int		i;
-	char	*val;
-	char	**parms;
-
-	i = 0;
-	parms = shell->parms;
-	while (parms[i])
-	{
-		if (parms[i][0] == '$')
-		{
-			val = ft_get_var_value(shell, parms[i] + 1);
-			if (val)
-			{
-				free(parms[i]);
-				parms[i] = val;
-			}
-		}
-		i++;
-	}
 }
 
 char	*ft_malloc_more(char *old, int n)
@@ -164,18 +139,22 @@ static int	ft_tab_len(char **tab)
 	return (i);
 }
 
-static void	ft_move_split(t_minishell *shell, char *str, char **ret)
+static void	ft_move_split(t_minishell *shell, char *str, char *ret)
 {
-	int	i;
+	int		i;
+	char	**split;
 
-	shell->parms = (char **) malloc((ft_tab_len(ret) + 2) * sizeof(char *));
+	split = ft_split(ret, ' ');
+	if (!split)
+		return ft_error(shell, "Could not split\n", 1);
+	shell->parms = (char **) malloc((ft_tab_len(split) + 2) * sizeof(char *));
 	if (!shell->parms)
 		return ft_error(shell, "Could not allocate memory for shell->parms\n", 1);
 	shell->parms[0] = ft_substr(str, 0, ft_strchr(str, ' ') - str);
 	i = 1;
-	while (ret[i - 1])
+	while (split[i - 1])
 	{
-		shell->parms[i] = ret[i - 1];
+		shell->parms[i] = split[i - 1];
 		i++;
 	}
 	shell->parms[i] = NULL;
@@ -189,15 +168,14 @@ void	ft_qparser_shell(t_minishell *shell, char *str)
 	char	*var;
 	char	*ret;
 
-	(void)ft_parse_normal;
-	(void)ft_parse_sqoute;
 	ret = (char *) ft_calloc(1000, sizeof(char));
 	if (!ret)
 		return ft_error(shell, "Could not calloc\n", 1);
 	i = 0;
 	while (str[i] && str[i] != ' ')
 		i++;
-	i++;
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+		i++;
 	while (str[i])
 	{
 		if (str[i] == '$')
@@ -235,9 +213,7 @@ void	ft_qparser_shell(t_minishell *shell, char *str)
 			i++;
 		}
 	}
-	if (*ret == '\0')
-		ret = NULL;
-	ft_move_split(shell, str, ft_split(ret, ' '));
+	ft_move_split(shell, str, ret);
 	free(ret);
 }
 
