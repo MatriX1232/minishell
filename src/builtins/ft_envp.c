@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:35:52 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/11 16:32:25 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:21:50 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	ft_free_env(char **env)
 }
 
 // Function to find if the variable exists in env
-bool	ft_exists_var(t_minishell *shell, char *var_name)
+char	*ft_exists_var(t_minishell *shell, char *var_name)
 {
 	int		i;
 	char	**env;
@@ -45,10 +45,10 @@ bool	ft_exists_var(t_minishell *shell, char *var_name)
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], var_name, ft_strlen(var_name)) == 0)
-			return (true);
+			return (env[i]);
 		i++;
 	}
-	return (false);
+	return (NULL);
 }
 
 static bool	ft_check_validity(t_minishell *shell, char *var)
