@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 22:36:29 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/11 15:53:30 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:09:30 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static int	ft_tablen(char **tab)
 	return (i);
 }
 
-// TODO: Implement the -n flag function
 int	ft_echo(t_minishell *shell)
 {
 	int		i;
@@ -32,22 +31,17 @@ int	ft_echo(t_minishell *shell)
 	i = 1;
 	len = ft_tablen(shell->parms);
 	if (shell->parms[0][4] != '\0')
+		return (ft_error(shell, "Usage: echo <message>\n", 0), EXIT_FAILURE);
+	if (shell->parms[1] && ft_strncmp(shell->parms[1], "-n", 2) == 0)
+			i = 2;
+	while (shell->parms[i])
 	{
-		ft_error(shell, "Usage: echo <message>\n", 0);
-		return (EXIT_FAILURE);
+		printf("%s", shell->parms[i]);
+		if (i < len)
+			printf(" ");
+		i++;
 	}
-	if (shell->quotes == false)
-	{
-		while (shell->parms[i])
-		{
-			printf("%s", shell->parms[i]);
-			if (i < len - 1)
-				printf(" ");
-			i++;
-		}
-	}
-	else
-		printf("%s", shell->parms[1]);
-	printf("\n");
+	if (shell->parms[1] && ft_strncmp(shell->parms[1], "-n", 2) != 0)
+		printf("\n");
 	return (EXIT_SUCCESS);
 }
