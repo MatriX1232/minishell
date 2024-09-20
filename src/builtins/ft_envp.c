@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 static int	ft_tablen(char **tab)
 {
@@ -35,20 +35,29 @@ static void	ft_free_env(char **env)
 }
 
 // Function to find if the variable exists in env
-char	*ft_exists_var(t_minishell *shell, char *var_name)
+int	ft_add_exists_var(t_minishell *shell, char *var)
 {
 	int		i;
-	char	**env;
+	char	*var_name;
+	char	**split;
 
+	split = ft_split(var, '=');
+	if (!split)
+		return (ft_error(shell, "Couldn't split var\n", 1), EXIT_FAILURE);
+	var_name = split[0];
+	free(split);
 	i = 0;
-	env = shell->env;
-	while (env[i])
+	while (shell->env[i])
 	{
-		if (ft_strncmp(env[i], var_name, ft_strlen(var_name)) == 0)
-			return (env[i]);
+		if (ft_strncmp(shell->env[i], var_name, ft_strlen(var_name)) == 0)
+		{
+			free(shell->env[i]);
+			shell->env[i] = ft_strdup(var);
+			return (EXIT_SUCCESS);
+		}
 		i++;
 	}
-	return (NULL);
+	return (EXIT_FAILURE);
 }
 
 static bool	ft_check_validity(t_minishell *shell, char *var)
@@ -59,7 +68,10 @@ static bool	ft_check_validity(t_minishell *shell, char *var)
 	if (!split)
 		return (ft_error(shell, "Couldn't split var\n", 1), false);
 	if (ft_tablen(split) == 2)
+	{
+		free(split);
 		return (true);
+	}
 	return (false);
 }
 
@@ -71,6 +83,8 @@ int	ft_add_var(t_minishell *shell, char *var)
 
 	if (ft_check_validity(shell, var) == false)
 		return (ft_error(shell, "Argument is not valid\n", 0), EXIT_FAILURE);
+	if (ft_add_exists_var(shell, var) == EXIT_SUCCESS)
+		return (EXIT_SUCCESS);
 	len = ft_tablen(shell->env);
 	new_env = (char **) malloc((len + 2) * sizeof(char *));
 	if (!new_env)

@@ -25,7 +25,7 @@ int		ft_env(t_minishell *shell);
 int		ft_unset(t_minishell *shell);
 int		ft_export(t_minishell *shell);
 
-char	*ft_exists_var(t_minishell *shell, char *var_name);
+int		ft_add_exists_var(t_minishell *shell, char *var);
 int		ft_add_var(t_minishell *shell, char *var);
 int		ft_delete_var(t_minishell *shell, char *var);
 char	*ft_get_var_value(t_minishell *shell, char *var);
