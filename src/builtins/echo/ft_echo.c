@@ -6,22 +6,12 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 22:36:29 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/21 14:04:47 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:18:27 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtins.h"
 #include "../../../include/minishell.h"
-
-static int	ft_tablen(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
 
 int	ft_echo(t_minishell *shell)
 {
