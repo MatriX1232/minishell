@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 14:12:54 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/11 13:01:01 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:02:54 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static int	ft_tablen(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab[i])

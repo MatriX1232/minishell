@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:08:07 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/08 15:11:45 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:03:13 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	ft_env(t_minishell *shell)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (shell->env[i])

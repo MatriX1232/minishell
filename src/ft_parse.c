@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 22:07:17 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/11 16:53:20 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/21 13:46:01 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ int	ft_parse(t_minishell *shell, char *line)
 		return (EXIT_SUCCESS);
 	else if (ft_strncmp(line, "pwd", 4) == 0)
 		return (ft_pwd(shell));
-	else if (ft_strncmp(line, "echo", 4) == 0)
+	else if (ft_strncmp(line, "echo", 5) == 0)
 		return (ft_echo(shell));
-	else if (ft_strncmp(line, "cd", 2) == 0)
+	else if (ft_strncmp(line, "cd", 3) == 0)
 		return (ft_cd(shell));
 	else if (ft_strncmp(line, "env", 4) == 0)
 		return (ft_env(shell));
-	else if (ft_strncmp(line, "unset", 5) == 0)
+	else if (ft_strncmp(line, "unset", 6) == 0)
 		return (ft_unset(shell));
-	else if (ft_strncmp(line, "export", 6) == 0)
+	else if (ft_strncmp(line, "export", 7) == 0)
 		return (ft_export(shell));
 	else if (get_exe(get_cmd(line), shell->env[get_path(shell->env)]) != NULL)
 		return (ft_exec(shell, line));

@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 22:36:29 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/20 11:09:30 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:04:47 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static int	ft_tablen(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab[i])
@@ -25,15 +25,15 @@ static int	ft_tablen(char **tab)
 
 int	ft_echo(t_minishell *shell)
 {
-	int		i;
-	int		len;
+	int	i;
+	int	len;
 
 	i = 1;
 	len = ft_tablen(shell->parms);
 	if (shell->parms[0][4] != '\0')
 		return (ft_error(shell, "Usage: echo <message>\n", 0), EXIT_FAILURE);
-	if (shell->parms[1] && ft_strncmp(shell->parms[1], "-n", 2) == 0)
-			i = 2;
+	if (shell->parms[1] && ft_strncmp(shell->parms[1], "-n", 3) == 0)
+		i = 2;
 	while (shell->parms[i])
 	{
 		printf("%s", shell->parms[i]);
@@ -41,7 +41,7 @@ int	ft_echo(t_minishell *shell)
 			printf(" ");
 		i++;
 	}
-	if (shell->parms[1] && ft_strncmp(shell->parms[1], "-n", 2) != 0)
+	if (shell->parms[1] && ft_strncmp(shell->parms[1], "-n", 3) != 0)
 		printf("\n");
 	return (EXIT_SUCCESS);
 }

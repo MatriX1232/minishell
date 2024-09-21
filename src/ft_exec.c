@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:47:31 by idomagal          #+#    #+#             */
-/*   Updated: 2024/09/11 16:21:56 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:49:29 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,3 @@ int	ft_exec(t_minishell *shell, char *line)
 	ft_free_parms_local(parms);
 	return (EXIT_SUCCESS);
 }
-

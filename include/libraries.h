@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   libraries.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idomagal <idomagal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 21:13:27 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/11 13:27:24 by idomagal         ###   ########.fr       */
+/*   Updated: 2024/09/21 13:53:20 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
 #ifndef LIBRARIES_H
 # define LIBRARIES_H
 

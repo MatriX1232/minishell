@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/11 16:46:35 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:05:59 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_minishell	*ft_malloc_shell(t_minishell *shell)
 	if (!shell)
 	{
 		ft_error(NULL, "Could not allocate memory for shell\n", 1);
-		return(NULL);
+		return (NULL);
 	}
 	return (shell);
 }
@@ -73,32 +73,26 @@ void	ft_print_parms(char **parms)
 		printf("%s\n", parms[i++]);
 }
 
-int	main(int argc, char *argv[], char **envp)
+static int	ft_init(t_minishell **shell, int ac, char **argv, char **envp)
 {
-	t_minishell			*shell;
-	char				*line;
-	int					i;
-
-	printf("MINISHELL\n");
-	printf("argc: %d\n", argc);
-
-	i = 0;
-	while (argv[i])
-	{
-		printf("argv[%d]: %s\n", i, argv[i]);
-		i++;
-	}
-	printf("\n\n");
-
-	shell = NULL;
-	shell = ft_malloc_shell(shell);
-	if (shell == NULL)
+	(void)ac;
+	*shell = ft_malloc_shell(*shell);
+	if (*shell == NULL)
 		return (EXIT_FAILURE);
-	ft_tshell_init(shell, argv, envp);
-
+	ft_tshell_init(*shell, argv, envp);
 	signal(SIGINT, sig_ctrlc);
 	signal(SIGQUIT, SIG_IGN);
+	return (EXIT_SUCCESS);
+}
 
+int	main(int argc, char *argv[], char **envp)
+{
+	t_minishell	*shell;
+	char		*line;
+
+	shell = NULL;
+	if (ft_init(&shell, argc, argv, envp) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	line = ft_strdup("");
 	while (line)
 	{
@@ -108,7 +102,7 @@ int	main(int argc, char *argv[], char **envp)
 			return (ft_free_shell(shell), EXIT_SUCCESS);
 		if (line)
 			add_history(line);
-		if (ft_strncmp(line, "exit", 4) == 0)
+		if (ft_strncmp(line, "exit", 5) == 0)
 			return (ft_free_shell(shell), EXIT_SUCCESS);
 		ft_qparser_shell(shell, line);
 		ft_parse(shell, line);
