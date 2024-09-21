@@ -1,49 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_envp_vars.c                                     :+:      :+:    :+:   */
+/*   ft_envp2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 14:16:25 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/21 13:54:51 by msolinsk         ###   ########.fr       */
+/*   Created: 2024/09/21 13:57:32 by msolinsk          #+#    #+#             */
+/*   Updated: 2024/09/21 14:02:56 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-static void	ft_free_split(char **split)
+void	ft_free_env(char **env)
 {
 	int	i;
 
 	i = 0;
-	while (split[i])
-		free(split[i++]);
-	free(split);
+	while (env[i])
+		free(env[i++]);
+	free(env);
+	env = NULL;
 }
 
-/*
-	split[0] is variable name
-
-	If SUCCESS:
-		Returns the value of the variable
-
-	If FAILURE:
-		Returns NULL
-*/
-char	*ft_get_var_value(t_minishell *shell, char *var)
+bool	ft_check_validity(t_minishell *shell, char *var)
 {
-	int		i;
 	char	**split;
 
-	i = 0;
-	while (shell->env[i])
+	split = ft_split(var, '=');
+	if (!split)
+		return (ft_error(shell, "Couldn't split var\n", 1), false);
+	if (ft_tablen(split) == 2)
 	{
-		split = ft_split(shell->env[i], '=');
-		if (ft_strncmp(split[0], var, ft_strlen(split[0])) == 0)
-			return (split[1]);
-		ft_free_split(split);
-		i++;
+		free(split);
+		return (true);
 	}
-	return (NULL);
+	return (false);
+}
+
+int	ft_tablen(char **tab)
+{
+	int	len;
+
+	len = 0;
+	while (tab[len])
+		len++;
+	return (len);
 }

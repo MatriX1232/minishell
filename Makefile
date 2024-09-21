@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -Iinclude/ -g
+CFLAGS = -Wall -Wextra -Werror -Iinclude/
 LFLAGS = -lreadline
 
 NAME = minishell
@@ -17,6 +17,7 @@ FILES = \
 	src/ft_exec.c \
 	src/ft_signals.c \
 	src/builtins/ft_envp.c \
+	src/builtins/ft_envp2.c \
 	src/builtins/ft_envp_vars.c \
 	src/builtins/pwd/ft_pwd.c \
 	src/builtins/echo/ft_echo.c \

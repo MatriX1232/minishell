@@ -6,11 +6,10 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:13:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/20 15:41:38 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/21 13:53:06 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -42,11 +41,11 @@ void	ft_move_split(t_minishell *shell, char *str, char *ret);
 
 //	FT_QUOTE_PARSER3.c
 char	*ft_get_dquote(t_minishell *shell, char *str);
-char	*ft_parse_dqoute(t_minishell *shell, char *str, char *qstart, char *qend);
+char	*ft_parse_dqoute(t_minishell *shell, char *str, char *start, char *end);
 
 //	FT_FREE.C
 void	ft_free_shell(t_minishell *shell);
-void	 ft_free_parms(t_minishell *shell);
+void	ft_free_parms(t_minishell *shell);
 
 //	FT_PRINT.C
 void	ft_error(t_minishell *shell, char *message, int shell_failure);

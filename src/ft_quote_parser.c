@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:41:31 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/20 15:43:06 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:49:14 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	ft_squote(char *str, char *ret, int *i)
 	new = ft_substr(str, *i + 1, j - *i - 1);
 	ft_strlcat(ret, new, 1000);
 	free(new);
-	*i = j + 1;  // Skip the closing single quote
+	*i = j + 1;
 }
 
 static void	ft_dquote(t_minishell *shell, char *str, char *ret, int *i)
@@ -39,16 +39,19 @@ static void	ft_dquote(t_minishell *shell, char *str, char *ret, int *i)
 	new = ft_parse_dqoute(shell, str, str + *i, str + j);
 	ft_strlcat(ret, new, 1000);
 	free(new);
-	*i = j + 1;  // Skip the closing double quote
+	*i = j + 1;
 }
 
 static void	ft_vars(t_minishell *shell, char *str, char *ret, int *i)
 {
+	char	*tmp;
 	char	*var;
 
-	var = ft_get_var_value(shell, ft_substr(str + *i, 1, ft_get_var_len(str + *i)));
+	tmp = ft_substr(str + *i, 1, ft_get_var_len(str + *i));
+	var = ft_get_var_value(shell, tmp);
 	ft_strlcat(ret, var, 1000);
 	free(var);
+	free(tmp);
 	i += ft_get_var_len(str + *i) + 1;
 }
 
@@ -69,7 +72,7 @@ void	ft_qparser_shell(t_minishell *shell, char *str)
 
 	ret = (char *) ft_calloc(1000, sizeof(char));
 	if (!ret)
-		return ft_error(shell, "Could not calloc\n", 1);
+		return (ft_error(shell, "Could not calloc\n", 1));
 	i = 0;
 	while (str[i] && str[i] != ' ')
 		i++;
@@ -77,13 +80,13 @@ void	ft_qparser_shell(t_minishell *shell, char *str)
 		i++;
 	while (str[i])
 	{
-		if (str[i] == '$')		// ENV_VAR
+		if (str[i] == '$')
 			ft_vars(shell, str, ret, &i);
-		else if (str[i] == 34)	// Double quotes
+		else if (str[i] == 34)
 			ft_dquote(shell, str, ret, &i);
-		else if (str[i] == 39)	// Single quotes
+		else if (str[i] == 39)
 			ft_squote(str, ret, &i);
-		else					// Normal chars
+		else
 			ft_normal(str, ret, &i);
 	}
 	ft_move_split(shell, str, ret);
