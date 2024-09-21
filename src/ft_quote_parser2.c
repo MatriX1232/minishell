@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 15:18:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/20 15:30:09 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:37:50 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ void	ft_move_split(t_minishell *shell, char *str, char *ret)
 
 	split = ft_split(ret, ' ');
 	if (!split)
-		return ft_error(shell, "Could not split\n", 1);
+		return (ft_error(shell, "Could not split\n", 1));
 	shell->parms = (char **) malloc((ft_tab_len(split) + 2) * sizeof(char *));
 	if (!shell->parms)
-		return ft_error(shell, "Could not allocate memory for shell->parms\n", 1);
+		return (ft_error(shell, "Could not allocate memory\n", 1));
 	shell->parms[0] = ft_substr(str, 0, ft_strchr(str, ' ') - str);
 	i = 1;
 	while (split[i - 1])

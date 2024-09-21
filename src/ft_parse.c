@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 22:07:17 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/21 13:46:01 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:29:20 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_parse(t_minishell *shell, char *line)
 	{
 		if (ft_add_var(shell, line) == EXIT_FAILURE)
 			return (msg = ft_strjoin("Command not found: ", line), ft_error(\
-			shell, msg, 0), ft_putchar_fd('\n', 2), free(msg), EXIT_FAILURE); //XDDDDDDD
+			shell, msg, 0), ft_putchar_fd('\n', 2), free(msg), EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -74,7 +74,6 @@ char	*get_cmd(char *line)
 	cmd = ft_substr(line, 0, i);
 	return (cmd);
 }
-
 
 int	get_path(char **env)
 {

@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:49:30 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/11 14:09:30 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:26:18 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	ft_free_shell(t_minishell *shell)
 }
 
 //	Free the parameters in form of a char**
-void ft_free_parms(t_minishell *shell)
+void	ft_free_parms(t_minishell *shell)
 {
-	int i;
+	int	i;
 
 	if (shell->quotes == true)
 	{
