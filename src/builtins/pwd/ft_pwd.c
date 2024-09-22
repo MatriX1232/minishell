@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idomagal <idomagal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:34:12 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/11 13:41:29 by idomagal         ###   ########.fr       */
+/*   Updated: 2024/09/22 22:18:32 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@
 //	Print the current working directory
 int	ft_pwd(t_minishell *shell)
 {
+	char	*msg;
+
 	getcwd(shell->cwd, 1024);
 	if (!shell->cwd)
 	{
-		ft_putstr_fd("Could not get current working directory\n", 2);
+		msg = ft_strdup("Could not get current working directory\n");
+		ft_error(shell, msg, 0);
+		free(msg);
 		return (EXIT_FAILURE);
 	}
 	printf("%s\n", shell->cwd);

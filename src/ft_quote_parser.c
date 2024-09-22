@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:41:31 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/22 17:56:01 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/22 18:28:04 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,14 @@ static void	ft_vars(t_minishell *shell, char *str, char *ret, int *i)
 	char	*var;
 
 	tmp = ft_substr(str + *i, 1, ft_get_var_len(str + *i));
+	printf("tmp: %s\n", tmp);
 	var = ft_get_var_value(shell, tmp);
+	printf("var: %s\n", var);
 	ft_strlcat(ret, var, 1000);
+	printf("ret: %s\n", ret);
 	free(var);
 	free(tmp);
-	*i += ft_get_var_len(str + *i) + 1;
+	*i += ft_strlen(tmp) + 1;
 }
 
 static void	ft_normal(char *str, char *ret, int *i)
@@ -94,13 +97,13 @@ void	ft_qparser_shell(t_minishell *shell, char *str)
 		// printf("ret: %s | i: %d | %c\n", ret, i, str[i]);
 	}
 	ft_move_split(shell, str, ret);
-	// int	j = 0;
-	// while (shell->parms[j])
-	// {
-	// 	printf("shell->parms[%d]: %s\n", j, shell->parms[j]);
-	// 	j++;
-	// }
-	// if (shell->parms[j] == NULL)
-	// 	printf("shell->parms[%d]: (null)\n", j);
+	int	j = 0;
+	while (shell->parms[j])
+	{
+		printf("shell->parms[%d]: %s\n", j, shell->parms[j]);
+		j++;
+	}
+	if (shell->parms[j] == NULL)
+		printf("shell->parms[%d]: (null)\n", j);
 	free(ret);
 }

@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:10:34 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/10 11:58:30 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/22 23:53:55 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void	sig_ctrlc(int sig)
 	rl_redisplay();
 }
 
-void	sig_ctrl_bslash(int sig)
+void	sig_term(int sig)
 {
-	(void)sig;
+	if (sig == SIGKILL)
+		printf("%sX﹏X  ▶ KILLED MINISHELL %s\n", RED, END);
+	else if (sig == SIGTERM)
+		printf("%sX﹏X  ▶ TERMINATED MINISHELL %s\n", RED, END);
 }
