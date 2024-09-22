@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:41:31 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/20 15:49:14 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/22 17:56:01 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,16 @@ static void	ft_dquote(t_minishell *shell, char *str, char *ret, int *i)
 {
 	int		j;
 	char	*new;
+	char	*trim;
 
 	j = *i + 1;
 	while (str[j] && str[j] != 34)
 		j++;
-	new = ft_parse_dqoute(shell, str, str + *i, str + j);
-	ft_strlcat(ret, new, 1000);
+	new = ft_get_dquote(shell, str + *i + 1);
+	trim = ft_strtrim(new, "\"");
+	ft_strlcat(ret, trim, 1000);
 	free(new);
+	free(trim);
 	*i = j + 1;
 }
 
@@ -52,7 +55,7 @@ static void	ft_vars(t_minishell *shell, char *str, char *ret, int *i)
 	ft_strlcat(ret, var, 1000);
 	free(var);
 	free(tmp);
-	i += ft_get_var_len(str + *i) + 1;
+	*i += ft_get_var_len(str + *i) + 1;
 }
 
 static void	ft_normal(char *str, char *ret, int *i)
@@ -88,7 +91,16 @@ void	ft_qparser_shell(t_minishell *shell, char *str)
 			ft_squote(str, ret, &i);
 		else
 			ft_normal(str, ret, &i);
+		// printf("ret: %s | i: %d | %c\n", ret, i, str[i]);
 	}
 	ft_move_split(shell, str, ret);
+	// int	j = 0;
+	// while (shell->parms[j])
+	// {
+	// 	printf("shell->parms[%d]: %s\n", j, shell->parms[j]);
+	// 	j++;
+	// }
+	// if (shell->parms[j] == NULL)
+	// 	printf("shell->parms[%d]: (null)\n", j);
 	free(ret);
 }
