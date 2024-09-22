@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/21 14:15:22 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/23 00:02:23 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ static int	ft_init(t_minishell **shell, int ac, char **argv, char **envp)
 	ft_tshell_init(*shell, argv, envp);
 	signal(SIGINT, sig_ctrlc);
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTERM, sig_term);
+	signal(SIGKILL, sig_term);
 	return (EXIT_SUCCESS);
 }
 
@@ -99,11 +101,11 @@ int	main(int argc, char *argv[], char **envp)
 		free(line);
 		line = readline(shell->print_prefix_success);
 		if (line == NULL)
-			return (ft_free_shell(shell), EXIT_SUCCESS);
+			return (ft_free_shell(shell), printf("exit\n"), EXIT_SUCCESS);
 		if (line)
 			add_history(line);
 		if (ft_strncmp(line, "exit", 5) == 0)
-			return (ft_free_shell(shell), EXIT_SUCCESS);
+			return (ft_free_shell(shell), printf("exit\n"), EXIT_SUCCESS);
 		ft_qparser_shell(shell, line);
 		ft_parse(shell, line);
 		ft_free_parms(shell);
