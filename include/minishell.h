@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:13:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/23 12:52:18 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:03:03 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 void	sig_ctrlc(int sig);
 void	sig_term(int sig);
 void	sig_segv(int sig);
+void	sig_abort(int sig);
 
 //	FT_PARSE.C
 int		ft_parse(t_minishell *shell, char *line);
