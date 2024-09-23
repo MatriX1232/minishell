@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/23 00:02:23 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/23 12:52:07 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static int	ft_init(t_minishell **shell, int ac, char **argv, char **envp)
 	signal(SIGINT, sig_ctrlc);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTERM, sig_term);
-	signal(SIGKILL, sig_term);
+	signal(SIGSEGV, sig_segv);
 	return (EXIT_SUCCESS);
 }
 
