@@ -16,6 +16,7 @@ FILES = \
 	src/ft_print.c \
 	src/ft_exec.c \
 	src/ft_signals.c \
+	src/ft_anim.c \
 	src/builtins/ft_envp.c \
 	src/builtins/ft_envp2.c \
 	src/builtins/ft_envp_vars.c \
