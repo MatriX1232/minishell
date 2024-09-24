@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:35:52 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/22 23:08:45 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:38:05 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	ft_add_var(t_minishell *shell, char *var)
 static int	ft_cleanup_delete(t_minishell *shell, char **new_env, int i, int j)
 {
 	new_env[i] = NULL;
+	ft_free_env(shell->env);
 	shell->env = new_env;
 	if (i == j)
 		return (EXIT_FAILURE);
@@ -92,11 +93,10 @@ int	ft_delete_var(t_minishell *shell, char *var)
 	{
 		split = ft_split(shell->env[i], '=');
 		if (ft_strncmp(split[0], var, ft_strlen(var)) == 0)
-		{
 			i++;
-			continue ;
-		}
-		new_env[j++] = shell->env[i++];
+		else
+			new_env[j++] = ft_strdup(shell->env[i++]);
+		ft_free_env(split);
 	}
 	return (ft_cleanup_delete(shell, new_env, i, j));
 }

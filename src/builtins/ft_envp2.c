@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:57:32 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/22 18:14:56 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:51:00 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,22 @@ int	ft_tablen(char **tab)
 	while (tab[len])
 		len++;
 	return (len);
+}
+
+char	**ft_init_env(char **envp)
+{
+	int		i;
+	char	**new;
+
+	i = 0;
+	new = (char **) malloc((ft_tablen(envp) + 1) * sizeof(char *));
+	if (!new)
+		return (ft_error(NULL, "Cannot allocate memory\n", 0), NULL);
+	while (envp[i])
+	{
+		new[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	new[i] = NULL;
+	return (new);
 }
