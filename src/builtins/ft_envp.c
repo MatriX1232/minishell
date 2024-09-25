@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:35:52 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/25 15:04:52 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:52:02 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,19 @@ int	ft_add_exists_var(t_minishell *shell, char *var)
 	if (!split)
 		return (ft_error(shell, "Couldn't split var\n", 1), EXIT_FAILURE);
 	var_name = split[0];
-	free(split);
 	i = 0;
 	while (shell->env[i])
 	{
 		if (ft_strncmp(shell->env[i], var_name, ft_strlen(var_name)) == 0)
 		{
 			free(shell->env[i]);
+			ft_free_env(split);
 			shell->env[i] = ft_strdup(var);
 			return (EXIT_SUCCESS);
 		}
 		i++;
 	}
+	ft_free_env(split);
 	return (EXIT_FAILURE);
 }
 
@@ -56,11 +57,12 @@ int	ft_add_var(t_minishell *shell, char *var)
 	i = 0;
 	while (shell->env[i])
 	{
-		new_env[i] = shell->env[i];
+		new_env[i] = ft_strdup(shell->env[i]);
 		i++;
 	}
 	new_env[i] = ft_strdup(var);
 	new_env[i + 1] = NULL;
+	ft_free_env(shell->env);
 	shell->env = new_env;
 	return (EXIT_SUCCESS);
 }
