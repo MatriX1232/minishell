@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:57:32 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/24 17:51:00 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:39:13 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ bool	ft_check_validity(t_minishell *shell, char *var)
 		ft_free_env(split);
 		return (true);
 	}
+	ft_free_env(split);
 	return (false);
 }
 

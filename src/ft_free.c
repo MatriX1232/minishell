@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:49:30 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/21 14:26:18 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:32:26 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	ft_free_shell(t_minishell *shell)
 		free(shell->print_prefix_failure);
 	if (shell->parms == NULL)
 		free(shell->parms);
+	if (shell->env)
+		ft_free_env(shell->env);
 	free(shell);
 }
 
