@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 15:40:01 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/22 14:21:46 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/25 18:05:18 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*ft_get_dquote(t_minishell *shell, char *str)
 	int		len;
 	char	*var_val;
 	char	*new;
+	char	*tmp;
 
 	i = 0;
 	new = ft_calloc(1, sizeof(char));
@@ -30,17 +31,20 @@ char	*ft_get_dquote(t_minishell *shell, char *str)
 		{
 			len = ft_get_var_len(str + i);
 			var_val = ft_get_var_value(shell, ft_substr(str + i, 1, len));
+			tmp = ft_substr(str + i, 0, len);
 			if (!var_val)
-				i += ft_strlen(ft_substr(str + i, 0, len));
+				i += ft_strlen(tmp);
 			else
 			{
-				new = ft_strjoin_free(new, var_val);
+				new = ft_strjoin_free(new, var_val, 1, 0);
 				i += len;
 			}
+			free(var_val);
+			free(tmp);
 		}
 		else
 		{
-			new = ft_strjoin_free(new, ft_substr(str + i, 0, 1));
+			new = ft_strjoin_free(new, ft_substr(str + i, 0, 1), 1, 1);
 			i++;
 		}
 	}
