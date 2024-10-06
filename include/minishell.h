@@ -28,7 +28,6 @@ void	ft_animate_ship(void);
 
 //	FT_PARSE.C
 int		ft_parse(t_minishell *shell, char *line);
-int		check_pipe(char *line);
 int		get_path(char **env);
 char	*get_exe(char *cmd, char *path);
 char	*get_cmd(char *line);
@@ -63,6 +62,8 @@ char	*get_next_line(int fd);
 int		ft_exec(t_minishell *shell, char *line);
 
 //	FT_PIPE.C
-int		pipex(int args, char **argv, char **env);
+int		parse_commands(char **parms, Command **commands);
+int		execute_commands(Command *commands, int cmd_count);
+int		ft_detect_pipe(t_minishell *shell);
 
 #endif

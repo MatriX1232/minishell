@@ -6,7 +6,7 @@ BONUS = ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstiter.c ft_lstlast
 BONUSOBJS = $(BONUS:.c=.o)
 OBJS = $(SRC:.c=.o)
 
-all: $(NAME)
+all: bonus
 
 $(NAME): $(OBJS)
 	ar r $(NAME) $(OBJS)
@@ -22,7 +22,7 @@ fclean: clean
 
 re: fclean all
 
-bonus: all $(BONUSOBJS)
+bonus: $(NAME) $(BONUSOBJS)
 	ar r $(NAME) $(BONUSOBJS) 
 
 .PHONY: all clean fclean re

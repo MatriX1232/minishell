@@ -19,6 +19,15 @@ int	ft_parse(t_minishell *shell, char *line)
 
 	if (*line == '\0')
 		return (EXIT_SUCCESS);
+	else if (ft_detect_pipe(shell) == 1)
+	{
+		Command	*commands;
+		int cmd_count = parse_commands(shell->parms, &commands);
+		execute_commands(commands, cmd_count);
+		for (int i = 0; i < cmd_count; i++)
+			free(commands[i].args);
+		free(commands);
+	}
 	else if (ft_strncmp(shell->parms[0], "pwd", 4) == 0)
 		return (ft_pwd(shell));
 	else if (ft_strncmp(shell->parms[0], "echo", 5) == 0)
@@ -40,27 +49,6 @@ int	ft_parse(t_minishell *shell, char *line)
 			shell, msg, 0), ft_putchar_fd('\n', 2), free(msg), EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
-}
-
-int	check_pipe(char *line)
-{
-	int	i;
-	int	check;
-
-	check = 0;
-	i = 0;
-	while (line[i] && line[i + 1])
-	{
-		if (check == 0 && (line[i] == '<' || (line[i] == '<' && line[i+1] == '<')))
-			check++;
-		if (line[i] == '|' && check == 1)
-			check++;
-		if (check == 2 && (line[i] == '>' || (line[i] == '>' && line[i+1] == '>')))
-		i++;
-	}
-	if (check == 3)
-		return (1);
-	return (0);
 }
 
 char	*get_cmd(char *line)
