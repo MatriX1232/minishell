@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/23 13:02:57 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:49:47 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	ft_tshell_init(t_minishell *shell, char *argv[], char **envp)
 	shell->parms = NULL;
 	shell->argv = argv;
 	shell->quotes = false;
-	shell->env = envp;
+	shell->env = ft_init_env(envp);
 }
 // deleted frees in above function to save lines - shell is freed in ft_error
 // also added shell->mallocs = NULL; to initialize it

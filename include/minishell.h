@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:13:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/23 15:52:27 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/25 18:04:00 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_qparser_shell(t_minishell *shell, char *str);
 //	FT_QUOTE_PARSER2.C
 int		ft_get_tab_len(char **tab);
 int		ft_get_var_len(char *str);
-char	*ft_strjoin_free(char const *s1, char const *s2);
+char	*ft_strjoin_free(char const *s1, char const *s2, bool f1, bool f2);
 char	*ft_malloc_more(char *old, int n);
 void	ft_move_split(t_minishell *shell, char *str, char *ret);
 
