@@ -17,6 +17,7 @@ FILES = \
 	src/ft_exec.c \
 	src/ft_signals.c \
 	src/ft_anim.c \
+	src/ft_realloc.c \
 	src/pipex/ft_pipe.c \
 	src/builtins/ft_envp.c \
 	src/builtins/ft_envp2.c \

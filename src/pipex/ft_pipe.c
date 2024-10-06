@@ -14,7 +14,7 @@
 #include "../../include/minishell.h"
 #include "../../include/libraries.h"
 
-int	parse_commands(char **parms, Command **commands)
+int	parse_commands(t_minishell *shell, char **parms, Command **commands)
 {
 	int			cmd_count;
 	int			idx;
@@ -26,13 +26,13 @@ int	parse_commands(char **parms, Command **commands)
 	idx = 0;
 	cmd_count = 0;
 	cmds_size = 10;
-	cmds = malloc(sizeof(Command) * cmds_size);
+	cmds = ft_calloc(sizeof(Command), cmds_size);
 	if (cmds == NULL)
 	{
-		perror("malloc");
-		exit(EXIT_FAILURE);
+		ft_error(shell, "malloc error", 0);
+		return(EXIT_FAILURE);
 	}
-	cmds[cmd_count].args = malloc(sizeof(char *) * 10);
+	cmds[cmd_count].args = ft_calloc(sizeof(char *), 10);
 	cmds[cmd_count].input_file = NULL;
 	cmds[cmd_count].output_file = NULL;
 	cmds[cmd_count].heredoc_delim = NULL;
@@ -44,18 +44,19 @@ int	parse_commands(char **parms, Command **commands)
 		if (cmd_count >= cmds_size)
 		{
 			cmds_size *= 2;
-			cmds = realloc(cmds, sizeof(Command) * cmds_size);
+			cmds = ft_realloc(cmds, sizeof(Command) * cmds_size,
+				sizeof(Command) * (cmds_size / 2));
 			if (cmds == NULL)
 			{
-				perror("realloc");
-				exit(EXIT_FAILURE);
+				ft_error(shell, "realloc error", 0);
+				return(EXIT_FAILURE);
 			}
 		}
 		if (ft_strncmp(parms[idx], "|", 2) == 0)
 		{
 			cmds[cmd_count].args[arg_idx] = NULL;
 			cmd_count++;
-			cmds[cmd_count].args = malloc(sizeof(char *) * 10);
+			cmds[cmd_count].args = ft_calloc(sizeof(char *), 10);
 			cmds[cmd_count].input_file = NULL;
 			cmds[cmd_count].output_file = NULL;
 			cmds[cmd_count].heredoc_delim = NULL;
@@ -90,12 +91,12 @@ int	parse_commands(char **parms, Command **commands)
 			if (arg_idx >= arg_size - 1)
 			{
 				arg_size *= 2;
-				cmds[cmd_count].args = realloc(cmds[cmd_count].args,
-						sizeof(char*) * arg_size);
+				cmds[cmd_count].args = ft_realloc(cmds[cmd_count].args,
+						sizeof(char *) * arg_size, sizeof(char *) * (arg_size / 2));
 				if (cmds[cmd_count].args == NULL)
 				{
-					perror("realloc");
-					exit(EXIT_FAILURE);
+					ft_error(shell, "realloc error", 0);
+					return(EXIT_FAILURE);
 				}
 			}
 			cmds[cmd_count].args[arg_idx++] = parms[idx];
@@ -108,7 +109,7 @@ int	parse_commands(char **parms, Command **commands)
 	return (cmd_count);
 }
 
-int	execute_commands(Command *commands, int cmd_count)
+int	execute_commands(t_minishell *shell, Command *commands, int cmd_count)
 {
 	int		i;
 	int		j;
@@ -120,15 +121,15 @@ int	execute_commands(Command *commands, int cmd_count)
 	int		hd_pipe[2];
 	char	*line;
 
-	pipes = malloc(sizeof(int *) * (cmd_count - 1));
+	pipes = ft_calloc(sizeof(int *), (cmd_count - 1));
 	i = 0;
 	while (i < cmd_count - 1)
 	{
-		pipes[i] = malloc(sizeof(int) * 2);
+		pipes[i] = ft_calloc(sizeof(int), 2);
 		if (pipe(pipes[i]) == -1)
 		{
-			perror("pipe");
-			exit(EXIT_FAILURE);
+			ft_error(shell, "pipe error", 0);
+			return(EXIT_FAILURE);
 		}
 		i++;
 	}
@@ -143,8 +144,8 @@ int	execute_commands(Command *commands, int cmd_count)
 				fd_in = open(commands[i].input_file, O_RDONLY);
 				if (fd_in < 0)
 				{
-					perror("open input_file");
-					exit(EXIT_FAILURE);
+					ft_error(shell, "failed to open input file", 0);
+					return(EXIT_FAILURE);
 				}
 				dup2(fd_in, STDIN_FILENO);
 				close(fd_in);
@@ -159,8 +160,8 @@ int	execute_commands(Command *commands, int cmd_count)
 							O_WRONLY | O_CREAT | O_TRUNC, 0644);
 				if (fd_out < 0)
 				{
-					perror("open output_file");
-					exit(EXIT_FAILURE);
+					ft_error(shell, "failed to open output file", 0);
+					return(EXIT_FAILURE);
 				}
 				dup2(fd_out, STDOUT_FILENO);
 				close(fd_out);
@@ -169,8 +170,8 @@ int	execute_commands(Command *commands, int cmd_count)
 			{
 				if (pipe(hd_pipe) == -1)
 				{
-					perror("pipe");
-					exit(EXIT_FAILURE);
+					ft_error(shell, "pipe error", 0);
+					return(EXIT_FAILURE);
 				}
 				hd_pid = fork();
 				if (hd_pid == 0)
@@ -211,9 +212,11 @@ int	execute_commands(Command *commands, int cmd_count)
 				close(pipes[j][1]);
 				j++;
 			}
-			execvp(commands[i].args[0], commands[i].args);
-			perror("execvp");
-			exit(EXIT_FAILURE);
+			execve(get_exe(commands[i].args[0],
+					shell->env[get_path(shell->env)]),
+					commands[i].args, shell->env);
+			ft_error(shell, "execve error", 0);
+			return(EXIT_FAILURE);
 		}
 		i++;
 	}

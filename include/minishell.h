@@ -55,6 +55,9 @@ void	ft_free_parms(t_minishell *shell);
 void	ft_error(t_minishell *shell, char *message, int shell_failure);
 void	ft_success(t_minishell *shell);
 
+//	FT_REALLOC.C
+void	*ft_realloc(void *ptr, size_t size, size_t old_size);
+
 //	GNL.C
 char	*get_next_line(int fd);
 
@@ -62,8 +65,8 @@ char	*get_next_line(int fd);
 int		ft_exec(t_minishell *shell, char *line);
 
 //	FT_PIPE.C
-int		parse_commands(char **parms, Command **commands);
-int		execute_commands(Command *commands, int cmd_count);
+int		parse_commands(t_minishell *shell, char **parms, Command **commands);
+int		execute_commands(t_minishell *shell, Command *commands, int cmd_count);
 int		ft_detect_pipe(t_minishell *shell);
 
 #endif

@@ -16,16 +16,19 @@
 int	ft_parse(t_minishell *shell, char *line)
 {
 	char	*msg;
+	int		i;
+	int		cmd_count;
+	Command	*commands;
 
 	if (*line == '\0')
 		return (EXIT_SUCCESS);
 	else if (ft_detect_pipe(shell) == 1)
 	{
-		Command	*commands;
-		int cmd_count = parse_commands(shell->parms, &commands);
-		execute_commands(commands, cmd_count);
-		for (int i = 0; i < cmd_count; i++)
-			free(commands[i].args);
+		cmd_count = parse_commands(shell, shell->parms, &commands);
+		execute_commands(shell, commands, cmd_count);
+		i = 0;
+		while (i < cmd_count)
+			free(commands[i++].args);
 		free(commands);
 	}
 	else if (ft_strncmp(shell->parms[0], "pwd", 4) == 0)
