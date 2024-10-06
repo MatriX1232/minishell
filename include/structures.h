@@ -51,11 +51,11 @@ typedef struct s_minishell
 }	t_minishell;
 
 typedef struct {
-    char **args;            // Command arguments
-    char *input_file;       // Input redirection file
-    char *output_file;      // Output redirection file
-    char *heredoc_delim;    // Here-document delimiter
-    int append;             // Append flag for '>>'
+	char	**args;
+	char	*input_file;
+	char	*output_file;
+	char	*heredoc_delim;
+	int		append;
 } Command;
 
 
