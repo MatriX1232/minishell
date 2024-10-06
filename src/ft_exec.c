@@ -27,6 +27,7 @@ int	ft_exec(t_minishell *shell, char *line)
 	pid_t	pid;
 	char	**parms;
 	char	*exe;
+	int		status;
 
 	parms = ft_split(line, ' ');
 	exe = get_exe(parms[0], shell->env[get_path(shell->env)]);
@@ -42,7 +43,11 @@ int	ft_exec(t_minishell *shell, char *line)
 		ft_error(shell, "Execve failed", 0);
 		exit(EXIT_FAILURE);
 	}
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(WEXITSTATUS(status)), 0, 1));
+	else if (WIFSIGNALED(status))
+		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(128 + WTERMSIG(status)), 0, 1));
 	ft_free_parms_local(parms);
 	return (EXIT_SUCCESS);
 }

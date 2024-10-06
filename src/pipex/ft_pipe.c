@@ -29,7 +29,7 @@ int	parse_commands(t_minishell *shell, char **parms, Command **commands)
 	if (cmds == NULL)
 	{
 		ft_error(shell, "malloc error", 0);
-		return(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	cmds[cmd_count].args = ft_calloc(sizeof(char *), 10);
 	cmds[cmd_count].input_file = NULL;
@@ -48,7 +48,7 @@ int	parse_commands(t_minishell *shell, char **parms, Command **commands)
 			if (cmds == NULL)
 			{
 				ft_error(shell, "realloc error", 0);
-				return(EXIT_FAILURE);
+				exit(EXIT_FAILURE);
 			}
 		}
 		if (ft_strncmp(parms[idx], "|", 2) == 0)
@@ -95,7 +95,7 @@ int	parse_commands(t_minishell *shell, char **parms, Command **commands)
 				if (cmds[cmd_count].args == NULL)
 				{
 					ft_error(shell, "realloc error", 0);
-					return(EXIT_FAILURE);
+					exit(EXIT_FAILURE);
 				}
 			}
 			cmds[cmd_count].args[arg_idx++] = parms[idx];
@@ -119,6 +119,7 @@ int	execute_commands(t_minishell *shell, Command *commands, int cmd_count)
 	pid_t	hd_pid;
 	int		hd_pipe[2];
 	char	*line;
+	int		status;
 
 	pipes = ft_calloc(sizeof(int *), (cmd_count - 1));
 	i = 0;
@@ -128,7 +129,7 @@ int	execute_commands(t_minishell *shell, Command *commands, int cmd_count)
 		if (pipe(pipes[i]) == -1)
 		{
 			ft_error(shell, "pipe error", 0);
-			return(EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 		}
 		i++;
 	}
@@ -144,7 +145,7 @@ int	execute_commands(t_minishell *shell, Command *commands, int cmd_count)
 				if (fd_in < 0)
 				{
 					ft_error(shell, "failed to open input file", 0);
-					return(EXIT_FAILURE);
+					exit(EXIT_FAILURE);
 				}
 				dup2(fd_in, STDIN_FILENO);
 				close(fd_in);
@@ -160,7 +161,7 @@ int	execute_commands(t_minishell *shell, Command *commands, int cmd_count)
 				if (fd_out < 0)
 				{
 					ft_error(shell, "failed to open output file", 0);
-					return(EXIT_FAILURE);
+					exit(EXIT_FAILURE);
 				}
 				dup2(fd_out, STDOUT_FILENO);
 				close(fd_out);
@@ -170,7 +171,7 @@ int	execute_commands(t_minishell *shell, Command *commands, int cmd_count)
 				if (pipe(hd_pipe) == -1)
 				{
 					ft_error(shell, "pipe error", 0);
-					return(EXIT_FAILURE);
+					exit(EXIT_FAILURE);
 				}
 				hd_pid = fork();
 				if (hd_pid == 0)
@@ -215,7 +216,7 @@ int	execute_commands(t_minishell *shell, Command *commands, int cmd_count)
 					shell->env[get_path(shell->env)]),
 					commands[i].args, shell->env);
 			ft_error(shell, "execve error", 0);
-			return(EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 		}
 		i++;
 	}
@@ -229,8 +230,13 @@ int	execute_commands(t_minishell *shell, Command *commands, int cmd_count)
 	}
 	free(pipes);
 	i = 0;
+	status = 0;
 	while (i++ < cmd_count)
-		wait(NULL);
+		wait(&status);
+	if (WIFEXITED(status))
+		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(WEXITSTATUS(status)), 0, 1));
+	else if (WIFSIGNALED(status))
+		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(128 + WTERMSIG(status)), 0, 1));
 	return (0);
 }
 
