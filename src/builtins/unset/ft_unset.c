@@ -18,7 +18,7 @@ static int	ft_invalid_name(t_minishell *shell, char *var)
 	char	*msg;
 
 	msg = ft_strjoin("Invalid variable name: ", shell->parms[1]);
-	msg = ft_strjoin_free(msg, "\n");
+	msg = ft_strjoin_free(msg, "\n", 0, 1);
 	ft_error(shell, msg, 0);
 	free(msg);
 	free(var);
@@ -49,7 +49,7 @@ int	ft_unset(t_minishell *shell)
 	else if (ft_delete_var(shell, shell->parms[1]) == EXIT_FAILURE)
 	{
 		msg = ft_strjoin("Could not unset variable: ", shell->parms[1]);
-		msg = ft_strjoin_free(msg, "\n");
+		msg = ft_strjoin_free(msg, "\n", 0, 1);
 		ft_error(shell, msg, 0);
 		free(msg);
 		free(var);
