@@ -12,7 +12,6 @@
 
 #include "../../include/structures.h"
 #include "../../include/minishell.h"
-#include "../../include/libraries.h"
 
 int	parse_commands(t_minishell *shell, char **parms, Command **commands)
 {
