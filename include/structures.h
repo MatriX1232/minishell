@@ -30,8 +30,17 @@
 
 # include <stdbool.h>
 
+typedef struct s_pipe
+{
+	int		count;
+	int		*pid;
+	int		redirect;
+	bool	here_doc;
+}	t_pipe;
+
 typedef struct s_minishell
 {
+	t_pipe	pipe;
 	char	*cwd;
 	char	*print_prefix_success;
 	char	*print_prefix_failure;
@@ -40,5 +49,14 @@ typedef struct s_minishell
 	char	**argv;
 	char	**env;
 }	t_minishell;
+
+typedef struct {
+    char **args;            // Command arguments
+    char *input_file;       // Input redirection file
+    char *output_file;      // Output redirection file
+    char *heredoc_delim;    // Here-document delimiter
+    int append;             // Append flag for '>>'
+} Command;
+
 
 #endif
