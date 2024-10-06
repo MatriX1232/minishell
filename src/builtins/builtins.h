@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:31:56 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/21 14:02:58 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:49:25 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ char	*ft_get_var_value(t_minishell *shell, char *var);
 void	ft_free_env(char **env);
 bool	ft_check_validity(t_minishell *shell, char *var);
 int		ft_tablen(char **tab);
+char	**ft_init_env(char **envp);
 
 #endif

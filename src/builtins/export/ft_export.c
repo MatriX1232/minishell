@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 23:01:30 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/17 21:13:15 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:47:05 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_export(t_minishell *shell)
 
 	if (!shell->parms[1])
 		ft_print_parms(shell->env);
-	else if (!shell->parms[1] || shell->parms[0][6] != '\0')
+	else if (shell->parms[1] && ft_strchr(shell->parms[1], '=') == NULL)
 	{
 		msg = ft_strdup("Usage: export <variable> | <variable> is optional\n");
 		ft_error(shell, msg, 0);

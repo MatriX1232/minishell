@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 15:18:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/22 17:51:39 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/09/25 18:03:25 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_get_var_len(char *str)
 	return (i - 1);
 }
 
-char	*ft_strjoin_free(char const *s1, char const *s2)
+char	*ft_strjoin_free(char const *s1, char const *s2, bool f1, bool f2)
 {
 	int		len1;
 	int		len2;
@@ -54,7 +54,10 @@ char	*ft_strjoin_free(char const *s1, char const *s2)
 	i = -1;
 	while (i++ < len2)
 		str[len1 + i] = (char)s2[i];
-	free((char *)s1);
+	if (f1)
+		free((char *)s1);
+	if (f2)
+		free((char *)s2);
 	return (str);
 }
 
@@ -86,8 +89,9 @@ void	ft_move_split(t_minishell *shell, char *str, char *ret)
 	i = 1;
 	while (split[i - 1])
 	{
-		shell->parms[i] = split[i - 1];
+		shell->parms[i] = ft_strdup(split[i - 1]);
 		i++;
 	}
 	shell->parms[i] = NULL;
+	ft_free_env(split);
 }
