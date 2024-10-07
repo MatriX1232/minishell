@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -g -Wall -Wextra -Werror -Iinclude/
+CFLAGS = -Wall -Wextra -Werror -Iinclude/
 LFLAGS = -lreadline
 
 NAME = minishell
@@ -18,6 +18,7 @@ FILES = \
 	src/ft_signals.c \
 	src/ft_anim.c \
 	src/ft_realloc.c \
+	src/gnl.c \
 	src/pipex/ft_pipe.c \
 	src/builtins/ft_envp.c \
 	src/builtins/ft_envp2.c \
@@ -39,7 +40,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C $(LIBFT)
-	$(CC) $(CFLAGS) $(LFLAGS) -o $(NAME) $(OBJS) src/gnl.o $(LIBFT)/libft.a
+	$(CC) $(CFLAGS) $(LFLAGS) -o $(NAME) $(OBJS) $(LIBFT)/libft.a
 
 clean:
 	make -C $(LIBFT) clean
