@@ -97,6 +97,7 @@ int	main(int argc, char *argv[], char **envp)
 	if (ft_init(&shell, argc, argv, envp) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	line = ft_strdup("");
+	ft_add_var(shell, ft_strdup("?=0"));
 	while (line)
 	{
 		free(line);
@@ -107,9 +108,12 @@ int	main(int argc, char *argv[], char **envp)
 			add_history(line);
 		if (ft_strncmp(line, "exit", 5) == 0)
 			return (ft_free_shell(shell), printf("exit\n"), EXIT_SUCCESS);
-		ft_qparser_shell(shell, line);
-		ft_parse(shell, line);
-		ft_free_parms(shell);
+		if (ft_check_line(line) == 1)
+		{
+			ft_qparser_shell(shell, line);
+			ft_parse(shell, line);
+			ft_free_parms(shell);
+		}
 	}
 	return (EXIT_SUCCESS);
 }

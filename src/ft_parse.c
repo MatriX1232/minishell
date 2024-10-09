@@ -49,7 +49,8 @@ int	ft_parse(t_minishell *shell, char *line)
 	{
 		if (ft_add_var(shell, line) == EXIT_FAILURE)
 			return (msg = ft_strjoin("Command not found: ", shell->parms[0]), ft_error(\
-			shell, msg, 0), ft_putchar_fd('\n', 2), free(msg), EXIT_FAILURE);
+			shell, msg, 0), ft_putchar_fd('\n', 2), free(msg), ft_add_var(shell,
+			ft_strdup("?=127")), EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -87,6 +88,8 @@ char	*get_exe(char *cmd, char *path)
 	char	*tmp;
 	int		i;
 
+	if (access(cmd, F_OK) == 0)
+		return (ft_strdup(cmd));
 	dirs = ft_split(path + 5, ':');
 	i = 0;
 	while (dirs[i])

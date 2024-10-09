@@ -54,6 +54,7 @@ void	ft_free_parms(t_minishell *shell);
 //	FT_PRINT.C
 void	ft_error(t_minishell *shell, char *message, int shell_failure);
 void	ft_success(t_minishell *shell);
+int		ft_check_line(char *line);
 
 //	FT_REALLOC.C
 void	*ft_realloc(void *ptr, size_t size, size_t old_size);

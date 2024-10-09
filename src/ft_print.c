@@ -23,3 +23,17 @@ void	ft_error(t_minishell *shell, char *message, int shell_failure)
 	ft_putstr_fd(message, 2);
 	ft_putstr_fd(END, 2);
 }
+
+int	ft_check_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '\t')
+			return (1);
+		i++;
+	}
+	return (0);
+}
