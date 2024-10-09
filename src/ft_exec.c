@@ -34,7 +34,8 @@ int	ft_exec(t_minishell *shell, char *line)
 	if (exe == NULL)
 	{
 		ft_free_parms_local(parms);
-		return (ft_error(shell, "Command not found", 0), EXIT_FAILURE);
+		ft_add_var(shell, ft_strdup("?=127"));
+		return (ft_error(shell, "Command not found\n", 0), EXIT_FAILURE);
 	}
 	pid = fork();
 	if (pid == 0)
