@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -Iinclude/
+CFLAGS = -Wall -Wextra -Werror -Iinclude/ -g
 LFLAGS = -lreadline
 
 NAME = minishell
@@ -20,6 +20,7 @@ FILES = \
 	src/ft_realloc.c \
 	src/gnl.c \
 	src/pipex/ft_pipe.c \
+	src/quotes/ft_dquote.c \
 	src/builtins/ft_envp.c \
 	src/builtins/ft_envp2.c \
 	src/builtins/ft_envp_vars.c \
@@ -36,9 +37,12 @@ OBJS = ${FILES:.c=.o}
 all: $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
+	@printf "\n\033[FCompiling $<\n"
+	@$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
+
 
 $(NAME): $(OBJS)
+	@printf "\n"
 	@make -C $(LIBFT)
 	$(CC) $(CFLAGS) $(LFLAGS) -o $(NAME) $(OBJS) $(LIBFT)/libft.a
 
