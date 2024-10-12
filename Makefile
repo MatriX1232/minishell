@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -Iinclude/ -g
+CFLAGS = -Wall -Wextra -Werror -Iinclude/
 LFLAGS = -lreadline
 
 NAME = minishell

@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:33:10 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/22 18:19:25 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/13 00:07:10 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@
 # define CYAN "\x1b[36m"
 # define WHITE "\x1b[37m"
 
-# include <stdbool.h>
-
 typedef struct s_pipe
 {
 	int		count;
@@ -50,13 +48,13 @@ typedef struct s_minishell
 	char	**env;
 }	t_minishell;
 
-typedef struct {
+typedef struct s_Command
+{
 	char	**args;
 	char	*input_file;
 	char	*output_file;
 	char	*heredoc_delim;
 	int		append;
-} Command;
-
+}	Command;
 
 #endif

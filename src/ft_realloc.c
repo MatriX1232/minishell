@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idomagal <idomagal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 21:08:48 by idomagal          #+#    #+#             */
-/*   Updated: 2024/10/06 21:08:58 by idomagal         ###   ########.fr       */
+/*   Updated: 2024/10/13 00:09:34 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

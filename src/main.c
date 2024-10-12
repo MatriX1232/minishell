@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/13 00:03:24 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/13 00:13:05 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,6 @@ static void	ft_tshell_init(t_minishell *shell, char *argv[], char **envp)
 // deleted frees in above function to save lines - shell is freed in ft_error
 // also added shell->mallocs = NULL; to initialize it
 
-void	ft_print_parms(char **parms)
-{
-	int	i;
-
-	i = 0;
-	while (parms[i])
-		printf("%s\n", parms[i++]);
-}
-
 static int	ft_init(t_minishell **shell, int ac, char **argv, char **envp)
 {
 	(void)ac;
@@ -87,6 +78,13 @@ static int	ft_init(t_minishell **shell, int ac, char **argv, char **envp)
 	signal(SIGSEGV, sig_segv);
 	signal(SIGABRT, sig_abort);
 	return (EXIT_SUCCESS);
+}
+
+static void	ft_on_exit(t_minishell *shell, char *line)
+{
+	printf("exit\n");
+	free(line);
+	ft_free_shell(shell);
 }
 
 int	main(int argc, char *argv[], char **envp)
@@ -107,7 +105,7 @@ int	main(int argc, char *argv[], char **envp)
 		if (line)
 			add_history(line);
 		if (ft_strncmp(line, "exit", 5) == 0)
-			return (ft_free_shell(shell), free(line), printf("exit\n"), EXIT_SUCCESS);
+			break ;
 		if (ft_check_line(line) == 1)
 		{
 			ft_qparser_shell(shell, line);
@@ -115,5 +113,5 @@ int	main(int argc, char *argv[], char **envp)
 			ft_free_parms(shell);
 		}
 	}
-	return (EXIT_SUCCESS);
+	return (ft_on_exit(shell, line), EXIT_SUCCESS);
 }
