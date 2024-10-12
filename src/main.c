@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/12 23:41:05 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/13 00:03:24 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int	main(int argc, char *argv[], char **envp)
 	if (ft_init(&shell, argc, argv, envp) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	line = ft_strdup("");
-	ft_add_var(shell, ft_strdup("M?Y=0"));
 	while (line)
 	{
 		free(line);
@@ -108,7 +107,7 @@ int	main(int argc, char *argv[], char **envp)
 		if (line)
 			add_history(line);
 		if (ft_strncmp(line, "exit", 5) == 0)
-			return (ft_free_shell(shell), printf("exit\n"), EXIT_SUCCESS);
+			return (ft_free_shell(shell), free(line), printf("exit\n"), EXIT_SUCCESS);
 		if (ft_check_line(line) == 1)
 		{
 			ft_qparser_shell(shell, line);
