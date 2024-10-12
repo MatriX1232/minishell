@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/24 17:49:47 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/12 20:47:32 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	ft_init(t_minishell **shell, int ac, char **argv, char **envp)
 	signal(SIGABRT, sig_abort);
 	return (EXIT_SUCCESS);
 }
-
+#include "quotes/quotes.h"
 int	main(int argc, char *argv[], char **envp)
 {
 	t_minishell	*shell;

@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:16:25 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/07 19:36:10 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/12 19:48:38 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	ft_free_split(char **split)
 	If FAILURE:
 		Returns NULL
 */
-char	*ft_get_var_value(t_minishell *shell, char *var)
+char	*ft_get_var_value(t_minishell *shell, char *var_name)
 {
 	int		i;
 	char	**split;
@@ -43,7 +43,7 @@ char	*ft_get_var_value(t_minishell *shell, char *var)
 		split = ft_split(shell->env[i], '=');
 		if (!split)
 			return (ft_error(shell, "Couldn't split var\n", 1), NULL);
-		if (ft_strncmp(split[0], var, ft_strlen(split[0])) == 0)
+		if (ft_strncmp(split[0], var_name, ft_strlen(split[0]) + 1) == 0)
 		{
 			ret = ft_strdup(split[1]);
 			ft_free_split(split);
@@ -53,4 +53,18 @@ char	*ft_get_var_value(t_minishell *shell, char *var)
 		i++;
 	}
 	return (NULL);
+}
+
+char	*ft_get_var_name(char *line)
+{
+	int		i;
+	char	*ret;
+
+	i = 1;
+	while (line[i] && (ft_isalnum(line[i]) || line[i] == '_'))
+		i++;
+	ret = ft_substr(line, 1, i - 1);
+	if (!ret)
+		return (NULL);
+	return (ret);
 }

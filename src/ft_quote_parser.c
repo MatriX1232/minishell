@@ -6,13 +6,14 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:41:31 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/25 17:30:57 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/12 22:54:16 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/libraries.h"
 #include "../include/structures.h"
+#include "quotes/quotes.h"
 
 static void	ft_squote(char *str, char *ret, int *i)
 {
@@ -30,19 +31,16 @@ static void	ft_squote(char *str, char *ret, int *i)
 
 static void	ft_dquote(t_minishell *shell, char *str, char *ret, int *i)
 {
-	int		j;
-	char	*new;
-	char	*trim;
+	char	*tmp;
 
-	j = *i + 1;
-	while (str[j] && str[j] != 34)
-		j++;
-	new = ft_get_dquote(shell, str + *i + 1);
-	trim = ft_strtrim(new, "\"");
-	ft_strlcat(ret, trim, 1000);
-	free(new);
-	free(trim);
-	*i = j + 1;
+	tmp = ft_pdquote(shell, str + *i);
+	ft_strlcat(ret, tmp, ft_strlen(ret) + ft_strlen(tmp) + 1);
+	free(tmp);
+	(*i)++;
+	while (str[*i] && str[*i] != '\"')
+		(*i)++;
+	(*i)++;
+	printf("ft_dquote: %s | %d | <%c>\n", ret, *i, str[*i]);
 }
 
 static void	ft_vars(t_minishell *shell, char *str, char *ret, int *i)
@@ -50,12 +48,10 @@ static void	ft_vars(t_minishell *shell, char *str, char *ret, int *i)
 	char	*tmp;
 	char	*var;
 
-	tmp = ft_substr(str + *i, 1, ft_get_var_len(str + *i));
-	// printf("VAR_NAME: %s\n", tmp);
+	// tmp = ft_substr(str + *i, 1, ft_get_var_len(str + *i));
+	tmp = ft_get_var_name(str + *i);
 	var = ft_get_var_value(shell, tmp);
-	// printf("VAR_VALUE: %s\n", var);
-	ft_strlcat(ret, var, 1000);
-	// printf("ret: %s\n", ret);
+	ft_strlcat(ret, var, 10000);
 	free(var);
 	*i += ft_strlen(tmp) + 1;
 	free(tmp);
@@ -71,12 +67,13 @@ static void	ft_normal(char *str, char *ret, int *i)
 	(*i)++;
 }
 
+//	TODO:	Change to 10 000 in PROD
 void	ft_qparser_shell(t_minishell *shell, char *str)
 {
 	int		i;
 	char	*ret;
 
-	ret = (char *) ft_calloc(1000, sizeof(char));
+	ret = (char *) ft_calloc(10000, sizeof(char));
 	if (!ret)
 		return (ft_error(shell, "Could not calloc\n", 1));
 	i = 0;
@@ -88,9 +85,9 @@ void	ft_qparser_shell(t_minishell *shell, char *str)
 	{
 		if (str[i] == '$')
 			ft_vars(shell, str, ret, &i);
-		else if (str[i] == 34)
+		else if (str[i] == '\"')
 			ft_dquote(shell, str, ret, &i);
-		else if (str[i] == 39)
+		else if (str[i] == '\'')
 			ft_squote(str, ret, &i);
 		else
 			ft_normal(str, ret, &i);
