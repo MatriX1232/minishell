@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 23:01:30 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/07 19:49:21 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/12 23:51:45 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,20 @@
 
 static void	ft_print_parms(char **parms)
 {
-	int	i;
+	int		i;
+	char	**split;
 
 	i = 0;
 	while (parms[i])
-		printf("declare -x %s\n", parms[i++]);
+	{
+		split = ft_split(parms[i], '=');
+		if (!split)
+			printf("%sERROR: split\n%s", RED, END);
+		else
+			printf("declare -x %s=\"%s\"\n", split[0], split[1]);
+		ft_free_env(split);
+		i++;
+	}
 }
 
 int	ft_export(t_minishell *shell)
