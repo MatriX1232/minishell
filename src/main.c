@@ -6,12 +6,13 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/12 20:47:32 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/12 23:41:05 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/libraries.h"
+#include "quotes/quotes.h"
 
 /*
 	Allocate memory for the shell structure
@@ -87,7 +88,7 @@ static int	ft_init(t_minishell **shell, int ac, char **argv, char **envp)
 	signal(SIGABRT, sig_abort);
 	return (EXIT_SUCCESS);
 }
-#include "quotes/quotes.h"
+
 int	main(int argc, char *argv[], char **envp)
 {
 	t_minishell	*shell;
@@ -97,7 +98,7 @@ int	main(int argc, char *argv[], char **envp)
 	if (ft_init(&shell, argc, argv, envp) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	line = ft_strdup("");
-	ft_add_var(shell, ft_strdup("?=0"));
+	ft_add_var(shell, ft_strdup("M?Y=0"));
 	while (line)
 	{
 		free(line);

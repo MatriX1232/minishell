@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:57:32 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/25 16:39:13 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/12 23:44:36 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ void	ft_free_env(char **env)
 	while (env[i])
 		free(env[i++]);
 	free(env);
-	// env = NULL;
+	env = NULL;
 }
 
 bool	ft_check_validity(t_minishell *shell, char *var)
 {
+	int		i;
 	char	**split;
 
 	split = ft_split(var, '=');
@@ -32,8 +33,16 @@ bool	ft_check_validity(t_minishell *shell, char *var)
 		return (ft_error(shell, "Couldn't split var\n", 1), false);
 	if (ft_tablen(split) == 2)
 	{
+		i = 0;
+		while (split[0] && (ft_isalnum(split[0][i]) || split[0][i] == '_'))
+			i++;
+		if (split[0][i] == '\0')
+		{
+			ft_free_env(split);
+			return (true);
+		}
 		ft_free_env(split);
-		return (true);
+		return (false);
 	}
 	ft_free_env(split);
 	return (false);
