@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:35:52 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/12 23:41:12 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:48:51 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,13 @@ int	ft_delete_var(t_minishell *shell, char *var)
 	len = ft_tablen(shell->env);
 	i = 0;
 	j = 0;
-	new_env = (char **) malloc(len * sizeof(char *));
+	new_env = (char **) malloc((len + 1) * sizeof(char *));
 	if (!new_env)
 		return (ft_error(shell, "Couldn't allocate memory\n", 1), EXIT_FAILURE);
 	while (i < len)
 	{
 		split = ft_split(shell->env[i], '=');
-		if (ft_strncmp(split[0], var, ft_strlen(var)) == 0)
+		if (ft_strncmp(split[0], var, ft_strlen(split[0]) + 1) == 0)
 			i++;
 		else
 			new_env[j++] = ft_strdup(shell->env[i++]);

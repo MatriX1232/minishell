@@ -23,6 +23,6 @@ fclean: clean
 re: fclean all
 
 bonus: $(NAME) $(BONUSOBJS)
-	ar r $(NAME) $(BONUSOBJS) 
+	ar r $(NAME) $(BONUSOBJS)
 
 .PHONY: all clean fclean re

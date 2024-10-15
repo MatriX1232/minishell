@@ -1,6 +1,8 @@
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -Iinclude/
 LFLAGS = -lreadline
+THREADS = -j $(expr $(nproc) \+ 1)
+
 
 NAME = minishell
 
@@ -42,7 +44,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@printf "\n"
-	@make -C $(LIBFT)
+	@make -C $(LIBFT) $(THREADS)
 	$(CC) $(CFLAGS) $(LFLAGS) -o $(NAME) $(OBJS) $(LIBFT)/libft.a
 
 clean:
