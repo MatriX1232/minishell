@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:31:56 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/12 19:41:29 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 22:08:54 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		ft_export(t_minishell *shell);
 
 //	FT_ENVP.C
 int		ft_add_exists_var(t_minishell *shell, char *var);
-int		ft_add_var(t_minishell *shell, char *var);
+int		ft_add_var(t_minishell *shell, char *var, bool system);
 int		ft_delete_var(t_minishell *shell, char *var);
 char	*ft_get_var_value(t_minishell *shell, char *var);
 char	*ft_get_var_name(char *line);

@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:35:52 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/15 16:15:05 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 22:08:35 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ int	ft_add_exists_var(t_minishell *shell, char *var)
 	return (EXIT_FAILURE);
 }
 
-int	ft_add_var(t_minishell *shell, char *var)
+int	ft_add_var(t_minishell *shell, char *var, bool system)
 {
 	int		i;
 	int		len;
 	char	**new_env;
 
-	if (ft_check_validity(shell, var) == false)
+	if (!system && ft_check_validity(shell, var) == false)
 		return (ft_error(shell, "Argument is not valid\n", 0), EXIT_FAILURE);
 	if (ft_add_exists_var(shell, var) == EXIT_SUCCESS)
 		return (EXIT_SUCCESS);
