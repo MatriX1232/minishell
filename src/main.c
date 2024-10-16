@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/16 13:32:42 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 22:24:07 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,12 @@ static int	ft_init(t_minishell **shell, int ac, char **argv, char **envp)
 	return (EXIT_SUCCESS);
 }
 
-static void	ft_on_exit(t_minishell *shell, char *line)
+static int	ft_on_exit(t_minishell *shell, char *line)
 {
 	printf("exit\n");
 	free(line);
 	ft_free_shell(shell);
+	return (EXIT_SUCCESS);
 }
 
 int	main(int argc, char *argv[], char **envp)
@@ -113,5 +114,5 @@ int	main(int argc, char *argv[], char **envp)
 			ft_free_parms(shell);
 		}
 	}
-	return (ft_on_exit(shell, line), EXIT_SUCCESS);
+	return (ft_on_exit(shell, line));
 }

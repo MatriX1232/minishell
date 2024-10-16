@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 10:29:48 by idomagal          #+#    #+#             */
-/*   Updated: 2024/10/15 14:15:08 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 22:10:28 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,9 +234,9 @@ int	execute_commands(t_minishell *shell, Command *commands, int cmd_count)
 	while (i++ < cmd_count)
 		wait(&status);
 	if (WIFEXITED(status))
-		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(WEXITSTATUS(status)), 0, 1));
+		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(WEXITSTATUS(status)), 0, 1), 1);
 	else if (WIFSIGNALED(status))
-		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(128 + WTERMSIG(status)), 0, 1));
+		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(128 + WTERMSIG(status)), 0, 1), 1);
 	return (0);
 }
 

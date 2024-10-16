@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 22:36:29 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/16 13:37:12 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 22:10:52 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ int	ft_echo(t_minishell *shell)
 		printf("\n");
 	else if (!shell->parms[1])
 		printf("\n");
-	return (EXIT_SUCCESS);
+	return (ft_add_var(shell, "?=0", 1), EXIT_SUCCESS);
 }
