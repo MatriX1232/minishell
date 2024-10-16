@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 23:01:30 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/16 23:22:47 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 23:45:38 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,29 +49,43 @@ static void	ft_print_parms(char **parms)
 	}
 }
 
-int	ft_export(t_minishell *shell)
+static int	ft_usage(t_minishell *shell)
 {
 	char	*msg;
 
+	msg = ft_strdup("Usage: export <name>=<value> \n");
+	ft_error(shell, msg, 0);
+	free(msg);
+	ft_add_var(shell, "?=1", 1);
+	ft_chose_exit_val(shell, shell->parms[1]);
+	return (EXIT_FAILURE);
+}
+
+static int	ft_export_error(t_minishell *shell)
+{
+	char	*msg;
+
+	msg = ft_strjoin("Could not export variable: ", shell->parms[1]);
+	msg = ft_strjoin_free(msg, "\n", 1, 0);
+	ft_error(shell, msg, 0);
+	free(msg);
+	return (EXIT_FAILURE);
+}
+
+int	ft_export(t_minishell *shell)
+{
+	int	i;
+
 	if (!shell->parms[1])
 		ft_print_parms(shell->env);
-	else if (shell->parms[1] && ft_strchr(shell->parms[1], '=') == NULL)
+	i = 1;
+	while (shell->parms[i])
 	{
-		msg = ft_strdup("Usage: export <name>=<value> \n");
-		ft_error(shell, msg, 0);
-		free(msg);
-		ft_add_var(shell, "?=1", 1);
-		// (void)ft_chose_exit_val;
-		ft_chose_exit_val(shell, shell->parms[1]);
-		return (EXIT_FAILURE);
-	}
-	else if (ft_add_var(shell, shell->parms[1], 0) == EXIT_FAILURE)
-	{
-		msg = ft_strjoin("Could not export variable: ", shell->parms[1]);
-		msg = ft_strjoin_free(msg, "\n", 1, 0);
-		ft_error(shell, msg, 0);
-		free(msg);
-		return (EXIT_FAILURE);
+		if (shell->parms[i] && ft_strchr(shell->parms[i], '=') == NULL)
+			return (ft_usage(shell));
+		else if (ft_add_var(shell, shell->parms[i], 0) == EXIT_FAILURE)
+			return (ft_export_error(shell));
+		i++;
 	}
 	return (EXIT_SUCCESS);
 }

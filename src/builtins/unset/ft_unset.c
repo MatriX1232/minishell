@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 22:53:11 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/15 13:41:41 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 23:50:06 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,29 @@ static int	ft_not_parm(t_minishell *shell)
 	return (EXIT_FAILURE);
 }
 
-int	ft_unset(t_minishell *shell)
+static int	ft_unset_error(t_minishell *shell)
 {
 	char	*msg;
 
+	msg = ft_strjoin("Could not unset variable: ", shell->parms[1]);
+	msg = ft_strjoin_free(msg, "\n", 1, 0);
+	ft_error(shell, msg, 0);
+	free(msg);
+	return (EXIT_FAILURE);
+}
+
+int	ft_unset(t_minishell *shell)
+{
+	int	i;
+
 	if (!shell->parms[1])
 		return (ft_not_parm(shell));
-	else if (ft_delete_var(shell, shell->parms[1]) == EXIT_FAILURE)
+	i = 1;
+	while (shell->parms[i])
 	{
-		msg = ft_strjoin("Could not unset variable: ", shell->parms[1]);
-		msg = ft_strjoin_free(msg, "\n", 1, 0);
-		ft_error(shell, msg, 0);
-		free(msg);
-		return (EXIT_FAILURE);
+		if (ft_delete_var(shell, shell->parms[i]) == EXIT_FAILURE)
+			return (ft_unset_error(shell));
+		i++;
 	}
 	return (EXIT_SUCCESS);
 }

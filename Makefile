@@ -1,8 +1,7 @@
-CC = clang
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iinclude/ -g
 LFLAGS = -lreadline
-THREADS = -j $(expr $(nproc) \+ 1)
-
+THREADS = -j $(expr $(nproc))
 
 NAME = minishell
 
