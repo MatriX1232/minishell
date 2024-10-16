@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:33:10 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/13 00:07:10 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:30:57 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_minishell
 	bool	quotes;
 	char	**argv;
 	char	**env;
+	char	*raw_parsed;
 }	t_minishell;
 
 typedef struct s_Command

@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:16:25 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/15 16:43:23 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 11:11:57 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ char	*ft_get_var_value(t_minishell *shell, char *var_name)
 		if (ft_strncmp(split[0], var_name, ft_strlen(split[0]) + 1) == 0)
 		{
 			ret = ft_strdup(split[1]);
+			if (!ret)
+				return (ft_error(shell, "Couldn't duplicate var\n", 1), NULL);
 			ft_free_split(split);
 			return (ret);
 		}

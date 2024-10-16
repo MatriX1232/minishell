@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 22:36:29 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/22 18:07:59 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:37:12 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,20 @@
 
 int	ft_echo(t_minishell *shell)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
+	bool	f_raw;
 
 	i = 1;
 	len = ft_tablen(shell->parms);
 	if (shell->parms[1] && ft_strncmp(shell->parms[1], "-n", 3) == 0)
 		i = 2;
-	while (shell->parms[i])
+	f_raw = false;
+	if (shell->raw_parsed != NULL)
+		printf("%s", shell->raw_parsed);
+	if (shell->raw_parsed != NULL)
+		f_raw = true;
+	while (shell->parms[i] && !f_raw)
 	{
 		printf("%s", shell->parms[i]);
 		if (i < len)
