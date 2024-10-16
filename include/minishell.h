@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:13:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/16 22:28:39 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 23:22:21 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ int		execute_commands(t_minishell *shell, Command *commands, int cmd_count);
 int		ft_detect_pipe(t_minishell *shell);
 
 // FT_EXIT.C
-void	ft_exit(t_minishell *shell, char *line);
+int		ft_exit(t_minishell *shell, char *line);
 
 #endif

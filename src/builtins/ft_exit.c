@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 22:24:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/16 22:43:59 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 23:22:13 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int free_exit(t_minishell *shell, char *line, char *msg, int exit_code)
 	return (exit_code);
 }
 
-void	ft_exit(t_minishell *shell, char *line)
+int	ft_exit(t_minishell *shell, char *line)
 {
 	int	i;
 
@@ -39,4 +39,5 @@ void	ft_exit(t_minishell *shell, char *line)
 	ft_free_shell(shell);
 	free(line);
 	exit(ft_atoi(shell->parms[1]));
+	return (EXIT_SUCCESS);
 }
