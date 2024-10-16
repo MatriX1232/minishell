@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:47:31 by idomagal          #+#    #+#             */
-/*   Updated: 2024/09/20 15:49:29 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 22:10:14 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_exec(t_minishell *shell, char *line)
 	if (exe == NULL)
 	{
 		ft_free_parms_local(parms);
-		ft_add_var(shell, ft_strdup("?=127"));
+		ft_add_var(shell, ft_strdup("?=127"), 1);
 		return (ft_error(shell, "Command not found\n", 0), EXIT_FAILURE);
 	}
 	pid = fork();
@@ -46,9 +46,9 @@ int	ft_exec(t_minishell *shell, char *line)
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
-		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(WEXITSTATUS(status)), 0, 1));
+		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(WEXITSTATUS(status)), 0, 1), 1);
 	else if (WIFSIGNALED(status))
-		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(128 + WTERMSIG(status)), 0, 1));
+		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(128 + WTERMSIG(status)), 0, 1), 1);
 	ft_free_parms_local(parms);
 	return (EXIT_SUCCESS);
 }

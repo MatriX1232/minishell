@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 22:07:17 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/14 14:42:20 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 22:26:51 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	ft_parse(t_minishell *shell, char *line)
 			free(commands[i++].args);
 		free(commands);
 	}
+	else if (ft_strncmp(shell->parms[0], "exit", 5) == 0)
+		return (ft_exit(shell, line));
 	else if (ft_strncmp(shell->parms[0], "pwd", 4) == 0)
 		return (ft_pwd(shell));
 	else if (ft_strncmp(shell->parms[0], "echo", 5) == 0)
@@ -47,10 +49,10 @@ int	ft_parse(t_minishell *shell, char *line)
 		return (ft_exec(shell, line));
 	else
 	{
-		if (ft_add_var(shell, line) == EXIT_FAILURE)
+		if (ft_add_var(shell, line, 0) == EXIT_FAILURE)
 			return (msg = ft_strjoin("Command not found: ", shell->parms[0]), ft_error(\
 			shell, msg, 0), ft_putchar_fd('\n', 2), free(msg), ft_add_var(shell,
-			ft_strdup("?=127")), EXIT_FAILURE);
+			ft_strdup("?=127"), 1), EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }

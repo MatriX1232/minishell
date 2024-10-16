@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:41:31 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/16 13:34:11 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 21:54:01 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ static void	ft_vars(t_minishell *shell, char *str, char *ret, int *i)
 		tmp = ft_strdup("?");
 	else
 		tmp = ft_get_var_name(str + *i);
-	var = ft_get_var_value(shell, tmp);
+	if (str[*i] == '$' && (ft_intab(str[*i + 1], " \t \0") || !str[*i + 1]))
+		var = ft_strdup("$");
+	else
+		var = ft_get_var_value(shell, tmp);
 	if (!var)
 		var = ft_strdup("");
 	ft_strlcat(ret, var, 10000);
