@@ -22,6 +22,7 @@ FILES = \
 	src/gnl.c \
 	src/pipex/ft_pipe.c \
 	src/quotes/ft_dquote.c \
+	src/builtins/ft_exit.c \
 	src/builtins/ft_envp.c \
 	src/builtins/ft_envp2.c \
 	src/builtins/ft_envp_vars.c \
