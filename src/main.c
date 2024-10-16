@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/13 00:27:29 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:32:42 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	ft_tshell_init(t_minishell *shell, char *argv[], char **envp)
 		ft_error(shell, "Could not allocate memory for prefix failure\n", 1);
 		exit(EXIT_FAILURE);
 	}
-	shell->cwd = (char *) malloc(1024 * sizeof(char));
+	shell->cwd = (char *) malloc(2048 * sizeof(char));
 	if (!shell->cwd)
 	{
 		ft_error(shell, "Could not allocate memory for shell.cwd\n", 1);
@@ -59,7 +59,7 @@ static void	ft_tshell_init(t_minishell *shell, char *argv[], char **envp)
 	}
 	shell->parms = NULL;
 	shell->argv = argv;
-	shell->quotes = false;
+	shell->raw_parsed = NULL;
 	shell->env = ft_init_env(envp);
 }
 // deleted frees in above function to save lines - shell is freed in ft_error

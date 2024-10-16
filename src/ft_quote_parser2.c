@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 15:18:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/09/25 18:03:25 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:38:00 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	ft_move_split(t_minishell *shell, char *str, char *ret)
 	int		i;
 	char	**split;
 
+	shell->raw_parsed = ft_strdup(ret);
 	split = ft_split(ret, ' ');
 	if (!split)
 		return (ft_error(shell, "Could not split\n", 1));
