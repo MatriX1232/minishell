@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:16:25 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/13 00:29:24 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:43:23 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ char	*ft_get_var_value(t_minishell *shell, char *var_name)
 			return (ft_error(shell, "Couldn't split var\n", 1), NULL);
 		if (ft_strncmp(split[0], var_name, ft_strlen(split[0]) + 1) == 0)
 		{
-			printf("FOUND\n");
 			ret = ft_strdup(split[1]);
 			ft_free_split(split);
 			return (ret);
