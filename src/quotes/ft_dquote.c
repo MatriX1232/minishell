@@ -6,11 +6,25 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 11:37:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/16 09:50:38 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 21:48:37 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "quotes.h"
+
+bool	ft_intab(char c, char *tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		if (tab[i] == c)
+			return (true);
+		i++;
+	}
+	return (false);
+}
 
 char	*ft_var_start(t_minishell *shell, char *ret, char *line, int *i)
 {
@@ -23,7 +37,10 @@ char	*ft_var_start(t_minishell *shell, char *ret, char *line, int *i)
 	else
 		var_name = ft_get_var_name(line + *i);
 	(*i)++;
-	var_value = ft_get_var_value(shell, var_name);
+	if (line[*i - 1] == '$' && ft_intab(line[*i], " \t \" \' \0"))
+		var_value = ft_strdup("$");
+	else
+		var_value = ft_get_var_value(shell, var_name);
 	if (!var_value)
 		var_value = ft_strdup("");
 	new_ret = ft_strjoin(ret, var_value);
