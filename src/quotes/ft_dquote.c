@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 11:37:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/12 23:38:03 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/16 09:50:38 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ char	*ft_var_start(t_minishell *shell, char *ret, char *line, int *i)
 	char	*var_name;
 	char	*new_ret;
 
-	var_name = ft_get_var_name(line + *i);
+	if (line[*i + 1] == '?')
+		var_name = ft_strdup("?");
+	else
+		var_name = ft_get_var_name(line + *i);
 	(*i)++;
 	var_value = ft_get_var_value(shell, var_name);
 	if (!var_value)

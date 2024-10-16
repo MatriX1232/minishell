@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:41:31 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/15 13:31:31 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:40:44 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ static void	ft_vars(t_minishell *shell, char *str, char *ret, int *i)
 	char	*tmp;
 	char	*var;
 
-	tmp = ft_get_var_name(str + *i);
+	if (str[*i + 1] == '?')
+		tmp = ft_strdup("?");
+	else
+		tmp = ft_get_var_name(str + *i);
 	var = ft_get_var_value(shell, tmp);
 	if (!var)
 		var = ft_strdup("");
@@ -94,12 +97,4 @@ void	ft_qparser_shell(t_minishell *shell, char *str)
 	}
 	ft_move_split(shell, str, ret);
 	free(ret);
-	int j = 0;
-	while (shell->parms[j])
-	{
-		printf("shell->parms[%d]: %s\n", j, shell->parms[j]);
-		j++;
-	}
-	if (shell->parms[j] == NULL)
-		printf("shell->parms[%d]: %s\n", j, shell->parms[j]);
 }
