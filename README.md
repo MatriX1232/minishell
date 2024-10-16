@@ -1,5 +1,9 @@
 # Minishell
 
+<div align="center">
+  <img src="MINISHELL_LOGO_TEXT.png">
+</div>
+
 <img src="https://github.com/MatriX1232/minishell/blob/6a6c389ad9e90e3b5f0a6c01223e01a6a26db7e9/minishell_example.png"> 
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/MatriX1232/minishell)
