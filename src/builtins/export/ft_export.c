@@ -6,12 +6,13 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 23:01:30 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/17 13:22:03 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:28:37 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 #include "../builtins.h"
+#include "../../quotes/quotes.h"
 
 static void	ft_chose_exit_val(t_minishell *shell, char *var)
 {
@@ -20,7 +21,7 @@ static void	ft_chose_exit_val(t_minishell *shell, char *var)
 	i = 0;
 	while (var[i] && (ft_isalnum(var[i]) || var[i] == '_'))
 		i++;
-	if (var[i] == '\0')
+	if (var[i] == '\0' && !ft_intab('=', var))
 		ft_add_var(shell, "?=0", 1);
 	else
 		ft_add_var(shell, "?=1", 1);
@@ -53,10 +54,10 @@ static int	ft_usage(t_minishell *shell)
 {
 	char	*msg;
 
-	msg = ft_strdup("Usage: export <name>=<value> \n");
+	msg = ft_strdup("Usage: export <name>=<value>\n");
 	ft_error(shell, msg, 0);
 	free(msg);
-	ft_add_var(shell, "?=1", 1);
+	ft_add_var(shell, "?=0", 1);
 	ft_chose_exit_val(shell, shell->parms[1]);
 	return (EXIT_FAILURE);
 }
