@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:41:31 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/17 13:34:06 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:35:40 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,17 @@ static void	ft_normal(char *str, char *ret, int *i)
 	int	j;
 
 	j = ft_strlen(ret);
-	ret[j] = str[*i];
 	if (str[*i] == ' ' || str[*i] == '\t')
 	{
-		ret[j + 1] = SPLIT_SEP;
-		ret[j +  2] = '\0';
-		(*i) += 1;
+		ret[j] = SPLIT_SEP;
+		ret[j + 1] = '\0';
 	}
 	else
 	{
+		ret[j] = str[*i];
 		ret[j + 1] = '\0';
-		(*i)++;
 	}
-
+	(*i)++;
 }
 
 //	TODO:	Change to 10 000 in PROD
