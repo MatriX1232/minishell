@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:57:32 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/16 23:02:52 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/17 12:11:26 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ bool	ft_check_validity(t_minishell *shell, char *var)
 	int		i;
 	char	**split;
 
-	if (*var == '=')
+	if (var && *var == '=')
 		return (ft_add_var(shell, "?=1", 1), false);
 	split = ft_split(var, '=');
 	if (!split)
-		return (ft_error(shell, "Couldn't split var\n", 1), false);
+		return (ft_error(shell, E_SPLIT, 1), false);
 	if (ft_tablen(split) != 2)
 		return (ft_free_env(split), false);
 	i = 0;
@@ -64,7 +64,7 @@ char	**ft_init_env(char **envp)
 	i = 0;
 	new = (char **) malloc((ft_tablen(envp) + 2) * sizeof(char *));
 	if (!new)
-		return (ft_error(NULL, "Cannot allocate memory\n", 0), NULL);
+		return (ft_error(NULL, E_MALLOC, 0), NULL);
 	while (envp[i])
 	{
 		new[i] = ft_strdup(envp[i]);

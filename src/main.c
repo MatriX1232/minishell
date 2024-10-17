@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/16 22:24:07 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:22:32 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,15 @@ static void	ft_tshell_init(t_minishell *shell, char *argv[], char **envp)
 	shell->cwd = NULL;
 	shell->print_prefix_success = ft_strdup("\x1b[33m^_^  minishell ▶ \x1b[0m");
 	if (!shell->print_prefix_success)
-	{
-		ft_error(shell, "Could not allocate memory for prefix success\n", 1);
-		exit(EXIT_FAILURE);
-	}
+		return (ft_error(shell, E_MALLOC, 1), exit(EXIT_FAILURE));
 	shell->print_prefix_failure = ft_strdup("＞︿＜ minishell ▶ ");
 	if (!shell->print_prefix_failure)
-	{
-		ft_error(shell, "Could not allocate memory for prefix failure\n", 1);
-		exit(EXIT_FAILURE);
-	}
+		return (ft_error(shell, E_MALLOC, 1), exit(EXIT_FAILURE));
 	shell->cwd = (char *) malloc(2048 * sizeof(char));
 	if (!shell->cwd)
-	{
-		ft_error(shell, "Could not allocate memory for shell.cwd\n", 1);
-		exit(EXIT_FAILURE);
-	}
+		return (ft_error(shell, E_MALLOC, 1), exit(EXIT_FAILURE));
 	shell->parms = NULL;
 	shell->argv = argv;
-	shell->raw_parsed = NULL;
 	shell->env = ft_init_env(envp);
 }
 // deleted frees in above function to save lines - shell is freed in ft_error
