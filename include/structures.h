@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:33:10 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/16 13:30:57 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:22:16 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # define CYAN "\x1b[36m"
 # define WHITE "\x1b[37m"
 
+# define E_MALLOC "Could not allocate memory\n"
+# define E_SPLIT "Couldn't split parameter\n"
+
 typedef struct s_pipe
 {
 	int		count;
@@ -46,7 +49,6 @@ typedef struct s_minishell
 	bool	quotes;
 	char	**argv;
 	char	**env;
-	char	*raw_parsed;
 }	t_minishell;
 
 typedef struct s_Command

@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:31:56 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/16 22:08:54 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/17 12:49:32 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,8 @@ void	ft_free_env(char **env);
 bool	ft_check_validity(t_minishell *shell, char *var);
 int		ft_tablen(char **tab);
 char	**ft_init_env(char **envp);
+
+// EXPORT/FT_CUSTOM_QPARSER.C
+char	**ft_custom_qparser(t_minishell *shell);
 
 #endif

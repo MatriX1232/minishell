@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:49:30 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/16 13:33:31 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:22:52 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	ft_free_shell(t_minishell *shell)
 		free(shell->parms);
 	if (shell->env)
 		ft_free_env(shell->env);
-	if (shell->raw_parsed)
-		free(shell->raw_parsed);
 	free(shell);
 }
 
