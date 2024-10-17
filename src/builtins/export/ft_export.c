@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 23:01:30 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/17 16:28:37 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:39:24 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	ft_chose_exit_val(t_minishell *shell, char *var)
 		i++;
 	if (var[i] == '\0' && !ft_intab('=', var))
 		ft_add_var(shell, "?=0", 1);
-	else
+	else if (var[i] != '\0' && !ft_intab('=', var))
 		ft_add_var(shell, "?=1", 1);
 	i = 0;
 	while (var[i] && var[i] >= '0' && var[i] <= '9')
