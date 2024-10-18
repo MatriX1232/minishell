@@ -20,7 +20,8 @@ int	ft_env(t_minishell *shell)
 	i = 0;
 	while (shell->env[i])
 	{
-		printf("%s\n", shell->env[i]);
+		ft_putstr_fd(shell->env[i], STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		i++;
 	}
 	return (EXIT_SUCCESS);

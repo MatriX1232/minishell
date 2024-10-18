@@ -13,6 +13,41 @@
 #include "../../include/structures.h"
 #include "../../include/minishell.h"
 
+int is_builtin(char *command)
+{
+	if (ft_strncmp(command, "cd", 3) == 0)
+			return 1;
+	else if (ft_strncmp(command, "echo", 5) == 0)
+			return (1);
+	else if (ft_strncmp(command, "env", 4) == 0)
+			return (1);
+	else if (ft_strncmp(command, "export", 7) == 0)
+			return (1);
+	else if (ft_strncmp(command, "unset", 6) == 0)
+			return (1);
+	else if (ft_strncmp(command, "pwd", 4) == 0)
+			return (1);
+	return (0);
+}
+
+
+static void execute_builtin(t_minishell *shell, char **args)
+{
+		if (ft_strncmp(args[0], "cd", 3) == 0)
+				ft_cd(shell);
+		else if (ft_strncmp(args[0], "echo", 5) == 0)
+				ft_echo(shell);
+		else if (ft_strncmp(args[0], "env", 4) == 0)
+				ft_env(shell);
+		else if (ft_strncmp(args[0], "export", 7) == 0)
+				ft_export(shell);
+		else if (ft_strncmp(args[0], "unset", 6) == 0)
+				ft_unset(shell);
+		else if (ft_strncmp(args[0], "pwd", 4) == 0)
+				ft_pwd(shell);
+}
+
+
 int	parse_commands(t_minishell *shell, char **parms, Command **commands)
 {
 	int			cmd_count;
@@ -212,11 +247,19 @@ int	execute_commands(t_minishell *shell, Command *commands, int cmd_count)
 				close(pipes[j][1]);
 				j++;
 			}
-			execve(get_exe(commands[i].args[0],
-					shell->env[get_path(shell->env)]),
-					commands[i].args, shell->env);
-			ft_error(shell, "execve error", 0);
-			exit(EXIT_FAILURE);
+			if (is_builtin(commands[i].args[0]))
+			{
+				execute_builtin(shell, commands[i].args);
+				exit(EXIT_SUCCESS);
+			}
+			else
+			{
+				execve(get_exe(commands[i].args[0],
+						shell->env[get_path(shell->env)]),
+						commands[i].args, shell->env);
+				ft_error(shell, "execve error", 0);
+				exit(EXIT_FAILURE);
+			}
 		}
 		i++;
 	}
@@ -257,6 +300,18 @@ int	ft_detect_pipe(t_minishell *shell)
 		i++;
 	}
 	if (shell->pipe.count > 0)
+		return (1);
+	return (0);
+}
+
+int	ft_isbuiltin(char *cmd)
+{
+	if (ft_strncmp(cmd, "echo", 5) == 0
+		|| ft_strncmp(cmd, "cd", 3) == 0
+		|| ft_strncmp(cmd, "pwd", 4) == 0
+		|| ft_strncmp(cmd, "export", 7) == 0
+		|| ft_strncmp(cmd, "unset", 6) == 0
+		|| ft_strncmp(cmd, "env", 4) == 0)
 		return (1);
 	return (0);
 }

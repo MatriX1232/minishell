@@ -43,8 +43,8 @@ all: $(NAME)
 
 
 $(NAME): $(OBJS)
-	@printf "\n"
 	@make -C $(LIBFT) $(THREADS)
+	@printf "\n"
 	$(CC) $(CFLAGS) $(LFLAGS) -o $(NAME) $(OBJS) $(LIBFT)/libft.a
 
 clean:
