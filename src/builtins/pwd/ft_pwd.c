@@ -26,6 +26,7 @@ int	ft_pwd(t_minishell *shell)
 		free(msg);
 		return (EXIT_FAILURE);
 	}
-	printf("%s\n", shell->cwd);
+	ft_putstr_fd(shell->cwd, STDOUT_FILENO);
+	ft_putstr_fd("\n", STDOUT_FILENO);
 	return (EXIT_SUCCESS);
 }

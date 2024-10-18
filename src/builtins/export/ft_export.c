@@ -52,12 +52,7 @@ static void	ft_print_parms(char **parms)
 
 static int	ft_usage(t_minishell *shell)
 {
-	char	*msg;
-
-	msg = ft_strdup("Usage: export <name>=<value>\n");
-	ft_error(shell, msg, 0);
-	free(msg);
-	ft_add_var(shell, "?=0", 1);
+	ft_add_var(shell, "?=0", 0);
 	ft_chose_exit_val(shell, shell->parms[1]);
 	return (EXIT_FAILURE);
 }
@@ -66,10 +61,16 @@ static int	ft_export_error(t_minishell *shell)
 {
 	char	*msg;
 
+	if (shell->parms[1][ft_strlen(shell->parms[1]) - 1] == '=')
+	{
+		ft_add_var(shell, "?=0", 0);
+		return(EXIT_FAILURE);
+	}
 	msg = ft_strjoin("Could not export variable: ", shell->parms[1]);
 	msg = ft_strjoin_free(msg, "\n", 1, 0);
 	ft_error(shell, msg, 0);
 	free(msg);
+	ft_add_var(shell, "?=1", 0);
 	return (EXIT_FAILURE);
 }
 

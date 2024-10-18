@@ -24,14 +24,14 @@ int	ft_echo(t_minishell *shell)
 		i = 2;
 	while (shell->parms[i])
 	{
-		printf("%s", shell->parms[i]);
+		ft_putstr_fd(shell->parms[i], STDOUT_FILENO);
 		if (i < len - 1)
-			printf(" ");
+			ft_putstr_fd(" ", STDOUT_FILENO);
 		i++;
 	}
 	if (shell->parms[1] && ft_strncmp(shell->parms[1], "-n", 3) != 0)
-		printf("\n");
+		ft_putstr_fd("\n", STDOUT_FILENO);
 	else if (!shell->parms[1])
-		printf("\n");
+		ft_putstr_fd("\n", STDOUT_FILENO);
 	return (ft_add_var(shell, "?=0", 1), EXIT_SUCCESS);
 }
