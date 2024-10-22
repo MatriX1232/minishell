@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:47:31 by idomagal          #+#    #+#             */
-/*   Updated: 2024/10/16 22:10:14 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/17 00:29:04 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_exec(t_minishell *shell, char *line)
 	{
 		execve(exe, parms, shell->env);
 		ft_error(shell, "Execve failed", 0);
-		exit(EXIT_FAILURE);
+		exit(126);
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
