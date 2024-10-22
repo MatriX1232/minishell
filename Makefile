@@ -19,6 +19,7 @@ FILES = \
 	src/ft_anim.c \
 	src/ft_realloc.c \
 	src/gnl.c \
+	src/ft_outline.c \
 	src/parms/ft_move_parms.c \
 	src/pipex/ft_pipe.c \
 	src/quotes/ft_dquote.c \
