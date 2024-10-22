@@ -33,20 +33,12 @@ void	ft_free_parms(t_minishell *shell)
 {
 	int	i;
 
-	if (shell->quotes == true)
+	i = 0;
+	while (shell->parms[i])
 	{
-		free(shell->parms[0]);
-		free(shell->parms[1]);
+		free(shell->parms[i]);
+		i++;
 	}
-	else
-	{
-		i = 0;
-		while (shell->parms[i])
-		{
-			free(shell->parms[i]);
-			i++;
-		}
-		free(shell->parms);
-	}
+	free(shell->parms);
 	shell->parms = NULL;
 }

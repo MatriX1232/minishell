@@ -98,27 +98,40 @@ int	parse_commands(t_minishell *shell, char **parms, Command **commands)
 			arg_size = 10;
 			arg_idx = 0;
 		}
-		else if (ft_strncmp(parms[idx], "<", 2) == 0)
+		else if (ft_strncmp(parms[idx], "<<", 2) == 0)
 		{
-			idx++;
-			cmds[cmd_count].input_file = parms[idx];
+			if (ft_strlen(parms[idx]) > 2)
+				cmds[cmd_count].heredoc_delim = ft_substr(parms[idx], 2, ft_strlen(parms[idx]) - 2);
+			else
+				cmds[cmd_count].heredoc_delim = parms[idx + 1];
 		}
-		else if (ft_strncmp(parms[idx], "<<", 3) == 0)
+		else if (ft_strncmp(parms[idx], "<", 1) == 0)
 		{
-			idx++;
-			cmds[cmd_count].heredoc_delim = parms[idx];
+			if (ft_strlen(parms[idx]) > 1)
+				cmds[cmd_count].input_file = ft_substr(parms[idx], 1, ft_strlen(parms[idx]) - 1);
+			else
+				cmds[cmd_count].input_file = parms[idx + 1];
+			if (access(cmds[cmd_count].input_file, F_OK) != 0)
+			{
+				ft_error(shell, "input file not found", 0);
+				ft_add_var(shell, ft_strjoin_free("?=", "1", 0, 1), 1);
+			}
 		}
-		else if (ft_strncmp(parms[idx], ">", 2) == 0)
+		else if (ft_strncmp(parms[idx], ">>", 2) == 0)
 		{
-			idx++;
-			cmds[cmd_count].output_file = parms[idx];
-			cmds[cmd_count].append = 0;
-		}
-		else if (ft_strncmp(parms[idx], ">>", 3) == 0)
-		{
-			idx++;
-			cmds[cmd_count].output_file = parms[idx];
+			if (ft_strlen(parms[idx]) > 1)
+				cmds[cmd_count].output_file = ft_substr(parms[idx], 2, ft_strlen(parms[idx]) - 2);
+			else
+				cmds[cmd_count].output_file = parms[idx + 1];
 			cmds[cmd_count].append = 1;
+		}
+		else if (ft_strncmp(parms[idx], ">", 1) == 0)
+		{
+			if (ft_strlen(parms[idx]) > 1)
+				cmds[cmd_count].output_file = ft_substr(parms[idx], 1, ft_strlen(parms[idx]) - 1);
+			else
+				cmds[cmd_count].output_file = parms[idx + 1];
+			cmds[cmd_count].append = 0;
 		}
 		else
 		{
@@ -292,10 +305,10 @@ int	ft_detect_pipe(t_minishell *shell)
 	while (shell->parms[i])
 	{
 		if (ft_strncmp(shell->parms[i], "|", 2) == 0
-			|| ft_strncmp(shell->parms[i], ">", 2) == 0
-			|| ft_strncmp(shell->parms[i], ">>", 3) == 0
-			|| ft_strncmp(shell->parms[i], "<", 2) == 0
-			|| ft_strncmp(shell->parms[i], "<<", 3) == 0)
+			|| ft_strncmp(shell->parms[i], ">", 1) == 0
+			|| ft_strncmp(shell->parms[i], ">>", 2) == 0
+			|| ft_strncmp(shell->parms[i], "<", 1) == 0
+			|| ft_strncmp(shell->parms[i], "<<", 2) == 0)
 			shell->pipe.count++;
 		i++;
 	}
