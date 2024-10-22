@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iinclude/ 
+CFLAGS = -Wall -Wextra -Werror -Iinclude/
 LFLAGS = -lreadline
 THREADS = -j $(expr $(nproc))
 
@@ -19,6 +19,7 @@ FILES = \
 	src/ft_anim.c \
 	src/ft_realloc.c \
 	src/gnl.c \
+	src/parms/ft_move_parms.c \
 	src/pipex/ft_pipe.c \
 	src/quotes/ft_dquote.c \
 	src/builtins/ft_exit.c \

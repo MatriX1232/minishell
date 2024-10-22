@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libraries.h                                        :+:      :+:    :+:   */
+/*   parms.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/07 21:13:27 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/22 13:48:35 by msolinsk         ###   ########.fr       */
+/*   Created: 2024/10/22 13:39:27 by msolinsk          #+#    #+#             */
+/*   Updated: 2024/10/22 13:39:49 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBRARIES_H
-# define LIBRARIES_H
+#ifndef PARM_H
+# define PARM_H
 
-# include "../libft/libft.h"
-# include "../src/parms/parms.h"
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <sys/types.h>
-# include <stddef.h>
-# include <stdbool.h>
-# include <dirent.h>
-# include <signal.h>
-# include <fcntl.h>
-# include <errno.h>
-# include <sys/wait.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+# include "../../include/minishell.h"
+# include "../../include/structures.h"
+# include "../../include/libraries.h"
 
 #endif
