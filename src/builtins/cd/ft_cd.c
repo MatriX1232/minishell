@@ -18,7 +18,7 @@ int	ft_cd(t_minishell *shell)
 	int		i;
 	char	*msg;
 
-	i = ft_tablen(shell->parms);
+	i = ft_tablen(shell->parms, 0);
 	if (i != 2)
 	{
 		ft_add_var(shell, ft_strdup("?=1"), 1);

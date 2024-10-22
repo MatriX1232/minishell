@@ -33,7 +33,7 @@ bool	ft_check_validity(t_minishell *shell, char *var)
 	split = ft_split(var, '=');
 	if (!split)
 		return (ft_error(shell, E_SPLIT, 1), false);
-	if (ft_tablen(split) != 2)
+	if (ft_tablen(split, 0) != 2)
 		return (ft_free_env(split), false);
 	i = 0;
 	while (split[0][i] && (ft_isalnum(split[0][i]) || split[0][i] == '_'))
@@ -46,13 +46,17 @@ bool	ft_check_validity(t_minishell *shell, char *var)
 	return (ft_free_env(split), true);
 }
 
-int	ft_tablen(char **tab)
+int	ft_tablen(char **tab, int is_echo)
 {
 	int	len;
 
 	len = 0;
-	while (tab[len])
-		len++;
+	if (is_echo)
+		while (tab[len] && (ft_strncmp(tab[len], "|", 2) != 0 || ft_strncmp(tab[len], ">>", 3) != 0 || ft_strncmp(tab[len], ">", 2) != 0|| ft_strncmp(tab[len], "<<", 3) != 0 || ft_strncmp(tab[len], "<", 2) != 0))
+			len++;
+	else
+		while (tab[len])
+			len++;
 	return (len);
 }
 
@@ -62,7 +66,7 @@ char	**ft_init_env(char **envp)
 	char	**new;
 
 	i = 0;
-	new = (char **) malloc((ft_tablen(envp) + 2) * sizeof(char *));
+	new = (char **) malloc((ft_tablen(envp, 0) + 2) * sizeof(char *));
 	if (!new)
 		return (ft_error(NULL, E_MALLOC, 0), NULL);
 	while (envp[i])
