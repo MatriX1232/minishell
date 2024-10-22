@@ -34,7 +34,7 @@ char	*ft_get_var_name(char *line);
 //	FT_ENVP2.C
 void	ft_free_env(char **env);
 bool	ft_check_validity(t_minishell *shell, char *var);
-int		ft_tablen(char **tab);
+int		ft_tablen(char **tab, int is_echo);
 char	**ft_init_env(char **envp);
 
 // EXPORT/FT_CUSTOM_QPARSER.C

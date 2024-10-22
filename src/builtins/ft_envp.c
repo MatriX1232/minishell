@@ -50,7 +50,7 @@ int	ft_add_var(t_minishell *shell, char *var, bool system)
 		return (ft_error(shell, "Argument is not valid\n", 0), EXIT_FAILURE);
 	if (ft_add_exists_var(shell, var) == EXIT_SUCCESS)
 		return (EXIT_SUCCESS);
-	len = ft_tablen(shell->env);
+	len = ft_tablen(shell->env, 0);
 	new_env = (char **) malloc((len + 2) * sizeof(char *));
 	if (!new_env)
 		return (ft_error(shell, "Couldn't allocate memory\n", 1), EXIT_FAILURE);
@@ -84,7 +84,7 @@ int	ft_delete_var(t_minishell *shell, char *var)
 	char	**new_env;
 	char	**split;
 
-	len = ft_tablen(shell->env);
+	len = ft_tablen(shell->env, 0);
 	i = 0;
 	j = 0;
 	new_env = (char **) malloc((len + 1) * sizeof(char *));
