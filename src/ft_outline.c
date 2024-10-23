@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 00:08:41 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/23 01:46:57 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 10:45:58 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,34 +41,35 @@ static char	*ft_get_top(char *title, int width, char *tc, char *bc)
 	return top;
 }
 
-static char	*ft_get_content(char *content, int width_ref, char *cc, char *bc)
+static char	*ft_get_content(char *content, char *cc, char *bc, int longest)
 {
 	int		i;
 	int		j;
-	int		len;
-	char	*sub;
 	char	*ret;
+	char	**split;
 
-	ret = ft_calloc(2000, sizeof(char));
+	i = 0;
+	ret = ft_calloc(20000, sizeof(char));
 	if (!ret)
 		return (NULL);
-	i = 0;
-	len = ft_strlen(content);
-	while (i < len)
+	split = ft_split(content, '\n');
+	while (split[i])
 	{
 		ft_strlcat(ret, bc, 2000);
 		ft_strlcat(ret, "│ ", 2000);
 		ft_strlcat(ret, cc, 2000);
-		sub = ft_substr(content, i, i + width_ref - 4);
-		// printf("i: %d | sub: <<%s>>\n", i, sub);
-		j = ft_strlcat(ret, sub, 2000);
-		while (j < width_ref + 10)
-			ret[j++] = ' ';
+		ft_strlcat(ret, split[i], 2000);
+		j = (int)ft_strlen(split[i]);
+		while (j < longest)
+		{
+			ft_strlcat(ret, " ", 2000);
+			j++;
+		}
 		ft_strlcat(ret, bc, 2000);
-		ft_strlcat(ret, " │\n", 2000);
-		i += ft_strlen(sub) + 1;
-		free(sub);
+		ft_strlcat(ret, " │\n", 20000);
+		i++;
 	}
+	ft_free_env(split);
 	return (ret);
 }
 
@@ -88,6 +89,25 @@ static char	*ft_get_bottom(int width)
 	return (ret);
 }
 
+static int	ft_get_longest_width(char *content)
+{
+	int		i;
+	int		longest;
+	char	**split;
+
+	i = 0;
+	longest = 0;
+	split = ft_split(content, '\n');
+	while (split[i])
+	{
+		if ((int)ft_strlen(split[i]) > longest)
+			longest = ft_strlen(split[i]);
+		i++;
+	}
+	ft_free_env(split);
+	return (longest);
+}
+
 /*
 	TC = Title color
 	CC = Content color
@@ -95,21 +115,17 @@ static char	*ft_get_bottom(int width)
 */
 void	outline(char *title, char *content, char *tc, char *cc, char *bc)
 {
-	struct winsize	w;
+	int				longest;
 	char			*ret;
 
-	(void)tc;
-	(void)cc;
-	(void)bc;
-
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-	ret = ft_get_top(title, w.ws_col, tc, bc);
+	longest = ft_get_longest_width(content);
+	ret = ft_get_top(title, longest + 4, tc, bc);
 	printf("%s", ret);
 	free(ret);
-	ret = ft_get_content(content, w.ws_col, cc, bc);
+	ret = ft_get_content(content, cc, bc, longest);
 	printf("%s", ret);
 	free(ret);
-	ret = ft_get_bottom(w.ws_col);
+	ret = ft_get_bottom(longest + 4);
 	printf("%s", ret);
 	free(ret);
 }
