@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:13:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/23 00:16:14 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 12:01:48 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "../src/builtins/builtins.h"
 
 //	FT_OUTLINE.C
-void	outline(char *title, char *content, char *tc, char *cc, char *bc);
+void	outline(char *title, char *content, char *tc, char *cc);
 
 //	FT_SIGNALS.C
 void	sig_ctrlc(int sig);
@@ -31,6 +31,8 @@ void	ft_animate_ship(void);
 
 //	FT_PARSE.C
 int		ft_parse(t_minishell *shell, char *line);
+
+// FT_PARSE2.C
 int		get_path(char **env);
 char	*get_exe(char *cmd, char *path);
 char	*get_cmd(char *line);
