@@ -27,6 +27,8 @@ FILES = \
 	src/pipex/ft_pipe2.c \
 	src/pipex/ft_pipes_utils.c \
 	src/pipex/ft_pipes_utils2.c \
+	src/pipex/ft_pipes_exec_utils.c \
+	src/pipex/ft_pipes_exec_utils2.c \
 	src/quotes/ft_dquote.c \
 	src/builtins/ft_exit.c \
 	src/builtins/ft_envp.c \
