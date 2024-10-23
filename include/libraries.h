@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 21:13:27 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/22 13:48:35 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 16:22:02 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include "../src/parms/parms.h"
+# include "../src/pipex/pipex.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
