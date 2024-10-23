@@ -77,8 +77,8 @@ char	*get_next_line(int fd);
 int		ft_exec(t_minishell *shell, char *line);
 
 //	FT_PIPE.C
-int		parse_commands(t_minishell *shell, char **parms, Command **commands);
-int		execute_commands(t_minishell *shell, Command *commands, int cmd_count);
+int		parse_commands(t_minishell *shell, char **parms, t_Command **commands);
+int		execute_commands(t_minishell *shell, t_Command *commands, int cmd_count);
 int		ft_detect_pipe(t_minishell *shell);
 
 // FT_EXIT.C
