@@ -25,7 +25,6 @@ FILES = \
 	src/parms/ft_move_parms.c \
 	src/pipex/ft_pipe.c \
 	src/pipex/ft_pipe2.c \
-	src/pipex/ft_pipes_exec_utils.c \
 	src/pipex/ft_pipes_utils.c \
 	src/pipex/ft_pipes_utils2.c \
 	src/pipex/ft_pipes_exec_utils.c \

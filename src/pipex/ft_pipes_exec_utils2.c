@@ -34,8 +34,11 @@ void	ft_close_and_await_code(t_evars *ev, t_minishell *sh, int cmd_c)
 	free(evars->pipes);
 	i = 0;
 	evars->status = 0;
-	while (i++ < cmd_c)
+	while (i < cmd_c)
+	{
 		wait(&evars->status);
+		i++;
+	}
 	if (WIFEXITED(evars->status))
 		ft_add_var(shell, ft_strjoin_free("?=", \
 		ft_itoa(WEXITSTATUS(evars->status)), 0, 1), 1);
@@ -81,8 +84,14 @@ void	ft_pid_zero(t_evars *evars, t_Command *cmds, t_minishell *sh, int i)
 	if (cmds[i].heredoc_delim != NULL)
 		ft_no_heredoc_main(evars, sh, cmds, i);
 	if (i > 0)
+	{
 		dup2(evars->pipes[i - 1][0], STDIN_FILENO);
+		close(evars->pipes[i - 1][1]);
+	}
 	if (i < evars->cmd_count - 1)
+	{
 		dup2(evars->pipes[i][1], STDOUT_FILENO);
+		close(evars->pipes[i][0]);
+	}
 	ft_free_pip_bi_e(evars, cmds, sh, i);
 }
