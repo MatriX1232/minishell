@@ -27,8 +27,8 @@ static void	ft_free_parms_local(char **parms)
 
 static void	ft_add_exit_code(t_minishell *shell, int status)
 {
-	int	code;
 	char	*var;
+	int		code;
 
 	var = NULL;
 	if (WIFEXITED(status))

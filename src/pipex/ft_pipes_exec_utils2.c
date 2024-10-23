@@ -34,11 +34,8 @@ void	ft_close_and_await_code(t_evars *ev, t_minishell *sh, int cmd_c)
 	free(evars->pipes);
 	i = 0;
 	evars->status = 0;
-	while (i < cmd_c)
-	{
+	while (i++ < cmd_c)
 		wait(&evars->status);
-		i++;
-	}
 	if (WIFEXITED(evars->status))
 		ft_add_var(shell, ft_strjoin_free("?=", \
 		ft_itoa(WEXITSTATUS(evars->status)), 0, 1), 1);
