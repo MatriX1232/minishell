@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:13:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/23 12:01:48 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:54:05 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char	*ft_strncat(char *dest, const char *src, int n);
 void	ft_redirection(char *str, char *ret, int *i);
 void	ft_normal(char *str, char *ret, int *i);
 void	checks_for_qparse(t_minishell *shell, char *str, int *i, char *ret);
+bool	ft_is_closed(char *str, char q);
 
 //	FT_FREE.C
 void	ft_free_shell(t_minishell *shell);

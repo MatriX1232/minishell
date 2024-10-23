@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 13:17:48 by idomagal          #+#    #+#             */
-/*   Updated: 2024/10/23 14:06:52 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:54:04 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,22 @@ void	ft_normal(char *str, char *ret, int *i)
 	ret[len] = str[*i];
 	ret[len + 1] = '\0';
 	(*i)++;
+}
+
+bool	ft_is_closed(char *str, char q)
+{
+	int	i;
+	int	quote;
+
+	i = 0;
+	quote = 0;
+	while (str[i])
+	{
+		if (str[i] == q)
+			quote++;
+		i++;
+	}
+	if (quote % 2 == 0)
+		return (true);
+	return (false);
 }
