@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:41:31 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/23 15:08:21 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:01:00 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,23 @@ void	ft_vars(t_minishell *shell, char *str, char *ret, int *i)
 	free(tmp);
 }
 
-void	ft_qparser_shell(t_minishell *shell, char *str)
+char	*ft_malloc_ret(t_minishell *shell, int *i)
 {
-	int		i;
 	char	*ret;
 
 	ret = (char *)ft_calloc(10000, sizeof(char));
 	if (!ret)
 		return (ft_error(shell, "Could not calloc\n", 1));
-	i = 0;
+	*i = 0;
+	return (ret);
+}
+
+void	ft_qparser_shell(t_minishell *shell, char *str)
+{
+	int		i;
+	char	*ret;
+
+	ret = ft_malloc_ret(shell, &i);
 	while (str[i])
 	{
 		if (str[i] == '$')
