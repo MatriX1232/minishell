@@ -36,8 +36,8 @@ int	ft_parse(t_minishell *shell, char *line)
 		return (ft_unset(shell));
 	else if (ft_strncmp(shell->parms[0], "export", 7) == 0)
 		return (ft_export(shell));
-	else if (get_exe(get_cmd(shell->parms[0]), \
-		shell->env[get_path(shell->env)]) != NULL)
+	else if (ft_check(get_exe(get_cmd(shell->parms[0]), \
+		shell->env[get_path(shell->env)])) == 1)
 		return (ft_exec(shell, line));
 	else
 		ft_else(shell, line);
@@ -67,7 +67,7 @@ static int	ft_else(t_minishell *shell, char *line)
 		msg = ft_strjoin("Command not found: ", shell->parms[0]);
 		ft_error(shell, msg, 0);
 		ft_putchar_fd('\n', 2);
-		ft_add_var(shell, ft_strdup("?=127"), 1);
+		ft_add_var(shell, "?=127", 1);
 		free(msg);
 		return (EXIT_FAILURE);
 	}
