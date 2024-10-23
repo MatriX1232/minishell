@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:13:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/23 17:20:27 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:11:38 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	ft_qparser_shell(t_minishell *shell, char *str);
 void	ft_squote(char *str, char *ret, int *i);
 void	ft_dquote(t_minishell *shell, char *str, char *ret, int *i);
 void	ft_vars(t_minishell *shell, char *str, char *ret, int *i);
+char	*ft_malloc_ret(t_minishell *shell, int *i);
 
 //	FT_QUOTE_PARSER2.C
 int		ft_get_tab_len(char **tab);
@@ -76,11 +77,6 @@ char	*get_next_line(int fd);
 
 //	FT_EXEC.C
 int		ft_exec(t_minishell *shell, char *line);
-
-//	FT_PIPE.C
-int		parse_commands(t_minishell *shell, char **parms, t_Command **commands);
-int		execute_commands(t_minishell *shell, t_Command *commands, int cmd_count);
-int		ft_detect_pipe(t_minishell *shell);
 
 // FT_EXIT.C
 int		ft_exit(t_minishell *shell, char *line);

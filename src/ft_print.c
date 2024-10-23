@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:05:58 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/23 19:03:43 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:11:15 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ char	*ft_malloc_ret(t_minishell *shell, int *i)
 
 	ret = (char *)ft_calloc(10000, sizeof(char));
 	if (!ret)
-		return (ft_error(shell, "Could not calloc\n", 1));
+	{
+		ft_error(shell, "Could not calloc\n", 1);
+		return (NULL);
+	}
 	*i = 0;
 	return (ret);
 }
