@@ -24,28 +24,22 @@ static int	free_exit(t_minishell *shell, char *line, char *msg, int exit_code)
 int	ft_exit(t_minishell *shell, char *line)
 {
 	int		i;
-	bool	f_1;
-	bool	f_2;
+	int		nbr;
 
 	if (!shell->parms[1])
-		exit(free_exit(shell, line, NULL, 0));
+		exit(free_exit(shell, line, "", 0));
+	nbr = ft_atoi(shell->parms[1]);
 	if (shell->parms[2])
 		exit(free_exit(shell, line, "too many arguments\n", 1));
 	i = 0;
 	while (shell->parms[1][i])
 	{
-		f_1 = false;
-		f_2 = false;
-		if (!ft_isdigit(shell->parms[1][i]))
-			f_1 = true;
-		if (!ft_intab(shell->parms[1][i], " +-"))
-			f_2 = true;
-		if (f_1 && f_2)
+		if (!ft_isdigit(shell->parms[1][i]) && !ft_intab(shell->parms[1][i], " +-"))
 			exit(free_exit(shell, line, "numeric argument required\n", 2));
-		i++;
+		i++;	
 	}
 	ft_free_shell(shell);
 	free(line);
-	exit(ft_atoi(shell->parms[1]));
+	exit(nbr);
 	return (EXIT_SUCCESS);
 }

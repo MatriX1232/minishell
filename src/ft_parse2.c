@@ -43,7 +43,10 @@ static char	*ft_return(char *exe)
 	if (exe != NULL)
 		return (exe);
 	else
+	{
+		free(exe);
 		return (NULL);
+	}
 }
 
 char	*get_exe(char *cmd, char *path)
@@ -54,7 +57,7 @@ char	*get_exe(char *cmd, char *path)
 	int		i;
 
 	if (access(cmd, F_OK) == 0)
-		return (ft_strdup(cmd));
+		return (cmd);
 	dirs = ft_split(path + 5, ':');
 	i = 0;
 	while (dirs[i])
@@ -71,5 +74,17 @@ char	*get_exe(char *cmd, char *path)
 	while (dirs[i])
 		free(dirs[i++]);
 	free(dirs);
+	free(cmd);
 	return (ft_return(exe));
+}
+
+int	ft_check(char *exe)
+{
+	if (exe != NULL)
+	{
+		free(exe);
+		return (1);
+	}
+	free(exe);
+	return (0);
 }

@@ -17,8 +17,11 @@ static void	ft_free_parms_local(char **parms)
 	int	i;
 
 	i = 0;
-	while (parms[i])
-		free(parms[i++]);
+	while (parms[i] != NULL)
+	{
+		free(parms[i]);
+		i++;
+	}
 	free(parms);
 }
 
@@ -57,8 +60,9 @@ int	ft_exec(t_minishell *shell, char *line)
 	if (pid == 0)
 	{
 		execve(exe, parms, shell->env);
-		ft_error(shell, "Execve failed", 0);
-		exit(126);
+		ft_free_parms_local(parms);
+		ft_error(shell, "Execve failed\n", 0);
+		ft_exit(shell, ft_strdup("126"));
 	}
 	waitpid(pid, &status, 0);
 	ft_add_exit_code(shell, status);
