@@ -57,6 +57,15 @@ int	execute_commands(t_minishell *shell, t_Command *commands, int cmd_c)
 		evars.pid = fork();
 		if (evars.pid == 0)
 			ft_pid_zero(&evars, commands, shell, i);
+		else if (evars.pid > 0)
+		{
+			if (i < cmd_c - 1)
+				close(evars.pipes[i][1]);
+			if (i > 0)
+				close(evars.pipes[i - 1][0]);
+		}
+		else
+			exit(EXIT_FAILURE);
 		i++;
 	}
 	ft_close_and_await_code(&evars, shell, cmd_c);

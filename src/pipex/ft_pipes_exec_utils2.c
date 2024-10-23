@@ -81,8 +81,14 @@ void	ft_pid_zero(t_evars *evars, t_Command *cmds, t_minishell *sh, int i)
 	if (cmds[i].heredoc_delim != NULL)
 		ft_no_heredoc_main(evars, sh, cmds, i);
 	if (i > 0)
+	{
 		dup2(evars->pipes[i - 1][0], STDIN_FILENO);
+		close(evars->pipes[i - 1][1]);
+	}
 	if (i < evars->cmd_count - 1)
+	{
 		dup2(evars->pipes[i][1], STDOUT_FILENO);
+		close(evars->pipes[i][0]);
+	}
 	ft_free_pip_bi_e(evars, cmds, sh, i);
 }
