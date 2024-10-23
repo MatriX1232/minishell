@@ -40,6 +40,9 @@ char	*get_cmd(char *line);
 //	FT_QUOTE_PARSER.C
 char	*ft_qparser(char *str);
 void	ft_qparser_shell(t_minishell *shell, char *str);
+void	ft_squote(char *str, char *ret, int *i);
+void	ft_dquote(t_minishell *shell, char *str, char *ret, int *i);
+void	ft_vars(t_minishell *shell, char *str, char *ret, int *i);
 
 //	FT_QUOTE_PARSER2.C
 int		ft_get_tab_len(char **tab);
@@ -53,6 +56,7 @@ void	ft_strcat_char(char *dest, char c);
 char	*ft_strncat(char *dest, const char *src, int n);
 void	ft_redirection(char *str, char *ret, int *i);
 void	ft_normal(char *str, char *ret, int *i);
+void	checks_for_qparse(t_minishell *shell, char *str, int *i, char *ret);
 
 //	FT_FREE.C
 void	ft_free_shell(t_minishell *shell);
