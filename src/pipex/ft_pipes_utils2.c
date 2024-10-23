@@ -24,7 +24,7 @@ void	ft_all_ifs(t_minishell *sh, t_Command **cmds, t_vars *vars, char **ps)
 	else if (ft_strncmp(ps[vars->idx], "<<", 3) == 0)
 		(*cmds)[vars->cmd_count].heredoc_delim = ps[vars->idx + 1];
 	else if (ft_strncmp(ps[vars->idx], "<", 2) == 0)
-		ft_if_first_redirect(sh, cmds, vars, ps);
+		ft_if_first_red(sh, cmds, vars, ps);
 	else if (ft_strncmp(ps[vars->idx], ">>", 3) == 0)
 	{
 		(*cmds)[vars->cmd_count].output_file = ps[vars->idx + 1];
