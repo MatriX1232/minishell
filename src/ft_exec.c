@@ -17,24 +17,33 @@ static void	ft_free_parms_local(char **parms)
 	int	i;
 
 	i = 0;
-	while (parms[i])
-		free(parms[i++]);
+	while (parms[i] != NULL)
+	{
+		free(parms[i]);
+		i++;
+	}
 	free(parms);
 }
 
 static void	ft_add_exit_code(t_minishell *shell, int status)
 {
-	int		code;
+	int	code;
+	char	*var;
 
+	var = NULL;
 	if (WIFEXITED(status))
 	{
 		code = WEXITSTATUS(status);
-		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(code), 0, 1), 1);
+		var = ft_strjoin_free("?=", ft_itoa(code), 0, 1);
+		ft_add_var(shell, var, 1);
+		free(var);
 	}
 	else if (WIFSIGNALED(status))
 	{
 		code = 128 + WTERMSIG(status);
-		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(code), 0, 1), 1);
+		var = ft_strjoin_free("?=", ft_itoa(code), 0, 1);
+		ft_add_var(shell, var, 1);
+		free(var);
 	}
 }
 
@@ -57,8 +66,9 @@ int	ft_exec(t_minishell *shell, char *line)
 	if (pid == 0)
 	{
 		execve(exe, parms, shell->env);
-		ft_error(shell, "Execve failed", 0);
-		exit(126);
+		ft_free_parms_local(parms);
+		ft_error(shell, "Execve failed\n", 0);
+		ft_exit(shell, ft_strdup("126"));
 	}
 	waitpid(pid, &status, 0);
 	ft_add_exit_code(shell, status);
