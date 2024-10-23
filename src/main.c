@@ -6,13 +6,14 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/23 11:07:44 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 17:44:53 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/libraries.h"
 #include "quotes/quotes.h"
+#include "builtins/builtins.h"
 
 /*
 	Allocate memory for the shell structure
@@ -58,7 +59,7 @@ static int	ft_init(t_minishell **shell, int ac, char **argv, char **envp)
 	(void)ac;
 	printf("\n");
 	outline("MINISHELL", "Welcome to our MINISHELL project :)",
-		RED, CYAN);
+		RED, YELLOW);
 	*shell = ft_malloc_shell(*shell);
 	if (*shell == NULL)
 		return (EXIT_FAILURE);
