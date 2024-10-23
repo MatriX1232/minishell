@@ -20,7 +20,7 @@ void	ft_all_ifs(t_minishell *sh, t_Command **cmds, t_vars *vars, char **ps)
 	if (vars->cmd_count >= vars->cmds_size)
 		ft_cc_more_cs(sh, cmds, vars);
 	if (ft_strncmp(ps[vars->idx], "|", 2) == 0)
-		ft_if_pipe(cmds, vars->cmd_count, &vars->arg_idx, &vars->arg_size);
+		ft_if_pipe(cmds, &vars->cmd_count, &vars->arg_idx, &vars->arg_size);
 	else if (ft_strncmp(ps[vars->idx], "<<", 3) == 0)
 		(*cmds)[vars->cmd_count].heredoc_delim = ps[vars->idx + 1];
 	else if (ft_strncmp(ps[vars->idx], "<", 2) == 0)

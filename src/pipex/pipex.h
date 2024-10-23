@@ -31,7 +31,7 @@ void	execute_builtin(t_minishell *shell, char **args);
 // FT_PIPES_UTILS.C
 void	ft_if_first_red(t_minishell *sh, t_Command **cd, t_vars *vs, char **p);
 void	ft_cc_more_cs(t_minishell *shell, t_Command **cmds, t_vars *vars);
-void	ft_if_pipe(t_Command **cmds, int cmdc, int *ax, int *as);
+void	ft_if_pipe(t_Command **cmds, int *cmdc, int *ax, int *as);
 void	ft_last_else(t_minishell *shell, t_Command **cmds, t_vars *vars);
 int		ft_init_cmds(t_minishell *shell, t_Command **cmds, t_vars *vars);
 

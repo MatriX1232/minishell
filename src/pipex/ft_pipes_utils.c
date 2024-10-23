@@ -15,15 +15,15 @@
 #include "../../include/structures.h"
 #include "pipex.h"
 
-void	ft_if_pipe(t_Command **cmds, int cmdc, int *ax, int *as)
+void	ft_if_pipe(t_Command **cmds, int *cmdc, int *ax, int *as)
 {
-	(*cmds)[cmdc].args[*ax] = NULL;
-	cmdc++;
-	(*cmds)[cmdc].args = ft_calloc(sizeof(char *), 10);
-	(*cmds)[cmdc].input_file = NULL;
-	(*cmds)[cmdc].output_file = NULL;
-	(*cmds)[cmdc].heredoc_delim = NULL;
-	(*cmds)[cmdc].append = 0;
+	(*cmds)[*cmdc].args[*ax] = NULL;
+	(*cmdc)++;
+	(*cmds)[*cmdc].args = ft_calloc(sizeof(char *), 10);
+	(*cmds)[*cmdc].input_file = NULL;
+	(*cmds)[*cmdc].output_file = NULL;
+	(*cmds)[*cmdc].heredoc_delim = NULL;
+	(*cmds)[*cmdc].append = 0;
 	*as = 10;
 	*ax = 0;
 }
