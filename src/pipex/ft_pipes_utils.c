@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:37:29 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/23 16:38:33 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 17:50:25 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_init_cmds(t_minishell *shell, t_Command **cmds, t_vars *vars)
 void	ft_cc_more_cs(t_minishell *shell, t_Command **cmds, t_vars *vars)
 {
 	vars->cmds_size *= 2;
-	cmds = ft_realloc(cmds, sizeof(t_Command) * (vars->cmds_size),
+	cmds = ft_realloc(cmds, sizeof(t_Command) * (vars->cmds_size), \
 		sizeof(t_Command) * (vars->cmds_size / 2));
 	if (cmds == NULL)
 	{
@@ -58,8 +58,10 @@ void	ft_last_else(t_minishell *shell, t_Command **cmds, t_vars *vars)
 	if (vars->arg_idx >= vars->arg_size - 1)
 	{
 		vars->arg_size *= 2;
-		(*cmds)[vars->cmd_count].args = ft_realloc((*cmds)[vars->cmd_count].args,
-				sizeof(char *) * vars->arg_size, sizeof(char *) * (vars->arg_size / 2));
+		(*cmds)[vars->cmd_count].args = \
+				ft_realloc((*cmds)[vars->cmd_count].args,
+				sizeof(char *) * vars->arg_size, sizeof(char *) * \
+				(vars->arg_size / 2));
 		if ((*cmds)[vars->cmd_count].args == NULL)
 		{
 			ft_error(shell, "realloc error", 0);
@@ -68,12 +70,12 @@ void	ft_last_else(t_minishell *shell, t_Command **cmds, t_vars *vars)
 	}
 }
 
-void	ft_if_first_redirect(t_minishell *shell, t_Command **cmds, t_vars *vars, char **parms)
+void	ft_if_first_red(t_minishell *sh, t_Command **cd, t_vars *vs, char **p)
 {
-	(*cmds)[vars->cmd_count].input_file = parms[vars->idx + 1];
-	if (access((*cmds)[vars->cmd_count].input_file, F_OK) != 0)
+	(*cd)[vs->cmd_count].input_file = p[vs->idx + 1];
+	if (access((*cd)[vs->cmd_count].input_file, F_OK) != 0)
 	{
-		ft_error(shell, "input file not found", 0);
-		ft_add_var(shell, ft_strjoin_free("?=", "1", 0, 1), 1);
+		ft_error(sh, "input file not found", 0);
+		ft_add_var(sh, ft_strjoin_free("?=", "1", 0, 1), 1);
 	}
 }

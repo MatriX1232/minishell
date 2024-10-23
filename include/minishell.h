@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:13:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/23 14:54:05 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 17:20:27 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "libraries.h"
 # include "structures.h"
-# include "../src/builtins/builtins.h"
 
 //	FT_OUTLINE.C
 void	outline(char *title, char *content, char *tc, char *cc);
