@@ -26,54 +26,53 @@ int	ptr_to_idx(char *str, char *ptr)
 	return (-1);
 }
 
-int is_builtin(char *command)
+int	is_builtin(char *command)
 {
 	if (ft_strncmp(command, "cd", 3) == 0)
-			return 1;
+		return 1;
 	else if (ft_strncmp(command, "echo", 5) == 0)
-			return (1);
+		return (1);
 	else if (ft_strncmp(command, "env", 4) == 0)
-			return (1);
+		return (1);
 	else if (ft_strncmp(command, "export", 7) == 0)
-			return (1);
+		return (1);
 	else if (ft_strncmp(command, "unset", 6) == 0)
-			return (1);
+		return (1);
 	else if (ft_strncmp(command, "pwd", 4) == 0)
-			return (1);
+		return (1);
 	return (0);
 }
 
 
 static void execute_builtin(t_minishell *shell, char **args)
 {
-		if (ft_strncmp(args[0], "cd", 3) == 0)
-				ft_cd(shell);
-		else if (ft_strncmp(args[0], "echo", 5) == 0)
-				ft_echo(shell);
-		else if (ft_strncmp(args[0], "env", 4) == 0)
-				ft_env(shell);
-		else if (ft_strncmp(args[0], "export", 7) == 0)
-				ft_export(shell);
-		else if (ft_strncmp(args[0], "unset", 6) == 0)
-				ft_unset(shell);
-		else if (ft_strncmp(args[0], "pwd", 4) == 0)
-				ft_pwd(shell);
+	if (ft_strncmp(args[0], "cd", 3) == 0)
+		ft_cd(shell);
+	else if (ft_strncmp(args[0], "echo", 5) == 0)
+		ft_echo(shell);
+	else if (ft_strncmp(args[0], "env", 4) == 0)
+		ft_env(shell);
+	else if (ft_strncmp(args[0], "export", 7) == 0)
+		ft_export(shell);
+	else if (ft_strncmp(args[0], "unset", 6) == 0)
+		ft_unset(shell);
+	else if (ft_strncmp(args[0], "pwd", 4) == 0)
+		ft_pwd(shell);
 }
 
-
-int	parse_commands(t_minishell *shell, char **parms, Command **commands)
+int	parse_commands(t_minishell *shell, char **parms, t_Command **commands)
 {
 	int			cmd_count;
 	int			idx;
 	int			cmds_size;
 	int			arg_size;
 	int			arg_idx;
-	Command		*cmds;
+	t_Command		*cmds;
 
 	idx = 0;
 	cmd_count = 0;
 	cmds_size = 10;
-	cmds = ft_calloc(sizeof(Command), cmds_size);
+	cmds = ft_calloc(sizeof(t_Command), cmds_size);
 	if (cmds == NULL)
 	{
 		ft_error(shell, "malloc error", 0);
@@ -91,8 +90,8 @@ int	parse_commands(t_minishell *shell, char **parms, Command **commands)
 		if (cmd_count >= cmds_size)
 		{
 			cmds_size *= 2;
-			cmds = ft_realloc(cmds, sizeof(Command) * cmds_size,
-				sizeof(Command) * (cmds_size / 2));
+			cmds = ft_realloc(cmds, sizeof(t_Command) * cmds_size,
+				sizeof(t_Command) * (cmds_size / 2));
 			if (cmds == NULL)
 			{
 				ft_error(shell, "realloc error", 0);
@@ -155,7 +154,7 @@ int	parse_commands(t_minishell *shell, char **parms, Command **commands)
 	return (cmd_count);
 }
 
-int	execute_commands(t_minishell *shell, Command *commands, int cmd_count)
+int	execute_commands(t_minishell *shell, t_Command *commands, int cmd_count)
 {
 	int		i;
 	int		j;

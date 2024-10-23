@@ -58,6 +58,6 @@ typedef struct s_Command
 	char	*output_file;
 	char	*heredoc_delim;
 	int		append;
-}	Command;
+}	t_Command;
 
 #endif
