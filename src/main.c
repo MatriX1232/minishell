@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:12:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/23 01:50:11 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 10:48:21 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static void	ft_tshell_init(t_minishell *shell, char *argv[], char **envp)
 static int	ft_init(t_minishell **shell, int ac, char **argv, char **envp)
 {
 	(void)ac;
+	printf("\n");
+	outline("MINISHELL", "Welcome to out MINISHELL project :)", RED, CYAN, YELLOW);
 	*shell = ft_malloc_shell(*shell);
 	if (*shell == NULL)
 		return (EXIT_FAILURE);
@@ -83,8 +85,6 @@ int	main(int argc, char *argv[], char **envp)
 	t_minishell	*shell;
 	char		*line;
 
-	printf("\n");
-	outline("MINISHELL", "Welcome to out MINISHELL project :)", RED, CYAN, YELLOW);
 	shell = NULL;
 	if (ft_init(&shell, argc, argv, envp) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
