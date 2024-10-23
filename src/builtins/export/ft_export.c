@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 23:01:30 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/23 01:56:30 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 11:00:01 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	ft_export_error(t_minishell *shell)
 	if (shell->parms[1][ft_strlen(shell->parms[1]) - 1] == '=')
 	{
 		ft_add_var(shell, "?=0", 0);
-		return(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	msg = ft_strjoin("Could not export variable: ", shell->parms[1]);
 	msg = ft_strjoin_free(msg, "\n", 1, 0);
