@@ -13,6 +13,7 @@ FILES = \
 	src/ft_parse2.c \
 	src/ft_quote_parser.c \
 	src/ft_quote_parser2.c \
+	src/ft_quote_parser3.c \
 	src/ft_free.c \
 	src/ft_print.c \
 	src/ft_exec.c \
@@ -48,7 +49,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@make -C $(LIBFT) $(THREADS)
 	@printf "\n"
-	$(CC) $(CFLAGS) $(LFLAGS) -o $(NAME) $(OBJS) $(LIBFT)/libft.a
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LFLAGS) $(LIBFT)/libft.a
 
 clean:
 	make -C $(LIBFT) clean

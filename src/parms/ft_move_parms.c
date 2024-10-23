@@ -28,7 +28,10 @@ void	ft_add_parm(t_minishell *shell, int idx, char *value)
 	while (i < len_parms + 1)
 	{
 		if (i == idx)
-			new_parms[i] = ft_strdup(value);
+		{
+			new_parms[i] = value;
+			free(value);
+		}
 		else
 		{
 			new_parms[i] = ft_strdup(shell->parms[j]);
