@@ -29,7 +29,7 @@ int	ptr_to_idx(char *str, char *ptr)
 int	is_builtin(char *command)
 {
 	if (ft_strncmp(command, "cd", 3) == 0)
-		return 1;
+		return (1);
 	else if (ft_strncmp(command, "echo", 5) == 0)
 		return (1);
 	else if (ft_strncmp(command, "env", 4) == 0)
@@ -43,8 +43,7 @@ int	is_builtin(char *command)
 	return (0);
 }
 
-
-static void execute_builtin(t_minishell *shell, char **args)
+static void	execute_builtin(t_minishell *shell, char **args)
 {
 	if (ft_strncmp(args[0], "cd", 3) == 0)
 		ft_cd(shell);
