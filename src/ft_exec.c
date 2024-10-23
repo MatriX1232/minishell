@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:47:31 by idomagal          #+#    #+#             */
-/*   Updated: 2024/10/17 00:29:04 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 11:18:03 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,20 @@ static void	ft_free_parms_local(char **parms)
 	while (parms[i])
 		free(parms[i++]);
 	free(parms);
+}
+
+static void	ft_add_exit_code(t_minishell *shell, int status)
+{
+	int		code;
+
+	if (WIFEXITED(status))
+		code = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		code = 128 + WTERMSIG(status);
+	if (WIFEXITED(status))
+		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(code), 0, 1), 1);
+	else if (WIFSIGNALED(status))
+		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(code), 0, 1), 1);
 }
 
 int	ft_exec(t_minishell *shell, char *line)
@@ -45,10 +59,7 @@ int	ft_exec(t_minishell *shell, char *line)
 		exit(126);
 	}
 	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(WEXITSTATUS(status)), 0, 1), 1);
-	else if (WIFSIGNALED(status))
-		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(128 + WTERMSIG(status)), 0, 1), 1);
+	ft_add_exit_code(shell, status);
 	ft_free_parms_local(parms);
 	return (EXIT_SUCCESS);
 }

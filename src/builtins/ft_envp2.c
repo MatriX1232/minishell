@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:57:32 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/17 12:11:26 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 10:59:36 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_tablen(char **tab, int is_echo)
 
 	len = 0;
 	if (is_echo)
-		while (tab[len] && (ft_strncmp(tab[len], "|", 2) != 0 || ft_strncmp(tab[len], ">>", 3) != 0 || ft_strncmp(tab[len], ">", 2) != 0|| ft_strncmp(tab[len], "<<", 3) != 0 || ft_strncmp(tab[len], "<", 2) != 0))
+		while (tab[len] && (ft_strncmp(tab[len], "|", 2) != 0))
 			len++;
 	else
 		while (tab[len])

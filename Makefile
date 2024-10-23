@@ -10,6 +10,7 @@ LIBFT = libft
 FILES = \
 	src/main.c \
 	src/ft_parse.c \
+	src/ft_parse2.c \
 	src/ft_quote_parser.c \
 	src/ft_quote_parser2.c \
 	src/ft_free.c \
