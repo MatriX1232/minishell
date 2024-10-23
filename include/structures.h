@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:33:10 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/17 13:22:16 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 16:05:28 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,14 @@ typedef struct s_Command
 	char	*heredoc_delim;
 	int		append;
 }	t_Command;
+
+typedef struct s_vars
+{
+	int	cmd_count;
+	int	cmds_size;
+	int	idx;
+	int	arg_size;
+	int	arg_idx;
+}	t_vars;
 
 #endif
