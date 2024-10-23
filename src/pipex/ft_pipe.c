@@ -13,6 +13,19 @@
 #include "../../include/structures.h"
 #include "../../include/minishell.h"
 
+int	ptr_to_idx(char *str, char *ptr)
+{
+	int	i;
+
+	i = 0;
+	while (i < (int)(ft_strlen(str) + 1))
+	{
+		if (str[i] == *ptr)
+			return (i);
+	}
+	return (-1);
+}
+
 int is_builtin(char *command)
 {
 	if (ft_strncmp(command, "cd", 3) == 0)
@@ -98,39 +111,25 @@ int	parse_commands(t_minishell *shell, char **parms, Command **commands)
 			arg_size = 10;
 			arg_idx = 0;
 		}
-		else if (ft_strncmp(parms[idx], "<<", 2) == 0)
+		else if (ft_strncmp(parms[idx], "<<", 3) == 0)
+			cmds[cmd_count].heredoc_delim = parms[idx + 1];
+		else if (ft_strncmp(parms[idx], "<", 2) == 0)
 		{
-			if (ft_strlen(parms[idx]) > 2)
-				cmds[cmd_count].heredoc_delim = ft_substr(parms[idx], 2, ft_strlen(parms[idx]) - 2);
-			else
-				cmds[cmd_count].heredoc_delim = parms[idx + 1];
-		}
-		else if (ft_strncmp(parms[idx], "<", 1) == 0)
-		{
-			if (ft_strlen(parms[idx]) > 1)
-				cmds[cmd_count].input_file = ft_substr(parms[idx], 1, ft_strlen(parms[idx]) - 1);
-			else
-				cmds[cmd_count].input_file = parms[idx + 1];
+			cmds[cmd_count].input_file = parms[idx + 1];
 			if (access(cmds[cmd_count].input_file, F_OK) != 0)
 			{
 				ft_error(shell, "input file not found", 0);
 				ft_add_var(shell, ft_strjoin_free("?=", "1", 0, 1), 1);
 			}
 		}
-		else if (ft_strncmp(parms[idx], ">>", 2) == 0)
+		else if (ft_strncmp(parms[idx], ">>", 3) == 0)
 		{
-			if (ft_strlen(parms[idx]) > 1)
-				cmds[cmd_count].output_file = ft_substr(parms[idx], 2, ft_strlen(parms[idx]) - 2);
-			else
-				cmds[cmd_count].output_file = parms[idx + 1];
+			cmds[cmd_count].output_file = parms[idx + 1];
 			cmds[cmd_count].append = 1;
 		}
-		else if (ft_strncmp(parms[idx], ">", 1) == 0)
+		else if (ft_strncmp(parms[idx], ">", 2) == 0)
 		{
-			if (ft_strlen(parms[idx]) > 1)
-				cmds[cmd_count].output_file = ft_substr(parms[idx], 1, ft_strlen(parms[idx]) - 1);
-			else
-				cmds[cmd_count].output_file = parms[idx + 1];
+			cmds[cmd_count].output_file = parms[idx + 1];
 			cmds[cmd_count].append = 0;
 		}
 		else
@@ -270,7 +269,7 @@ int	execute_commands(t_minishell *shell, Command *commands, int cmd_count)
 				execve(get_exe(commands[i].args[0],
 						shell->env[get_path(shell->env)]),
 						commands[i].args, shell->env);
-				ft_error(shell, "execve error", 0);
+				ft_error(shell, "execve error\n", 0);
 				exit(EXIT_FAILURE);
 			}
 		}

@@ -63,38 +63,15 @@ static void	ft_vars(t_minishell *shell, char *str, char *ret, int *i)
 	free(tmp);
 }
 
-static void	ft_normal(char *str, char *ret, int *i)
-{
-	int	j;
-
-	j = ft_strlen(ret);
-	if (str[*i] == ' ' || str[*i] == '\t')
-	{
-		ret[j] = SPLIT_SEP;
-		ret[j + 1] = '\0';
-	}
-	else
-	{
-		ret[j] = str[*i];
-		ret[j + 1] = '\0';
-	}
-	(*i)++;
-}
-
-//	TODO:	Change to 10 000 in PROD
 void	ft_qparser_shell(t_minishell *shell, char *str)
 {
 	int		i;
 	char	*ret;
 
-	ret = (char *) ft_calloc(10000, sizeof(char));
+	ret = (char *)ft_calloc(10000, sizeof(char));
 	if (!ret)
 		return (ft_error(shell, "Could not calloc\n", 1));
 	i = 0;
-	while (str[i] && str[i] != ' ')
-		i++;
-	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
-		i++;
 	while (str[i])
 	{
 		if (str[i] == '$')
@@ -103,9 +80,17 @@ void	ft_qparser_shell(t_minishell *shell, char *str)
 			ft_dquote(shell, str, ret, &i);
 		else if (str[i] == '\'')
 			ft_squote(str, ret, &i);
+		else if (str[i] == ' ' || str[i] == '\t')
+		{
+			ft_strcat_char(ret, SPLIT_SEP);
+			while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+				i++;
+		}
+		else if (str[i] == '>' || str[i] == '<' || str[i] == '|')
+			ft_redirection(str, ret, &i);
 		else
 			ft_normal(str, ret, &i);
 	}
-	ft_move_split(shell, str, ret);
+	ft_move_split(shell, ret);
 	free(ret);
 }

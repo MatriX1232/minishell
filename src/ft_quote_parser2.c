@@ -75,7 +75,7 @@ char	*ft_malloc_more(char *old, int n)
 	return (new);
 }
 
-void	ft_move_split(t_minishell *shell, char *str, char *ret)
+void	ft_move_split(t_minishell *shell, char *ret)
 {
 	int		i;
 	char	**split;
@@ -83,14 +83,13 @@ void	ft_move_split(t_minishell *shell, char *str, char *ret)
 	split = ft_split(ret, SPLIT_SEP);
 	if (!split)
 		return (ft_error(shell, "Could not split\n", 1));
-	shell->parms = (char **) malloc((ft_tab_len(split) + 2) * sizeof(char *));
+	shell->parms = (char **)malloc((ft_tablen(split, 0) + 1) * sizeof(char *));
 	if (!shell->parms)
 		return (ft_error(shell, "Could not allocate memory\n", 1));
-	shell->parms[0] = ft_substr(str, 0, ft_strchr(str, ' ') - str);
-	i = 1;
-	while (split[i - 1])
+	i = 0;
+	while (split[i])
 	{
-		shell->parms[i] = ft_strdup(split[i - 1]);
+		shell->parms[i] = ft_strdup(split[i]);
 		i++;
 	}
 	shell->parms[i] = NULL;

@@ -52,7 +52,7 @@ int	ft_tablen(char **tab, int is_echo)
 
 	len = 0;
 	if (is_echo)
-		while (tab[len] && (ft_strncmp(tab[len], "|", 2) != 0))
+		while (tab[len] && ft_strncmp(tab[len], "|", 2) != 0)
 			len++;
 	else
 		while (tab[len])

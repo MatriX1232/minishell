@@ -46,11 +46,13 @@ int		ft_get_tab_len(char **tab);
 int		ft_get_var_len(char *str);
 char	*ft_strjoin_free(char const *s1, char const *s2, bool f1, bool f2);
 char	*ft_malloc_more(char *old, int n);
-void	ft_move_split(t_minishell *shell, char *str, char *ret);
+void	ft_move_split(t_minishell *shell, char *ret);
 
-//	FT_QUOTE_PARSER3.c
-char	*ft_get_dquote(t_minishell *shell, char *str);
-char	*ft_parse_dqoute(t_minishell *shell, char *str, char *start, char *end);
+//	FT_QUOTE_PARSER3.C
+void	ft_strcat_char(char *dest, char c);
+char	*ft_strncat(char *dest, const char *src, int n);
+void	ft_redirection(char *str, char *ret, int *i);
+void	ft_normal(char *str, char *ret, int *i);
 
 //	FT_FREE.C
 void	ft_free_shell(t_minishell *shell);
