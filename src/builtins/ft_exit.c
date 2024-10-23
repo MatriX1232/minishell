@@ -34,9 +34,10 @@ int	ft_exit(t_minishell *shell, char *line)
 	i = 0;
 	while (shell->parms[1][i])
 	{
-		if (!ft_isdigit(shell->parms[1][i]) && !ft_intab(shell->parms[1][i], " +-"))
+		if (!ft_isdigit(shell->parms[1][i]) &&
+			!ft_intab(shell->parms[1][i], " +-"))
 			exit(free_exit(shell, line, "numeric argument required\n", 2));
-		i++;	
+		i++;
 	}
 	ft_free_shell(shell);
 	free(line);

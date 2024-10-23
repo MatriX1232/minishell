@@ -15,7 +15,7 @@
 #include "../../include/structures.h"
 #include "pipex.h"
 
-void ft_if_pipe(t_Command **cmds, int *cmdc, int *ax, int *as)
+void	ft_if_pipe(t_Command **cmds, int *cmdc, int *ax, int *as)
 {
 	(*cmds)[*cmdc].args[*ax] = NULL;
 	(*cmdc)++;
