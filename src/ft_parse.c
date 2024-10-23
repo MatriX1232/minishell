@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 22:07:17 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/23 11:32:25 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:09:45 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int	ft_parse(t_minishell *shell, char *line)
 
 static void	ft_detected_pipes(t_minishell *shell)
 {
-	int		i;
-	int		cmd_count;
-	Command	*commands;
+	int			i;
+	int			cmd_count;
+	t_Command	*commands;
 
 	cmd_count = parse_commands(shell, shell->parms, &commands);
 	execute_commands(shell, commands, cmd_count);
