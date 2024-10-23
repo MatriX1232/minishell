@@ -43,10 +43,7 @@ static char	*ft_return(char *exe)
 	if (exe != NULL)
 		return (exe);
 	else
-	{
-		free(exe);
 		return (NULL);
-	}
 }
 
 char	*get_exe(char *cmd, char *path)
@@ -74,7 +71,6 @@ char	*get_exe(char *cmd, char *path)
 	while (dirs[i])
 		free(dirs[i++]);
 	free(dirs);
-	free(cmd);
 	return (ft_return(exe));
 }
 

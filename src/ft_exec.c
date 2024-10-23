@@ -27,17 +27,23 @@ static void	ft_free_parms_local(char **parms)
 
 static void	ft_add_exit_code(t_minishell *shell, int status)
 {
-	int		code;
+	int	code;
+	char	*var;
 
+	var = NULL;
 	if (WIFEXITED(status))
 	{
 		code = WEXITSTATUS(status);
-		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(code), 0, 1), 1);
+		var = ft_strjoin_free("?=", ft_itoa(code), 0, 1);
+		ft_add_var(shell, var, 1);
+		free(var);
 	}
 	else if (WIFSIGNALED(status))
 	{
 		code = 128 + WTERMSIG(status);
-		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(code), 0, 1), 1);
+		var = ft_strjoin_free("?=", ft_itoa(code), 0, 1);
+		ft_add_var(shell, var, 1);
+		free(var);
 	}
 }
 
