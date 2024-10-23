@@ -54,7 +54,7 @@ char	*get_exe(char *cmd, char *path)
 	int		i;
 
 	if (access(cmd, F_OK) == 0)
-		return (ft_strdup(cmd));
+		return (cmd);
 	dirs = ft_split(path + 5, ':');
 	i = 0;
 	while (dirs[i])
@@ -72,4 +72,15 @@ char	*get_exe(char *cmd, char *path)
 		free(dirs[i++]);
 	free(dirs);
 	return (ft_return(exe));
+}
+
+int	ft_check(char *exe)
+{
+	if (exe != NULL)
+	{
+		free(exe);
+		return (1);
+	}
+	free(exe);
+	return (0);
 }

@@ -35,6 +35,7 @@ int		ft_parse(t_minishell *shell, char *line);
 int		get_path(char **env);
 char	*get_exe(char *cmd, char *path);
 char	*get_cmd(char *line);
+int		ft_check(char *exe);
 
 //	FT_QUOTE_PARSER.C
 char	*ft_qparser(char *str);

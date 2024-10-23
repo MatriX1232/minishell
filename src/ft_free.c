@@ -21,9 +21,9 @@ void	ft_free_shell(t_minishell *shell)
 		free(shell->print_prefix_success);
 	if (shell->print_prefix_failure)
 		free(shell->print_prefix_failure);
-	if (shell->parms == NULL)
-		free(shell->parms);
-	if (shell->env)
+	if (shell->parms != NULL)
+		ft_free_parms(shell);
+	if (shell->env != NULL)
 		ft_free_env(shell->env);
 	free(shell);
 }
