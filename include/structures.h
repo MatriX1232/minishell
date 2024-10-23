@@ -6,15 +6,15 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:33:10 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/23 17:29:57 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:11:53 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
-#include <stdbool.h>
-#include <unistd.h>
+# include <stdbool.h>
+# include <unistd.h>
 
 # define END "\x1b[0m"
 # define BOLD "\x1b[1m"
