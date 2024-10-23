@@ -15,7 +15,7 @@
 #include "../include/structures.h"
 #include "quotes/quotes.h"
 
-static void	ft_squote(char *str, char *ret, int *i)
+void	ft_squote(char *str, char *ret, int *i)
 {
 	int		j;
 	char	*new;
@@ -29,7 +29,7 @@ static void	ft_squote(char *str, char *ret, int *i)
 	*i = j + 1;
 }
 
-static void	ft_dquote(t_minishell *shell, char *str, char *ret, int *i)
+void	ft_dquote(t_minishell *shell, char *str, char *ret, int *i)
 {
 	char	*tmp;
 
@@ -42,7 +42,7 @@ static void	ft_dquote(t_minishell *shell, char *str, char *ret, int *i)
 	(*i)++;
 }
 
-static void	ft_vars(t_minishell *shell, char *str, char *ret, int *i)
+void	ft_vars(t_minishell *shell, char *str, char *ret, int *i)
 {
 	char	*tmp;
 	char	*var;
