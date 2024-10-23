@@ -24,6 +24,7 @@ FILES = \
 	src/ft_outline.c \
 	src/parms/ft_move_parms.c \
 	src/pipex/ft_pipe.c \
+	src/pipex/ft_pipe2.c \
 	src/quotes/ft_dquote.c \
 	src/builtins/ft_exit.c \
 	src/builtins/ft_envp.c \

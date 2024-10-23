@@ -6,151 +6,131 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 10:29:48 by idomagal          #+#    #+#             */
-/*   Updated: 2024/10/16 22:10:28 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 16:32:51 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/structures.h"
 #include "../../include/minishell.h"
+#include "../../include/libraries.h"
+#include "pipex.h"
 
-int	ptr_to_idx(char *str, char *ptr)
+static void	ft_if_pipe(t_Command **cmds, int cmdc, int *ax, int *as)
 {
-	int	i;
+	(*cmds)[cmdc].args[*ax] = NULL;
+	cmdc++;
+	(*cmds)[cmdc].args = ft_calloc(sizeof(char *), 10);
+	(*cmds)[cmdc].input_file = NULL;
+	(*cmds)[cmdc].output_file = NULL;
+	(*cmds)[cmdc].heredoc_delim = NULL;
+	(*cmds)[cmdc].append = 0;
+	*as = 10;
+	*ax = 0;
+}
 
-	i = 0;
-	while (i < (int)(ft_strlen(str) + 1))
+static int	ft_init_cmds(t_minishell *shell, t_Command **cmds, t_vars *vars)
+{
+	(*cmds) = ft_calloc(sizeof(t_Command), vars->cmds_size);
+	if ((*cmds) == NULL)
+		return (ft_error(shell, E_MALLOC, 0), exit(EXIT_FAILURE), EXIT_FAILURE);
+	(*cmds)[vars->cmd_count].args = ft_calloc(sizeof(char *), 10);
+	(*cmds)[vars->cmd_count].input_file = NULL;
+	(*cmds)[vars->cmd_count].output_file = NULL;
+	(*cmds)[vars->cmd_count].heredoc_delim = NULL;
+	(*cmds)[vars->cmd_count].append = 0;
+	return (EXIT_SUCCESS);
+}
+
+static void	ft_cc_more_cs(t_minishell *shell, t_Command **cmds, t_vars *vars)
+{
+	vars->cmds_size *= 2;
+	cmds = ft_realloc(cmds, sizeof(t_Command) * (vars->cmds_size),
+		sizeof(t_Command) * (vars->cmds_size / 2));
+	if (cmds == NULL)
 	{
-		if (str[i] == *ptr)
-			return (i);
+		ft_error(shell, E_MALLOC, 0);
+		exit(EXIT_FAILURE);
 	}
-	return (-1);
 }
 
-int	is_builtin(char *command)
+static void	ft_last_else(t_minishell *shell, t_Command **cmds, t_vars *vars)
 {
-	if (ft_strncmp(command, "cd", 3) == 0)
-		return (1);
-	else if (ft_strncmp(command, "echo", 5) == 0)
-		return (1);
-	else if (ft_strncmp(command, "env", 4) == 0)
-		return (1);
-	else if (ft_strncmp(command, "export", 7) == 0)
-		return (1);
-	else if (ft_strncmp(command, "unset", 6) == 0)
-		return (1);
-	else if (ft_strncmp(command, "pwd", 4) == 0)
-		return (1);
-	return (0);
+	if (vars->arg_idx >= vars->arg_size - 1)
+	{
+		vars->arg_size *= 2;
+		(*cmds)[vars->cmd_count].args = ft_realloc((*cmds)[vars->cmd_count].args,
+				sizeof(char *) * vars->arg_size, sizeof(char *) * (vars->arg_size / 2));
+		if ((*cmds)[vars->cmd_count].args == NULL)
+		{
+			ft_error(shell, "realloc error", 0);
+			exit(EXIT_FAILURE);
+		}
+	}
 }
 
-static void	execute_builtin(t_minishell *shell, char **args)
+static void	ft_init_vars(t_vars *vars)
 {
-	if (ft_strncmp(args[0], "cd", 3) == 0)
-		ft_cd(shell);
-	else if (ft_strncmp(args[0], "echo", 5) == 0)
-		ft_echo(shell);
-	else if (ft_strncmp(args[0], "env", 4) == 0)
-		ft_env(shell);
-	else if (ft_strncmp(args[0], "export", 7) == 0)
-		ft_export(shell);
-	else if (ft_strncmp(args[0], "unset", 6) == 0)
-		ft_unset(shell);
-	else if (ft_strncmp(args[0], "pwd", 4) == 0)
-		ft_pwd(shell);
+	vars->cmd_count = 0;
+	vars->cmds_size = 10;
+	vars->idx = 0;
+	vars->arg_size = 10;
+	vars->arg_idx = 0;
+}
+
+void	ft_if_first_redirect(t_minishell *shell, t_Command **cmds, t_vars *vars, char **parms)
+{
+	(*cmds)[vars->cmd_count].input_file = parms[vars->idx + 1];
+	if (access((*cmds)[vars->cmd_count].input_file, F_OK) != 0)
+	{
+		ft_error(shell, "input file not found", 0);
+		ft_add_var(shell, ft_strjoin_free("?=", "1", 0, 1), 1);
+	}
+}
+
+void	ft_all_ifs(t_minishell *shell, t_Command **cmds, t_vars *vars, char **parms)
+{
+	if (vars->cmd_count >= vars->cmds_size)
+		ft_cc_more_cs(shell, cmds, vars);
+	if (ft_strncmp(parms[vars->idx], "|", 2) == 0)
+		ft_if_pipe(cmds, vars->cmd_count, &vars->arg_idx, &vars->arg_size);
+	else if (ft_strncmp(parms[vars->idx], "<<", 3) == 0)
+		(*cmds)[vars->cmd_count].heredoc_delim = parms[vars->idx + 1];
+	else if (ft_strncmp(parms[vars->idx], "<", 2) == 0)
+		ft_if_first_redirect(shell, cmds, vars, parms);
+	else if (ft_strncmp(parms[vars->idx], ">>", 3) == 0)
+	{
+		(*cmds)[vars->cmd_count].output_file = parms[vars->idx + 1];
+		(*cmds)[vars->cmd_count].append = 1;
+	}
+	else if (ft_strncmp(parms[vars->idx], ">", 2) == 0)
+	{
+		(*cmds)[vars->cmd_count].output_file = parms[vars->idx + 1];
+		(*cmds)[vars->cmd_count].append = 0;
+	}
+	else
+	{
+		ft_last_else(shell, cmds, vars);
+		(*cmds)[vars->cmd_count].args[vars->arg_idx++] = parms[vars->idx];
+	}
 }
 
 int	parse_commands(t_minishell *shell, char **parms, t_Command **commands)
 {
-	int			cmd_count;
-	int			idx;
-	int			cmds_size;
-	int			arg_size;
-	int			arg_idx;
-	t_Command		*cmds;
+	t_Command	*cmds;
+	t_vars		vars;
 
-	idx = 0;
-	cmd_count = 0;
-	cmds_size = 10;
-	cmds = ft_calloc(sizeof(t_Command), cmds_size);
-	if (cmds == NULL)
+	ft_init_vars(&vars);
+	if (ft_init_cmds(shell, &cmds, &vars) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	while (parms[vars.idx] != NULL)
 	{
-		ft_error(shell, "malloc error", 0);
-		exit(EXIT_FAILURE);
+		ft_all_ifs(shell, &cmds, &vars, parms);
+		vars.idx++;
 	}
-	cmds[cmd_count].args = ft_calloc(sizeof(char *), 10);
-	cmds[cmd_count].input_file = NULL;
-	cmds[cmd_count].output_file = NULL;
-	cmds[cmd_count].heredoc_delim = NULL;
-	cmds[cmd_count].append = 0;
-	arg_size = 10;
-	arg_idx = 0;
-	while (parms[idx] != NULL)
-	{
-		if (cmd_count >= cmds_size)
-		{
-			cmds_size *= 2;
-			cmds = ft_realloc(cmds, sizeof(t_Command) * cmds_size,
-				sizeof(t_Command) * (cmds_size / 2));
-			if (cmds == NULL)
-			{
-				ft_error(shell, "realloc error", 0);
-				exit(EXIT_FAILURE);
-			}
-		}
-		if (ft_strncmp(parms[idx], "|", 2) == 0)
-		{
-			cmds[cmd_count].args[arg_idx] = NULL;
-			cmd_count++;
-			cmds[cmd_count].args = ft_calloc(sizeof(char *), 10);
-			cmds[cmd_count].input_file = NULL;
-			cmds[cmd_count].output_file = NULL;
-			cmds[cmd_count].heredoc_delim = NULL;
-			cmds[cmd_count].append = 0;
-			arg_size = 10;
-			arg_idx = 0;
-		}
-		else if (ft_strncmp(parms[idx], "<<", 3) == 0)
-			cmds[cmd_count].heredoc_delim = parms[idx + 1];
-		else if (ft_strncmp(parms[idx], "<", 2) == 0)
-		{
-			cmds[cmd_count].input_file = parms[idx + 1];
-			if (access(cmds[cmd_count].input_file, F_OK) != 0)
-			{
-				ft_error(shell, "input file not found", 0);
-				ft_add_var(shell, ft_strjoin_free("?=", "1", 0, 1), 1);
-			}
-		}
-		else if (ft_strncmp(parms[idx], ">>", 3) == 0)
-		{
-			cmds[cmd_count].output_file = parms[idx + 1];
-			cmds[cmd_count].append = 1;
-		}
-		else if (ft_strncmp(parms[idx], ">", 2) == 0)
-		{
-			cmds[cmd_count].output_file = parms[idx + 1];
-			cmds[cmd_count].append = 0;
-		}
-		else
-		{
-			if (arg_idx >= arg_size - 1)
-			{
-				arg_size *= 2;
-				cmds[cmd_count].args = ft_realloc(cmds[cmd_count].args,
-						sizeof(char *) * arg_size, sizeof(char *) * (arg_size / 2));
-				if (cmds[cmd_count].args == NULL)
-				{
-					ft_error(shell, "realloc error", 0);
-					exit(EXIT_FAILURE);
-				}
-			}
-			cmds[cmd_count].args[arg_idx++] = parms[idx];
-		}
-		idx++;
-	}
-	cmds[cmd_count].args[arg_idx] = NULL;
-	cmd_count++;
+	cmds[vars.cmd_count].args[vars.arg_idx] = NULL;
+	vars.cmd_count++;
 	*commands = cmds;
-	return (cmd_count);
+	return (vars.cmd_count);
 }
 
 int	execute_commands(t_minishell *shell, t_Command *commands, int cmd_count)
@@ -290,38 +270,5 @@ int	execute_commands(t_minishell *shell, t_Command *commands, int cmd_count)
 		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(WEXITSTATUS(status)), 0, 1), 1);
 	else if (WIFSIGNALED(status))
 		ft_add_var(shell, ft_strjoin_free("?=", ft_itoa(128 + WTERMSIG(status)), 0, 1), 1);
-	return (0);
-}
-
-int	ft_detect_pipe(t_minishell *shell)
-{
-	int			i;
-
-	i = 0;
-	shell->pipe.count = 0;
-	while (shell->parms[i])
-	{
-		if (ft_strncmp(shell->parms[i], "|", 2) == 0
-			|| ft_strncmp(shell->parms[i], ">", 1) == 0
-			|| ft_strncmp(shell->parms[i], ">>", 2) == 0
-			|| ft_strncmp(shell->parms[i], "<", 1) == 0
-			|| ft_strncmp(shell->parms[i], "<<", 2) == 0)
-			shell->pipe.count++;
-		i++;
-	}
-	if (shell->pipe.count > 0)
-		return (1);
-	return (0);
-}
-
-int	ft_isbuiltin(char *cmd)
-{
-	if (ft_strncmp(cmd, "echo", 5) == 0
-		|| ft_strncmp(cmd, "cd", 3) == 0
-		|| ft_strncmp(cmd, "pwd", 4) == 0
-		|| ft_strncmp(cmd, "export", 7) == 0
-		|| ft_strncmp(cmd, "unset", 6) == 0
-		|| ft_strncmp(cmd, "env", 4) == 0)
-		return (1);
 	return (0);
 }
