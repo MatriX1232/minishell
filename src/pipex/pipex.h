@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 15:10:06 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/23 17:54:17 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:18:00 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ void	ft_no_input_file(t_evars *evars, t_minishell *sh, t_Command *cd, int i);
 void	ft_no_output_files(t_evars *ev, t_minishell *sh, t_Command *cd, int i);
 void	ft_no_heredoc_delim(t_evars *evars, t_Command *commands, int i);
 void	ft_create_pipes(t_evars *evars, t_minishell *shell);
-void	ft_no_heredoc_main(t_evars *evars, t_minishell *shell, t_Command *cmds, int i);
+void	ft_no_heredoc_main(t_evars *ev, t_minishell *sh, t_Command *cmd, int i);
+
+//	FT_PIPES_EXEC_UTILS2.C
+void	ft_close_and_await_code(t_evars *ev, t_minishell *sh, int cmd_c);
+void	ft_free_pip_bi_e(t_evars *e, t_Command *c, t_minishell *s, int i);
+void	ft_pid_zero(t_evars *evars, t_Command *cmds, t_minishell *sh, int i);
 
 #endif

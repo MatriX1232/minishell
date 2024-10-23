@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:44:23 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/23 17:55:04 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:07:37 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,15 @@ void	ft_no_input_file(t_evars *evars, t_minishell *sh, t_Command *cd, int i)
 	close(evars->fd_in);
 }
 
-void	ft_no_output_files(t_evars *evars, t_minishell *shell, t_Command *commands, int i)
+void	ft_no_output_files(t_evars *ev, t_minishell *sh, t_Command *cmd, int i)
 {
+	t_evars		*evars;
+	t_minishell	*shell;
+	t_Command	*commands;
+
+	evars = ev;
+	shell = sh;
+	commands = cmd;
 	if (commands[i].append)
 		evars->fd_out = open(commands[i].output_file,
 				O_WRONLY | O_CREAT | O_APPEND, 0644);
@@ -71,8 +78,15 @@ void	ft_no_heredoc_delim(t_evars *evars, t_Command *commands, int i)
 	exit(0);
 }
 
-void	ft_no_heredoc_main(t_evars *evars, t_minishell *shell, t_Command *commands, int i)
+void	ft_no_heredoc_main(t_evars *ev, t_minishell *sh, t_Command *cmd, int i)
 {
+	t_evars		*evars;
+	t_minishell	*shell;
+	t_Command	*commands;
+
+	evars = ev;
+	shell = sh;
+	commands = cmd;
 	if (pipe(evars->hd_pipe) == -1)
 	{
 		ft_error(shell, "pipe error", 0);
