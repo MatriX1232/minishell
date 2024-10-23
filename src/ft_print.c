@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:05:58 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/22 12:59:37 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:03:43 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,15 @@ int	ft_check_line(char *line)
 		i++;
 	}
 	return (0);
+}
+
+char	*ft_malloc_ret(t_minishell *shell, int *i)
+{
+	char	*ret;
+
+	ret = (char *)ft_calloc(10000, sizeof(char));
+	if (!ret)
+		return (ft_error(shell, "Could not calloc\n", 1));
+	*i = 0;
+	return (ret);
 }
