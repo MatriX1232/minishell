@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 10:29:48 by idomagal          #+#    #+#             */
-/*   Updated: 2024/10/23 16:32:51 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/23 16:43:10 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,103 +15,13 @@
 #include "../../include/libraries.h"
 #include "pipex.h"
 
-static void	ft_if_pipe(t_Command **cmds, int cmdc, int *ax, int *as)
-{
-	(*cmds)[cmdc].args[*ax] = NULL;
-	cmdc++;
-	(*cmds)[cmdc].args = ft_calloc(sizeof(char *), 10);
-	(*cmds)[cmdc].input_file = NULL;
-	(*cmds)[cmdc].output_file = NULL;
-	(*cmds)[cmdc].heredoc_delim = NULL;
-	(*cmds)[cmdc].append = 0;
-	*as = 10;
-	*ax = 0;
-}
-
-static int	ft_init_cmds(t_minishell *shell, t_Command **cmds, t_vars *vars)
-{
-	(*cmds) = ft_calloc(sizeof(t_Command), vars->cmds_size);
-	if ((*cmds) == NULL)
-		return (ft_error(shell, E_MALLOC, 0), exit(EXIT_FAILURE), EXIT_FAILURE);
-	(*cmds)[vars->cmd_count].args = ft_calloc(sizeof(char *), 10);
-	(*cmds)[vars->cmd_count].input_file = NULL;
-	(*cmds)[vars->cmd_count].output_file = NULL;
-	(*cmds)[vars->cmd_count].heredoc_delim = NULL;
-	(*cmds)[vars->cmd_count].append = 0;
-	return (EXIT_SUCCESS);
-}
-
-static void	ft_cc_more_cs(t_minishell *shell, t_Command **cmds, t_vars *vars)
-{
-	vars->cmds_size *= 2;
-	cmds = ft_realloc(cmds, sizeof(t_Command) * (vars->cmds_size),
-		sizeof(t_Command) * (vars->cmds_size / 2));
-	if (cmds == NULL)
-	{
-		ft_error(shell, E_MALLOC, 0);
-		exit(EXIT_FAILURE);
-	}
-}
-
-static void	ft_last_else(t_minishell *shell, t_Command **cmds, t_vars *vars)
-{
-	if (vars->arg_idx >= vars->arg_size - 1)
-	{
-		vars->arg_size *= 2;
-		(*cmds)[vars->cmd_count].args = ft_realloc((*cmds)[vars->cmd_count].args,
-				sizeof(char *) * vars->arg_size, sizeof(char *) * (vars->arg_size / 2));
-		if ((*cmds)[vars->cmd_count].args == NULL)
-		{
-			ft_error(shell, "realloc error", 0);
-			exit(EXIT_FAILURE);
-		}
-	}
-}
-
-static void	ft_init_vars(t_vars *vars)
+void	ft_init_vars(t_vars *vars)
 {
 	vars->cmd_count = 0;
 	vars->cmds_size = 10;
 	vars->idx = 0;
 	vars->arg_size = 10;
 	vars->arg_idx = 0;
-}
-
-void	ft_if_first_redirect(t_minishell *shell, t_Command **cmds, t_vars *vars, char **parms)
-{
-	(*cmds)[vars->cmd_count].input_file = parms[vars->idx + 1];
-	if (access((*cmds)[vars->cmd_count].input_file, F_OK) != 0)
-	{
-		ft_error(shell, "input file not found", 0);
-		ft_add_var(shell, ft_strjoin_free("?=", "1", 0, 1), 1);
-	}
-}
-
-void	ft_all_ifs(t_minishell *shell, t_Command **cmds, t_vars *vars, char **parms)
-{
-	if (vars->cmd_count >= vars->cmds_size)
-		ft_cc_more_cs(shell, cmds, vars);
-	if (ft_strncmp(parms[vars->idx], "|", 2) == 0)
-		ft_if_pipe(cmds, vars->cmd_count, &vars->arg_idx, &vars->arg_size);
-	else if (ft_strncmp(parms[vars->idx], "<<", 3) == 0)
-		(*cmds)[vars->cmd_count].heredoc_delim = parms[vars->idx + 1];
-	else if (ft_strncmp(parms[vars->idx], "<", 2) == 0)
-		ft_if_first_redirect(shell, cmds, vars, parms);
-	else if (ft_strncmp(parms[vars->idx], ">>", 3) == 0)
-	{
-		(*cmds)[vars->cmd_count].output_file = parms[vars->idx + 1];
-		(*cmds)[vars->cmd_count].append = 1;
-	}
-	else if (ft_strncmp(parms[vars->idx], ">", 2) == 0)
-	{
-		(*cmds)[vars->cmd_count].output_file = parms[vars->idx + 1];
-		(*cmds)[vars->cmd_count].append = 0;
-	}
-	else
-	{
-		ft_last_else(shell, cmds, vars);
-		(*cmds)[vars->cmd_count].args[vars->arg_idx++] = parms[vars->idx];
-	}
 }
 
 int	parse_commands(t_minishell *shell, char **parms, t_Command **commands)
