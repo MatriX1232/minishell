@@ -33,10 +33,7 @@ int	parse_commands(t_minishell *shell, char **parms, t_Command **commands)
 	if (ft_init_cmds(shell, &cmds, &vars) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	while (parms[vars.idx] != NULL)
-	{
-		ft_all_ifs(shell, &cmds, &vars, parms);
-		vars.idx++;
-	}
+		vars.idx += ft_all_ifs(shell, &cmds, &vars, parms);
 	cmds[vars.cmd_count].args[vars.arg_idx] = NULL;
 	vars.cmd_count++;
 	*commands = cmds;
