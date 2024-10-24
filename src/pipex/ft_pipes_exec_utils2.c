@@ -91,21 +91,24 @@ void	ft_free_pip_bi_e(t_evars *ev, t_Command *cmd, t_minishell *shell, int i)
 
 void	ft_pid_zero(t_evars *evars, t_Command *cmds, t_minishell *sh, int i)
 {
-	if (cmds[i].input_file != NULL)
-		ft_no_input_file(evars, sh, cmds, i);
-	if (cmds[i].output_file != NULL)
-		ft_no_output_files(evars, sh, cmds, i);
+	int		j;
+
 	if (cmds[i].heredoc_delim != NULL)
 		ft_no_heredoc_main(evars, sh, cmds, i);
-	if (i > 0)
-	{
+	else if (cmds[i].input_file != NULL)
+		ft_no_input_file(evars, sh, cmds, i);
+	else if (i > 0)
 		dup2(evars->pipes[i - 1][0], STDIN_FILENO);
-		close(evars->pipes[i - 1][1]);
-	}
-	if (i < evars->cmd_count - 1)
-	{
+	if (cmds[i].output_file != NULL)
+		ft_no_output_files(evars, sh, cmds, i);
+	else if (i < evars->cmd_count - 1)
 		dup2(evars->pipes[i][1], STDOUT_FILENO);
-		close(evars->pipes[i][0]);
+	j = 0;
+	while (j < evars->cmd_count - 1)
+	{
+		close(evars->pipes[j][0]);
+		close(evars->pipes[j][1]);
+		j++;
 	}
 	ft_free_pip_bi_e(evars, cmds, sh, i);
 }
