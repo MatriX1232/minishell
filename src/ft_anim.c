@@ -21,7 +21,7 @@ char	**ft_init_ship(char **ship)
 	ship = (char **) malloc(13 * sizeof(char *));
 	if (!ship)
 	{
-		ft_error(NULL, "Could not allocate memory for ship\n", 1);
+		ft_error(NULL, "Even ship failed wtf bro\n", 1);
 		exit(EXIT_FAILURE);
 	}
 	ship[0] = ft_strdup("⠀⠀⠀⠀⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n");
