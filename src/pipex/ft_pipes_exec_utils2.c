@@ -15,6 +15,28 @@
 #include "../../include/structures.h"
 #include "pipex.h"
 
+void	ft_exit_code(t_minishell *shell, int status)
+{
+	char	*temp;
+	int		code;
+
+	temp = NULL;
+	if (WIFEXITED(status))
+	{
+		code = WEXITSTATUS(status);
+		temp = ft_strjoin_free("?=", ft_itoa(code), 0, 1);
+		ft_add_var(shell, temp, 1);
+		free(temp);
+	}
+	else if (WIFSIGNALED(status))
+	{
+		code = 128 + WTERMSIG(status);
+		temp = ft_strjoin_free("?=", ft_itoa(code), 0, 1);
+		ft_add_var(shell, temp, 1);
+		free(temp);
+	}
+}
+
 void	ft_close_and_await_code(t_evars *ev, t_minishell *sh, int cmd_c)
 {
 	int			i;
@@ -36,12 +58,7 @@ void	ft_close_and_await_code(t_evars *ev, t_minishell *sh, int cmd_c)
 	evars->status = 0;
 	while (i++ < cmd_c)
 		wait(&evars->status);
-	if (WIFEXITED(evars->status))
-		ft_add_var(shell, ft_strjoin_free("?=", \
-		ft_itoa(WEXITSTATUS(evars->status)), 0, 1), 1);
-	else if (WIFSIGNALED(evars->status))
-		ft_add_var(shell, ft_strjoin_free("?=", \
-		ft_itoa(128 + WTERMSIG(evars->status)), 0, 1), 1);
+	ft_exit_code(shell, evars->status);
 }
 
 void	ft_free_pip_bi_e(t_evars *ev, t_Command *cmd, t_minishell *shell, int i)
