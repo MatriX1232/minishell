@@ -61,45 +61,47 @@ void	ft_no_heredoc_delim(t_evars *evars, t_Command *commands, int i)
 	char	*line;
 
 	close(evars->hd_pipe[0]);
-	line = NULL;
 	while (1)
 	{
 		ft_putstr_fd("> ", STDOUT_FILENO);
 		line = get_next_line(0);
+		if (!line)
+			break ;
 		line[ft_strlen(line) - 1] = '\0';
 		if (ft_strncmp(line, commands[i].heredoc_delim,
 				ft_strlen(line)) == 0)
+		{
+			free(line);
 			break ;
+		}
 		write(evars->hd_pipe[1], line, ft_strlen(line));
 		write(evars->hd_pipe[1], "\n", 1);
+		free(line);
 	}
-	free(line);
 	close(evars->hd_pipe[1]);
 	exit(0);
 }
 
-void	ft_no_heredoc_main(t_evars *ev, t_minishell *sh, t_Command *cmd, int i)
+void	ft_no_heredoc_main(t_evars *evars,
+	t_minishell *shell, t_Command *commands, int i)
 {
-	t_evars		*evars;
-	t_minishell	*shell;
-	t_Command	*commands;
-
-	evars = ev;
-	shell = sh;
-	commands = cmd;
 	if (pipe(evars->hd_pipe) == -1)
 	{
 		ft_error(shell, "pipe error", 0);
 		exit(EXIT_FAILURE);
 	}
 	if (commands[i].heredoc_delim != NULL)
-		ft_no_heredoc_delim(evars, commands, i);
-	else
 	{
-		close(evars->hd_pipe[1]);
-		dup2(evars->hd_pipe[0], STDIN_FILENO);
-		close(evars->hd_pipe[0]);
-		waitpid(evars->hd_pid, NULL, 0);
+		evars->hd_pid = fork();
+		if (evars->hd_pid == -1)
+		{
+			ft_error(shell, "fork error", 0);
+			exit(EXIT_FAILURE);
+		}
+		else if (evars->hd_pid == 0)
+			ft_handle_heredoc_child(evars, commands, i);
+		else
+			ft_handle_heredoc_parent(evars);
 	}
 }
 

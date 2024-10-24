@@ -29,7 +29,6 @@ int	ft_no_append_if(t_Command **cmds, t_vars *vars, char **ps)
 	return (2);
 }
 
-
 int	ft_all_ifs(t_minishell *sh, t_Command **cmds, t_vars *vars, char **ps)
 {
 	int	token;
@@ -56,4 +55,18 @@ int	ft_all_ifs(t_minishell *sh, t_Command **cmds, t_vars *vars, char **ps)
 		(*cmds)[vars->cmd_count].args[vars->arg_idx++] = ps[vars->idx];
 	}
 	return (token);
+}
+
+void	ft_handle_heredoc_parent(t_evars *evars)
+{
+	close(evars->hd_pipe[1]);
+	waitpid(evars->hd_pid, NULL, 0);
+	dup2(evars->hd_pipe[0], STDIN_FILENO);
+	close(evars->hd_pipe[0]);
+}
+
+void	ft_handle_heredoc_child(t_evars *evars, t_Command *commands, int i)
+{
+	close(evars->hd_pipe[0]);
+	ft_no_heredoc_delim(evars, commands, i);
 }

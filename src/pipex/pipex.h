@@ -49,5 +49,7 @@ void	ft_no_heredoc_main(t_evars *ev, t_minishell *sh, t_Command *cmd, int i);
 void	ft_close_and_await_code(t_evars *ev, t_minishell *sh, int cmd_c);
 void	ft_free_pip_bi_e(t_evars *e, t_Command *c, t_minishell *s, int i);
 void	ft_pid_zero(t_evars *evars, t_Command *cmds, t_minishell *sh, int i);
+void	ft_handle_heredoc_parent(t_evars *evars);
+void	ft_handle_heredoc_child(t_evars *evars, t_Command *commands, int i);
 
 #endif
