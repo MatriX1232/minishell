@@ -76,7 +76,7 @@ void	*ft_realloc(void *ptr, size_t size, size_t old_size);
 char	*get_next_line(int fd);
 
 //	FT_EXEC.C
-int		ft_exec(t_minishell *shell, char *line);
+int		ft_exec(t_minishell *shell);
 
 // FT_EXIT.C
 int		ft_exit(t_minishell *shell, char *line);
