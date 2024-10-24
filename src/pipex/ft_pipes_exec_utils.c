@@ -25,7 +25,7 @@ void	ft_no_input_file(t_evars *evars, t_minishell *sh, t_Command *cd, int i)
 	evars->fd_in = open(commands[i].input_file, O_RDONLY);
 	if (evars->fd_in < 0)
 	{
-		ft_error(shell, "failed to open input file", 0);
+		ft_error(shell, "failed to open input file\n", 0);
 		exit(EXIT_FAILURE);
 	}
 	dup2(evars->fd_in, STDIN_FILENO);
@@ -49,7 +49,7 @@ void	ft_no_output_files(t_evars *ev, t_minishell *sh, t_Command *cmd, int i)
 				O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (evars->fd_out < 0)
 	{
-		ft_error(shell, "failed to open output file", 0);
+		ft_error(shell, "failed to open output file\n", 0);
 		exit(EXIT_FAILURE);
 	}
 	dup2(evars->fd_out, STDOUT_FILENO);
@@ -87,7 +87,7 @@ void	ft_no_heredoc_main(t_evars *evars,
 {
 	if (pipe(evars->hd_pipe) == -1)
 	{
-		ft_error(shell, "pipe error", 0);
+		ft_error(shell, "pipe error\n", 0);
 		exit(EXIT_FAILURE);
 	}
 	if (commands[i].heredoc_delim != NULL)
@@ -95,7 +95,7 @@ void	ft_no_heredoc_main(t_evars *evars,
 		evars->hd_pid = fork();
 		if (evars->hd_pid == -1)
 		{
-			ft_error(shell, "fork error", 0);
+			ft_error(shell, "fork error\n", 0);
 			exit(EXIT_FAILURE);
 		}
 		else if (evars->hd_pid == 0)
@@ -115,7 +115,7 @@ void	ft_create_pipes(t_evars *evars, t_minishell *shell)
 		evars->pipes[i] = ft_calloc(sizeof(int), 2);
 		if (pipe(evars->pipes[i]) == -1)
 		{
-			ft_error(shell, "pipe error", 0);
+			ft_error(shell, "pipe error\n", 0);
 			exit(EXIT_FAILURE);
 		}
 		i++;
