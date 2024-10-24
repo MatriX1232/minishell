@@ -47,31 +47,27 @@ static void	ft_add_exit_code(t_minishell *shell, int status)
 	}
 }
 
-int	ft_exec(t_minishell *shell, char *line)
+int	ft_exec(t_minishell *shell)
 {
 	pid_t	pid;
-	char	**parms;
 	char	*exe;
 	int		status;
 
-	parms = ft_split(line, ' ');
-	exe = get_exe(parms[0], shell->env[get_path(shell->env)]);
+	exe = get_exe(shell->parms[0], shell->env[get_path(shell->env)]);
 	if (exe == NULL)
 	{
-		ft_free_parms_local(parms);
 		ft_add_var(shell, ft_strdup("?=127"), 1);
 		return (ft_error(shell, "Command not found\n", 0), EXIT_FAILURE);
 	}
 	pid = fork();
 	if (pid == 0)
 	{
-		execve(exe, parms, shell->env);
-		ft_free_parms_local(parms);
+		execve(exe, shell->parms, shell->env);
+		ft_free_parms_local(shell->parms);
 		ft_error(shell, "Execve failed\n", 0);
 		ft_exit(shell, ft_strdup("126"));
 	}
 	waitpid(pid, &status, 0);
 	ft_add_exit_code(shell, status);
-	ft_free_parms_local(parms);
 	return (EXIT_SUCCESS);
 }

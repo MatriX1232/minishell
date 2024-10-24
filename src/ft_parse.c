@@ -38,7 +38,7 @@ int	ft_parse(t_minishell *shell, char *line)
 		return (ft_export(shell));
 	else if (ft_check(get_exe(get_cmd(shell->parms[0]), \
 		shell->env[get_path(shell->env)])) == 1)
-		return (ft_exec(shell, line));
+		return (ft_exec(shell));
 	else
 		ft_else(shell, line);
 	return (EXIT_SUCCESS);
