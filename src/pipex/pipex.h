@@ -29,14 +29,14 @@ int		ft_isbuiltin(char *cmd);
 void	execute_builtin(t_minishell *shell, char **args);
 
 // FT_PIPES_UTILS.C
-void	ft_if_first_red(t_minishell *sh, t_Command **cd, t_vars *vs, char **p);
+int		ft_if_first_red(t_minishell *sh, t_Command **cd, t_vars *vs, char **p);
 void	ft_cc_more_cs(t_minishell *shell, t_Command **cmds, t_vars *vars);
 void	ft_if_pipe(t_Command **cmds, int *cmdc, int *ax, int *as);
 void	ft_last_else(t_minishell *shell, t_Command **cmds, t_vars *vars);
 int		ft_init_cmds(t_minishell *shell, t_Command **cmds, t_vars *vars);
 
 // FT_PIPES_UTILS2.C
-void	ft_all_ifs(t_minishell *sh, t_Command **cmds, t_vars *vars, char **ps);
+int		ft_all_ifs(t_minishell *sh, t_Command **cmds, t_vars *vars, char **ps);
 
 //	FT_PIPES_EXEC_UTILS.C
 void	ft_no_input_file(t_evars *evars, t_minishell *sh, t_Command *cd, int i);

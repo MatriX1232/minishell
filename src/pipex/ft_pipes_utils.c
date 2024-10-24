@@ -70,7 +70,7 @@ void	ft_last_else(t_minishell *shell, t_Command **cmds, t_vars *vars)
 	}
 }
 
-void	ft_if_first_red(t_minishell *sh, t_Command **cd, t_vars *vs, char **p)
+int	ft_if_first_red(t_minishell *sh, t_Command **cd, t_vars *vs, char **p)
 {
 	(*cd)[vs->cmd_count].input_file = p[vs->idx + 1];
 	if (access((*cd)[vs->cmd_count].input_file, F_OK) != 0)
@@ -78,4 +78,5 @@ void	ft_if_first_red(t_minishell *sh, t_Command **cd, t_vars *vs, char **p)
 		ft_error(sh, "input file not found", 0);
 		ft_add_var(sh, ft_strjoin_free("?=", "1", 0, 1), 1);
 	}
+	return (2);
 }
