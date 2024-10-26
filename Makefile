@@ -1,11 +1,10 @@
 CC = cc
 CFLAGS = -g -Wall -Wextra -Werror -Iinclude/
 LFLAGS = -lreadline
-THREADS = -j $(expr $(nproc))
 
-# Add empty variable to add flags over command line
-CDBG +=
-CFLAGS += $(CDBG)
+THREADS = $(shell nproc)
+THREADS := $(shell expr $(THREADS))
+SUPRESS_WARNING = -s
 
 NAME = minishell
 
@@ -69,7 +68,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@printf "$(_CYAN)Compiling : $(_YELLOW)%-$(PADDING).$(PADDING)s$(_END)\n" "Libft"
-	make -C $(LIBFT) $(THREADS)
+	@+make -C $(LIBFT) $(SUPRESS_WARNING)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LFLAGS) $(LIBFT)/libft.a
 	@printf "$(_GREEN)Build complete: $(_ITALIC)$(_BOLD)$(_PURPLE)$(NAME)$(_END)\n"
 
