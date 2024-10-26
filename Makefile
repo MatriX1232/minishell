@@ -4,7 +4,6 @@ LFLAGS = -lreadline
 
 THREADS = $(shell nproc)
 THREADS := $(shell expr $(THREADS))
-SUPRESS_WARNING = -s
 
 NAME = minishell
 
@@ -68,17 +67,19 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@printf "$(_CYAN)Compiling : $(_YELLOW)%-$(PADDING).$(PADDING)s$(_END)\n" "Libft"
-	@+make -C $(LIBFT) $(SUPRESS_WARNING)
+	@+make -C $(LIBFT) --no-print-directory
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LFLAGS) $(LIBFT)/libft.a
 	@printf "$(_GREEN)Build complete: $(_ITALIC)$(_BOLD)$(_PURPLE)$(NAME)$(_END)\n"
 
 clean:
-	@make -C $(LIBFT) clean
-	rm -f $(OBJS)
+	@+make -C $(LIBFT) clean --no-print-directory
+	@rm -f $(OBJS)
+	@printf "$(_CYAN)Removed all .o object files from: $(_GREEN)src/$(_END)\n"
 
 fclean: clean
-	@make -C $(LIBFT) fclean
-	rm -f $(NAME)
+	@+make -C $(LIBFT) fclean --no-print-directory
+	@rm -f $(NAME)
+	@printf "$(_CYAN)Removed executable: $(_PURPLE)$(NAME)$(_END)\n"
 
 re: fclean all
 
