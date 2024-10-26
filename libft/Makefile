@@ -6,13 +6,27 @@ BONUS = ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstiter.c ft_lstlast
 BONUSOBJS = $(BONUS:.c=.o)
 OBJS = $(SRC:.c=.o)
 
+_BLUE=\e[34m
+_PURPLE=\e[35m
+_CYAN=\e[36m
+_RED=\e[31m
+_GREEN=\e[32m
+_YELLOW=\e[33m
+_WHITE=\e[37m
+_END=\e[0m
+
+PADDING = 50
+
+
 all: bonus
 
 $(NAME): $(OBJS)
-	ar r $(NAME) $(OBJS)
+	@ar r $(NAME) $(OBJS)
+	@printf "$(_CYAN)Created libft library : $(_GREEN)%-$(PADDING).$(PADDING)s\n$(_END)" $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@printf "$(_CYAN)Compiling : $(_YELLOW)%-$(PADDING).$(PADDING)s\r$(_END)" $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJS) $(BONUSOBJS)
@@ -23,6 +37,7 @@ fclean: clean
 re: fclean all
 
 bonus: $(NAME) $(BONUSOBJS)
-	ar r $(NAME) $(BONUSOBJS)
+	@ar r $(NAME) $(BONUSOBJS)
+	@printf "$(_CYAN)Created libft bonus : $(_GREEN)%-$(PADDING).$(PADDING)s\n$(_END)" $(NAME)
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
