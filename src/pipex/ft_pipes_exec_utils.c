@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:44:23 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/23 18:07:37 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:26:31 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_no_heredoc_delim(t_evars *evars, t_Command *commands, int i)
 			break ;
 		line[ft_strlen(line) - 1] = '\0';
 		if (ft_strncmp(line, commands[i].heredoc_delim,
-				ft_strlen(line)) == 0)
+				ft_strlen(line) + 1) == 0)
 		{
 			free(line);
 			break ;

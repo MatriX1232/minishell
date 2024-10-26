@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror -Iinclude/
+CFLAGS = -Wall -Wextra -Werror -Iinclude/
 LFLAGS = -lreadline
 
 THREADS = $(shell nproc)
