@@ -21,7 +21,7 @@ PADDING = 50
 all: bonus
 
 $(NAME): $(OBJS)
-	@ar r $(NAME) $(OBJS)
+	@ar rcs $(NAME) $(OBJS)
 	@printf "$(_CYAN)Created libft library : $(_GREEN)%-$(PADDING).$(PADDING)s\n$(_END)" $(NAME)
 
 %.o: %.c
@@ -37,7 +37,7 @@ fclean: clean
 re: fclean all
 
 bonus: $(NAME) $(BONUSOBJS)
-	@ar r $(NAME) $(BONUSOBJS)
+	@ar rcs $(NAME) $(BONUSOBJS)
 	@printf "$(_CYAN)Created libft bonus : $(_GREEN)%-$(PADDING).$(PADDING)s\n$(_END)" $(NAME)
 
 .PHONY: all clean fclean re bonus
