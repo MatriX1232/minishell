@@ -81,6 +81,9 @@ fclean: clean
 	@rm -f $(NAME)
 	@printf "$(_CYAN)Removed executable: $(_PURPLE)$(NAME)$(_END)\n"
 
-re: fclean all
+re:
+	@printf "$(_YELLOW)Re-making project$(_END)\n"
+	@+make fclean --no-print-directory
+	@+make --no-print-directory
 
 .PHONY: all clean fclean re
