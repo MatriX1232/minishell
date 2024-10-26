@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 13:17:48 by idomagal          #+#    #+#             */
-/*   Updated: 2024/10/23 14:54:04 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:51:07 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,15 @@ void	ft_normal(char *str, char *ret, int *i)
 
 bool	ft_is_closed(char *str, char q)
 {
-	int	i;
-	int	quote;
+	char	*start;
+	char	*end;
 
-	i = 0;
-	quote = 0;
-	while (str[i])
-	{
-		if (str[i] == q)
-			quote++;
-		i++;
-	}
-	if (quote % 2 == 0)
+	start = ft_strchr(str, q);
+	if (str + 1)
+		end = ft_strchr(str + 1, q);
+	else
+		end = NULL;
+	if (start != NULL && end != NULL && start < end)
 		return (true);
 	return (false);
 }

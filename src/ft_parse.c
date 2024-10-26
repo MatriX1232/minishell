@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 22:07:17 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/26 22:32:50 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:40:20 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	ft_else(t_minishell *shell, char *line);
 
 int	ft_parse(t_minishell *shell, char *line)
 {
-	if (*line == '\0')
+	if (*line == '\0' || shell->parms[0] == NULL)
 		return (EXIT_SUCCESS);
 	else if (ft_detect_pipe(shell) == 1)
 		ft_detected_pipes(shell);

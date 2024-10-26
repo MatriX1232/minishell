@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:41:31 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/27 00:25:26 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:53:41 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@ void	ft_squote(char *str, char *ret, int *i)
 	j = *i + 1;
 	while (str[j] && str[j] != 39)
 		j++;
+	if (ft_is_closed(str, '\'') == false)
+	{
+		printf("quote is not closed: %c\n", '\'');
+		while ((str[*i]) && !ft_intab(str[*i], " \t \" \'"))
+			(*i)++;
+		return ;
+	}
 	new = ft_substr(str, *i + 1, j - *i - 1);
 	ft_strlcat(ret, new, 10000);
 	free(new);
@@ -37,6 +44,13 @@ void	ft_dquote(t_minishell *shell, char *str, char *ret, int *i)
 	j = *i + 1;
 	while (str[j] && str[j] != '\"')
 		j++;
+	if (ft_is_closed(str, '\"') == false)
+	{
+		printf("quote is not closed: %c\n", '\"');
+		while ((str[*i]) && !ft_intab(str[*i], " \t \" \'"))
+			(*i)++;
+		return ;
+	}
 	tmp = ft_pdquote(shell, str + *i);
 	ft_strlcat(ret, tmp, 10000);
 	free(tmp);
