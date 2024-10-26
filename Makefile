@@ -3,6 +3,10 @@ CFLAGS = -g -Wall -Wextra -Werror -Iinclude/
 LFLAGS = -lreadline
 THREADS = -j $(expr $(nproc))
 
+# Add empty variable to add flags over command line
+CDBG +=
+CFLAGS += $(CDBG)
+
 NAME = minishell
 
 LIBFT = libft
@@ -43,25 +47,38 @@ FILES = \
 
 OBJS = ${FILES:.c=.o}
 
+_BLUE=\e[34m
+_PURPLE=\e[35m
+_CYAN=\e[36m
+_RED=\e[31m
+_GREEN=\e[32m
+_YELLOW=\e[33m
+_WHITE=\e[37m
+_BOLD=\e[1m
+_ITALIC=\e[3m
+_END=\e[0m
+
+PADDING = 50
 
 all: $(NAME)
 
 %.o: %.c
-	@printf "\n\033[FCompiling $<\n"
+	@printf "$(_CYAN)Compiling : $(_YELLOW)%-$(PADDING).$(PADDING)s\r$(_END)" $@
 	@$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
 
 
 $(NAME): $(OBJS)
-	@make -C $(LIBFT) $(THREADS)
-	@printf "\n"
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LFLAGS) $(LIBFT)/libft.a
+	@printf "$(_CYAN)Compiling : $(_YELLOW)%-$(PADDING).$(PADDING)s$(_END)\n" "Libft"
+	make -C $(LIBFT) $(THREADS)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LFLAGS) $(LIBFT)/libft.a
+	@printf "$(_GREEN)Build complete: $(_ITALIC)$(_BOLD)$(_PURPLE)$(NAME)$(_END)\n"
 
 clean:
-	make -C $(LIBFT) clean
+	@make -C $(LIBFT) clean
 	rm -f $(OBJS)
 
 fclean: clean
-	make -C $(LIBFT) fclean
+	@make -C $(LIBFT) fclean
 	rm -f $(NAME)
 
 re: fclean all
