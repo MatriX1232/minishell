@@ -29,10 +29,12 @@ $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) $(BONUSOBJS)
+	@rm -rf $(OBJS) $(BONUSOBJS)
+	@printf "${_CYAN}Removed all .o object files from: $(_GREEN)libft/$(_END)\n"
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -rf $(NAME)
+	@printf "${_CYAN}Removed library file: $(_GREEN)$(NAME)$(_END)\n"
 
 re: fclean all
 
