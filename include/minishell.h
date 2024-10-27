@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:13:09 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/23 19:11:38 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/27 14:22:29 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,9 @@ int		ft_exec(t_minishell *shell);
 
 // FT_EXIT.C
 int		ft_exit(t_minishell *shell, char *line);
+
+// FT_INIT.C
+void	ft_tshell_init(t_minishell *shell, char *argv[], char **envp);
+int		ft_init(t_minishell **shell, int ac, char **argv, char **envp);
 
 #endif
