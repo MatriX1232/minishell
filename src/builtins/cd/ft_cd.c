@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 14:12:54 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/29 18:37:06 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/29 19:21:24 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	*ft_parse_path(t_minishell *shell, char *path)
 			j = i;
 			while (path[j] && path[j] != '~')
 				j++;
-			ret = ft_strjoin_free(ret, ft_substr(path, i, j), 1, 0);
+			ret = ft_strjoin_free(ret, ft_substr(path, i, j), 1, 1);
 			if (!ret)
 				return (NULL);
 			i = j;
@@ -64,8 +64,12 @@ int	ft_cd(t_minishell *shell)
 	char	*dir;
 	char	*msg;
 
+
 	if (ft_tablen(shell->parms, 0) < 2)
-		dir = ft_strdup(ft_get_var_value(shell, "HOME"));
+	{
+		dir = ft_strdup("");
+		dir = ft_strjoin_free(dir, ft_get_var_value(shell, "HOME"), 1, 1);
+	}
 	else
 		dir = ft_parse_path(shell, shell->parms[1]);
 	if (!dir)
