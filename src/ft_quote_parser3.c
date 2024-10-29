@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 13:17:48 by idomagal          #+#    #+#             */
-/*   Updated: 2024/10/27 01:02:29 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/29 15:56:09 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ bool	ft_is_closed(char *str, char q)
 	char	*end;
 
 	start = ft_strchr(str, q);
-	if (str + 1)
+	if (*(str + 1))
 		end = ft_strchr(str + 1, q);
 	else
 		end = NULL;
-	if (start != NULL && end != NULL && start < end)
+	if (start != NULL && end != NULL)
 		return (true);
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:41:31 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/27 10:51:49 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:16:15 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_squote(char *str, char *ret, int *i)
 		j++;
 	if (ft_is_closed(str, '\'') == false)
 	{
-		while ((str[*i]) && !ft_intab(str[*i], " \t \" \'"))
+		while ((str[*i]) && !ft_intab(str[*i], " \t \'"))
 			(*i)++;
 		(*i)++;
 		return ;
@@ -46,7 +46,8 @@ void	ft_dquote(t_minishell *shell, char *str, char *ret, int *i)
 		j++;
 	if (ft_is_closed(str, '\"') == false)
 	{
-		while ((str[*i]) && !ft_intab(str[*i], " \t \" \'"))
+		printf("Error: unclosed quote\n");
+		while ((str[*i]) && !ft_intab(str[*i], " \t \""))
 			(*i)++;
 		(*i)++;
 		return ;
