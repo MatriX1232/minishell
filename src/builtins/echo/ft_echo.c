@@ -17,6 +17,7 @@ int	ft_echo(t_minishell *shell)
 {
 	int		i;
 	int		len;
+	char	*temp;
 
 	i = 1;
 	len = ft_tablen(shell->parms, 1);
@@ -33,5 +34,7 @@ int	ft_echo(t_minishell *shell)
 		ft_putstr_fd("\n", STDOUT_FILENO);
 	else if (!shell->parms[1])
 		ft_putstr_fd("\n", STDOUT_FILENO);
-	return (ft_add_var(shell, "?=0", 1), EXIT_SUCCESS);
+	temp = ft_strjoin_free("?=", "0", 0, 0);
+	return (ft_add_var(shell, temp, 1), free(temp),
+		EXIT_SUCCESS);
 }
