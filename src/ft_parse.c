@@ -54,7 +54,10 @@ static void	ft_detected_pipes(t_minishell *shell)
 	execute_commands(shell, commands, cmd_count);
 	i = 0;
 	while (i < cmd_count)
-		free(commands[i++].args);
+	{
+		free(commands[i].args);
+		i++;
+	}
 	free(commands);
 }
 
