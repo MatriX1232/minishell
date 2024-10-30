@@ -76,7 +76,8 @@ void	ft_free_pip_bi_e(t_evars *ev, t_Command *cmd, t_minishell *shell, int i)
 	if (is_builtin(cmd[i].args[0]))
 	{
 		execute_builtin(shell, cmd[i].args);
-		free(cmd[i].args);
+		free(cmd->args);
+		free(cmd);
 		ft_free_shell(shell);
 		exit(EXIT_SUCCESS);
 	}
