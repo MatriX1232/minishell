@@ -84,6 +84,6 @@ int	ft_cd(t_minishell *shell)
 		return (EXIT_FAILURE);
 	}
 	free(dir);
-	ft_add_var(shell, ft_strdup("?=0"), 1);
+	ft_add_var(shell, "?=0", 1);
 	return (EXIT_SUCCESS);
 }
