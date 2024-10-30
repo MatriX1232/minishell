@@ -63,20 +63,21 @@ void	ft_close_and_await_code(t_evars *ev, t_minishell *sh, int cmd_c)
 
 void	ft_free_pip_bi_e(t_evars *ev, t_Command *cmd, t_minishell *shell, int i)
 {
-	t_evars		*evars;
 	int			j;
 
-	evars = ev;
 	j = 0;
-	while (j < evars->cmd_count - 1)
+	while (j < ev->cmd_count - 1)
 	{
-		close(evars->pipes[j][0]);
-		close(evars->pipes[j][1]);
-		j++;
+		close(ev->pipes[j][0]);
+		close(ev->pipes[j][1]);
+		free(ev->pipes[j++]);
 	}
+	free(ev->pipes);
 	if (is_builtin(cmd[i].args[0]))
 	{
 		execute_builtin(shell, cmd[i].args);
+		free(cmd[i].args);
+		ft_free_shell(shell);
 		exit(EXIT_SUCCESS);
 	}
 	else
@@ -84,7 +85,9 @@ void	ft_free_pip_bi_e(t_evars *ev, t_Command *cmd, t_minishell *shell, int i)
 		execve(get_exe(cmd[i].args[0],
 				shell->env[get_path(shell->env)]), \
 				cmd[i].args, shell->env);
-		ft_error(shell, "execve error\n", 0);
+		ft_error(shell, "execve error\n", 1);
+		free(cmd[i].args);
+		ft_free_shell(shell);
 		exit(EXIT_FAILURE);
 	}
 }
