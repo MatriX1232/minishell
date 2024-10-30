@@ -36,51 +36,30 @@ void	ft_squote(char *str, char *ret, int *i)
 	*i = j + 1;
 }
 
-// void	ft_dquote(t_minishell *shell, char *str, char *ret, int *i)
-// {
-// 	int		j;
-// 	char	*tmp;
-
-// 	j = *i + 1;
-// 	while (str[j] && str[j] != '\"')
-// 		j++;
-// 	if (ft_is_closed(str, '\"') == false)
-// 	{
-// 		while ((str[*i]) && !ft_intab(str[*i], " \t \""))
-// 			(*i)++;
-// 		(*i)++;
-// 		return ;
-// 	}
-// 	tmp = ft_pdquote(shell, str + *i);
-// 	ft_strlcat(ret, tmp, 10000);
-// 	free(tmp);
-// 	(*i)++;
-// 	while (str[*i] && str[*i] != '\"')
-// 		(*i)++;
-// 	if (!str[*i])
-// 		(*i)--;
-// 	(*i)++;
-// }
-
 void	ft_dquote(t_minishell *shell, char *str, char *ret, int *i)
 {
-    int		start;
-    int		end;
-    char	*tmp;
+	int		j;
+	char	*tmp;
 
-    start = *i + 1;
-    end = start;
-    while (str[end] && str[end] != '\"')
-        end++;
-    if (str[end] != '\"')
-    {
-        *i = end;
-        return;
-    }
-    tmp = ft_pdquote(shell, str + *i);
-    ft_strlcat(ret, tmp, 10000);
-    free(tmp);
-    *i = end + 1;
+	j = *i + 1;
+	while (str[j] && str[j] != '\"')
+		j++;
+	if (ft_is_closed(str, '\"') == false)
+	{
+		while ((str[*i]) && !ft_intab(str[*i], " \t \""))
+			(*i)++;
+		(*i)++;
+		return ;
+	}
+	tmp = ft_pdquote(shell, str + *i);
+	ft_strlcat(ret, tmp, 10000);
+	free(tmp);
+	(*i)++;
+	while (str[*i] && str[*i] != '\"')
+		(*i)++;
+	if (!str[*i])
+		(*i)--;
+	(*i)++;
 }
 
 void	ft_vars(t_minishell *shell, char *str, char *ret, int *i)
@@ -96,7 +75,7 @@ void	ft_vars(t_minishell *shell, char *str, char *ret, int *i)
 		var = ft_strdup("$");
 	else
 		var = ft_get_var_value(shell, tmp);
-	if (!var) 
+	if (!var)
 		var = ft_strdup("");
 	ft_strlcat(ret, var, 10000);
 	free(var);
@@ -128,20 +107,7 @@ void	ft_qparser_shell(t_minishell *shell, char *str)
 			ft_redirection(str, ret, &i);
 		else
 			ft_normal(str, ret, &i);
-		write(1, str + i, ft_strlen(str + i));
-		write(1, "\n", 1);
-		write(1, ret, ft_strlen(ret));
-		write(1, "\n\n", 2);
 	}
 	ft_move_split(shell, ret);
 	free(ret);
 }
-
-	// int j = 0;
-	// while (shell->parms[j])
-	// {
-	// 	printf("shell.parms[%d]: %s\n", j, shell->parms[j]);
-	// 	j++;
-	// }
-	// if (shell->parms[j] == NULL)
-	// 	printf("shell.parms[%d]: (null)\n", j);

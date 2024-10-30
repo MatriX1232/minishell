@@ -53,16 +53,6 @@ char	*ft_var_start(t_minishell *shell, char *ret, char *line, int *i)
 	return (new_ret);
 }
 
-bool	ft_isdq(char *line)
-{
-	if (line[0] && line[1])
-	{
-		if (line[0] == '\\' && line[1] == '\"')
-			return (true);
-	}
-	return (false);
-}
-
 //	TODO:	Change to 10 000 in PROD
 char	*ft_pdquote(t_minishell *shell, char *line)
 {
@@ -80,11 +70,6 @@ char	*ft_pdquote(t_minishell *shell, char *line)
 		j = ft_strlen(ret);
 		if (line[i] == '$')
 			ret = ft_var_start(shell, ret, line, &i);
-		else if (ft_isdq(line + i))
-		{
-			ret[j++] = '\"';
-			(i) += 2;
-		}
 		else
 		{
 			ret[j++] = line[i];
