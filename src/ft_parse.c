@@ -47,14 +47,21 @@ int	ft_parse(t_minishell *shell, char *line)
 static void	ft_detected_pipes(t_minishell *shell)
 {
 	int			i;
+	int			j;
 	int			cmd_count;
 	t_Command	*commands;
 
 	cmd_count = parse_commands(shell, shell->parms, &commands);
 	execute_commands(shell, commands, cmd_count);
 	i = 0;
-	while (i < cmd_count)
+	while (commands[i].args)
 	{
+		j = 0;
+		while (commands[i].args[j])
+		{
+			free(commands[i].args[j]);
+			j++;
+		}
 		free(commands[i].args);
 		i++;
 	}

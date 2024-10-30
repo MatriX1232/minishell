@@ -26,17 +26,21 @@ void	ft_init_vars(t_vars *vars)
 
 int	parse_commands(t_minishell *shell, char **parms, t_Command **commands)
 {
-	t_Command	*cmds;
 	t_vars		vars;
+	int			i;
 
 	ft_init_vars(&vars);
-	if (ft_init_cmds(shell, &cmds, &vars) == EXIT_FAILURE)
+	if (ft_init_cmds(shell, commands, &vars) == EXIT_FAILURE)
+	{
+		i = 0;
+		while (i < vars.cmd_count)
+			free((*commands)[i++].args);
 		return (EXIT_FAILURE);
+	}
 	while (parms[vars.idx] != NULL)
-		vars.idx += ft_all_ifs(shell, &cmds, &vars, parms);
-	cmds[vars.cmd_count].args[vars.arg_idx] = NULL;
+		vars.idx += ft_all_ifs(shell, commands, &vars, parms);
+	(*commands)[vars.cmd_count].args[vars.arg_idx] = NULL;
 	vars.cmd_count++;
-	*commands = cmds;
 	return (vars.cmd_count);
 }
 

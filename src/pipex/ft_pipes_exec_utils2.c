@@ -76,6 +76,7 @@ void	ft_free_pip_bi_e(t_evars *ev, t_Command *cmd, t_minishell *shell, int i)
 	if (is_builtin(cmd[i].args[0]))
 	{
 		execute_builtin(shell, cmd[i].args);
+		free(cmd[i].args);
 		ft_free_shell(shell);
 		exit(EXIT_SUCCESS);
 	}
@@ -85,6 +86,8 @@ void	ft_free_pip_bi_e(t_evars *ev, t_Command *cmd, t_minishell *shell, int i)
 				shell->env[get_path(shell->env)]), \
 				cmd[i].args, shell->env);
 		ft_error(shell, "execve error\n", 1);
+		free(cmd[i].args);
+		ft_free_shell(shell);
 		exit(EXIT_FAILURE);
 	}
 }
