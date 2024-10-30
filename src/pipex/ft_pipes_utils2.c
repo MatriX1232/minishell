@@ -36,7 +36,7 @@ int	ft_all_ifs(t_minishell *sh, t_Command **cmds, t_vars *vars, char **ps)
 	token = 1;
 	if (vars->cmd_count >= vars->cmds_size)
 		ft_cc_more_cs(sh, cmds, vars);
-	if (ft_strncmp(ps[vars->idx], "|", 2) == 0)
+	if (ft_strncmp(ps[vars->idx], "|", 2) == 0 && cmds == NULL)
 		ft_if_pipe(cmds, &vars->cmd_count, &vars->arg_idx, &vars->arg_size);
 	else if (ft_strncmp(ps[vars->idx], "<<", 3) == 0)
 	{

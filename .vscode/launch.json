@@ -14,7 +14,13 @@
 			"cwd": "${workspaceFolder}",
 			"environment": [],
 			"externalConsole": false,
-			"MIMode": "gdb"
+			"MIMode": "gdb",
+			"setupCommands": [
+				{
+					"description": "Enable gdb follow-fork-mode child",
+					"text": "set follow-fork-mode child"
+				}
+			]
 		}
 	]
 }
