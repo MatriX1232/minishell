@@ -6,7 +6,7 @@
 /*   By: msolinsk <msolinsk@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 11:37:42 by msolinsk          #+#    #+#             */
-/*   Updated: 2024/10/29 15:49:38 by msolinsk         ###   ########.fr       */
+/*   Updated: 2024/10/30 14:50:40 by msolinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,27 +53,42 @@ char	*ft_var_start(t_minishell *shell, char *ret, char *line, int *i)
 	return (new_ret);
 }
 
+bool	ft_isdq(char *line)
+{
+	if (line[0] && line[1])
+	{
+		if (line[0] == '\\' && line[1] == '\"')
+			return (true);
+	}
+	return (false);
+}
+
 //	TODO:	Change to 10 000 in PROD
 char	*ft_pdquote(t_minishell *shell, char *line)
 {
 	int		i;
+	int		j;
 	char	*ret;
-	char	tmp[2];
 
 	i = 1;
+	j = 0;
 	ret = ft_calloc(1000, sizeof(char));
 	if (!ret)
 		return (NULL);
 	while (line[i] && line[i] != '\"')
 	{
+		j = ft_strlen(ret);
 		if (line[i] == '$')
 			ret = ft_var_start(shell, ret, line, &i);
+		else if (ft_isdq(line + i))
+		{
+			ret[j++] = '\"';
+			(i) += 2;
+		}
 		else
 		{
-			tmp[0] = line[i];
-			tmp[1] = '\0';
-			ft_strlcat(ret, tmp, ft_strlen(ret) + 2);
-			i++;
+			ret[j++] = line[i];
+			(i)++;
 		}
 	}
 	return (ret);
