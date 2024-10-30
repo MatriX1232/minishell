@@ -41,12 +41,12 @@ int	ft_init_cmds(t_minishell *shell, t_Command **cmds, t_vars *vars)
 	return (EXIT_SUCCESS);
 }
 
-void	ft_cc_more_cs(t_minishell *shell, t_Command **cmds, t_vars *vars)
+void ft_cc_more_cs(t_minishell *shell, t_Command **cmds, t_vars *vars)
 {
 	vars->cmds_size *= 2;
-	cmds = ft_realloc(cmds, sizeof(t_Command) * (vars->cmds_size), \
-		sizeof(t_Command) * (vars->cmds_size / 2));
-	if (cmds == NULL)
+	*cmds = ft_realloc(*cmds, sizeof(t_Command) * vars->cmds_size, 
+											sizeof(t_Command) * (vars->cmds_size / 2));
+	if (*cmds == NULL)
 	{
 		ft_error(shell, E_MALLOC, 0);
 		exit(EXIT_FAILURE);
