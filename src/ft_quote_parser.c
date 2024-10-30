@@ -110,7 +110,6 @@ void	ft_qparser_shell(t_minishell *shell, char *str)
 	char	*ret;
 
 	ret = ft_malloc_ret(shell, &i);
-	printf("str: %s\n", str);
 	while (str[i])
 	{
 		if (str[i] == '$')
