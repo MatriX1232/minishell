@@ -68,6 +68,7 @@ char	*get_exe(char *cmd, char *path)
 		exe = NULL;
 	}
 	i = 0;
+	free(cmd);
 	while (dirs[i])
 		free(dirs[i++]);
 	free(dirs);
