@@ -70,7 +70,6 @@ void	ft_free_pip_bi_e(t_evars *ev, t_Command *cmd, t_minishell *shell, int i)
 	{
 		close(ev->pipes[j][0]);
 		close(ev->pipes[j][1]);
-		free(ev->pipes[j++]);
 	}
 	free(ev->pipes);
 	if (is_builtin(cmd[i].args[0]))
@@ -83,8 +82,7 @@ void	ft_free_pip_bi_e(t_evars *ev, t_Command *cmd, t_minishell *shell, int i)
 	}
 	else
 	{
-		execve(get_exe(cmd[i].args[0],
-				shell->env[get_path(shell->env)]), \
+		execve(get_exe(cmd[i].args[0], shell->env[get_path(shell->env)]), \
 				cmd[i].args, shell->env);
 		ft_error(shell, "execve error\n", 1);
 		ft_free_shell(shell);
