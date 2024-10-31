@@ -25,7 +25,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		len1++;
 	while (s2[len2])
 		len2++;
-	str = (char *)ft_calloc((len1 + len2 + 1), sizeof(char));
+	str = (char *)ft_calloc((len1 + len2 + 2), sizeof(char));
 	if (str == NULL)
 		return (NULL);
 	i = -1;
